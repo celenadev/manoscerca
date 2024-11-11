@@ -1,0 +1,72 @@
+<div class="main-principal">
+    <section class="section-portada">
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark">
+                    <el-carousel indicator-position="outside" height="600px">
+                        <el-carousel-item v-for="item in images" :key="item">
+                            <img :src="item" alt="Carousel Image" />
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+            </el-col>
+        </el-row>
+        <el-col :span="24">
+            <div>
+                <h1>Que necesitas?</h1>
+            </div>
+        </el-col>
+        <el-row>
+            <el-col :span="12" v-for="service in ourServices" :key="service.id">
+                <div class="grid-content-our-services">
+                    <img :src="service.img" :alt="service.title" class="image">
+                    <h2 class="title">{{ service.title }}</h2>
+                    <p class="text">{{ service.text }}</p>
+                    <RouterLink to="/carers-users">
+                        <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
+                            data-bs-target="#registerModal">Más información</span>
+                    </RouterLink>
+                </div>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark">
+
+                </div>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="8">
+                <div class="grid-content bg-purple"></div>
+            </el-col>
+            <el-col :span="8">
+                <div class="grid-content bg-purple-light"></div>
+            </el-col>
+            <el-col :span="8">
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-content bg-purple-light"></div>
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-content bg-purple"></div>
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-content bg-purple-light"></div>
+            </el-col>
+        </el-row>
+        <el-row>
+            <h2 class="nuestros-servicios">Servicios especializados de Asistencia a domicilio de personas mayores</h2>
+            <p>Nuestros servicios comprende todas las necesidades de los mayores. </p>
+            <el-col :span="8" v-for="service in services" :key="service.id">
+                <div class="grid-content">
+                    <img :src="service.img" alt="Servicios que ofrecemos en manoos cerca" class="service-image">
+                    <p class="service-description">{{ service.text}}</p>
+                </div>
+            </el-col>
+        </el-row>
+    </section>
+    <!-- Otra section -->
+    <section class="section-preguntas">
+    </section>
+</div>

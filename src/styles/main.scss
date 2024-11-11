@@ -1,0 +1,44 @@
+$bgColor: purple;
+$bgColor3: blue;
+$mc-fandango: #ac3b8f;
+$mc-byzantine: #801563;
+$mc-darkraspberry: #871e6c;
+$mc-bypurple: #b9439b;
+$mc-whitecolor: white;
+$mc-bymorado: #5a379b;
+
+//Botones Header
+.btn-purple {
+    background-color: $mc-bypurple !important;
+    color: $mc-whitecolor !important;
+    margin-top: 6px;
+    margin: 4px;
+}
+
+.btn-purple:hover {
+    background-color: $mc-byzantine !important;
+    border-color: $mc-bymorado !important;
+    color: $mc-whitecolor;
+}
+
+.btn-re-purple {
+    border-color: $mc-bypurple !important;
+    color: $mc-fandango !important;
+    border-width: 2px;
+    font-weight: bold;
+    margin-top: 6px;
+    margin: 4px;
+}
+
+.el-button--primary {
+    background-color: $mc-whitecolor;
+    color: $mc-fandango;
+    border-color: $mc-whitecolor ;
+}
+
+.btn-re-purple:hover {
+    background-color: $mc-byzantine !important;
+    color: $mc-whitecolor !important;
+}
+
+//Fin botones Header

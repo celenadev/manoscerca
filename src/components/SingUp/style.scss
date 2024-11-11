@@ -1,0 +1,95 @@
+$mc-byzantine: #801563;
+$form-purple: #b9439b;
+$mc-bymorado: #5a379b;
+$mc-bypurple: #b9439b;
+$mc-background-color: #e70bc3;
+$mc-bynegro: black;
+$mc-whitecolor: white;
+
+.container-form {
+    width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 4px;
+    background-color: rgb(245, 245, 193);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    .form-signin1 {
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        border-radius: 10px;
+        width: 600px; // Ajusta el ancho aquí
+        margin: auto; // Centra el formulario horizontalmente
+    }
+
+    .form-floating {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border: 1px solid mc-whitecolor;
+        border-radius: 4px;
+        padding: 10px 15px;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: $mc-byzantine;
+    }
+
+    h1 {
+        color: $mc-bynegro;
+        font-weight: bold;
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .btn-purple {
+        background-color: $mc-bypurple ;
+        color: $mc-whitecolor ;
+    }
+
+    .btn-purple:hover {
+        background-color: $mc-byzantine ;
+        border-color: $mc-bymorado ;
+        color: $mc-whitecolor;
+    }
+
+    .enlace-grupo {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        a {
+            font-weight: bold;
+            color: $mc-bymorado;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+            margin: 0 10px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .terms-container {
+        font-size: 15px;
+        color: #333;
+        border-radius: 5px;
+        max-width: 700px;
+
+        a {
+            color: $mc-bymorado;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+            margin: 0 10px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
