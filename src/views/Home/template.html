@@ -20,7 +20,7 @@
             <el-col :span="12" v-for="service in ourServices" :key="service.id">
                 <div class="grid-content-our-services">
                     <img :src="service.img" :alt="service.title" class="image">
-                    <h2 class="title">{{ service.title }}</h2>
+                    <p class="title">{{ service.title }}</p>
                     <p class="text">{{ service.text }}</p>
                     <RouterLink to="/carers-users">
                         <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
@@ -30,9 +30,24 @@
             </el-col>
         </el-row>
         <el-row>
-            <el-col :span="24">
-                <div class="grid-content bg-purple-dark">
-
+            <el-col :span="6">
+                <div class="grid-content bg-purple-light custom-styles">
+                <h3>Habla con cuidadores cerca de ti</h3>
+                <p>Intercambia mensajes con cuidadores que cumplan con tus requisitos</p>
+                <img src="../../../public/icono/burbuja-de-dialogo.gif" style="width: 40%; height: auto;">
+                </div>
+            </el-col>
+            <el-col :span="12">
+                <div class="grid-content bg-purple-light ">
+                <h2>Libera tiempo para tu familia, trabajo y amigos</h2>
+                <img src="../../../public/imagenes/Liberando_tiempo.png" style="width: 80%; height: auto;border-radius: 40%;">
+                </div>
+            </el-col>
+            <el-col :span="6">
+                <div class="grid-content bg-purple-light custom-styles ">
+                    <h3>Busca cerca de ti</h3>
+                <p>Mira todas las cuidadores en tu misma zona, o selecciona los filtros según tus preferencias.</p>
+                <img src="../../../public/icono/investigacion.gif" style="width: 40%; height: auto;">
                 </div>
             </el-col>
         </el-row>
@@ -41,7 +56,9 @@
                 <div class="grid-content bg-purple"></div>
             </el-col>
             <el-col :span="8">
-                <div class="grid-content bg-purple-light"></div>
+                <div class="grid-content bg-purple-light">
+                    <!-- <img src="../../../public/imagenes/Liberando_tiempo.png" style="width: 100%; height: auto;border-radius: 50%;"> -->
+                </div>
             </el-col>
             <el-col :span="8">
             </el-col>

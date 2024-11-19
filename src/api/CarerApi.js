@@ -1,13 +1,9 @@
 import request from 'axios'
-/* eslint-disable constructor-super */
 class CarerApi {
-  constructor() {
-    // super('carer')
-  }
     // Método para paginar
-    getAllCarers() {
+    getCarers() {
       return request({
-        url: `/api/carer/getAllCarers}`,
+        url: `/api/carer/create}`,
         method: 'get'
       })
     }

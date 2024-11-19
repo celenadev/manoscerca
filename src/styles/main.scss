@@ -1,18 +1,32 @@
-$bgColor: purple;
-$bgColor3: blue;
-$mc-fandango: #ac3b8f;
+//Variables
+$mc-whitecolor: white;
+$mc-bgColor: purple;
 $mc-byzantine: #801563;
 $mc-darkraspberry: #871e6c;
 $mc-bypurple: #b9439b;
-$mc-whitecolor: white;
 $mc-bymorado: #5a379b;
+$mc-fandango: #ac3b8f;
+$mc-gray:#e2e5e9;
+:root {
+    --mc-byzantine: #{$mc-byzantine};
+    --mc-bypurple: #{$mc-bypurple};
+    --mc-fandango: #{$mc-fandango};
+    --mc-bymorado: #{$mc-bymorado};
+    --mc-fandango: #{$mc-fandango};
+    --mc-byzantine: #{$mc-byzantine};
+    --mc-gray: #{$mc-gray};
+    --mc-bgColor: #{$mc-bgColor};
+    --mc-whitecolor: #{$mc-whitecolor};
+}
 
 //Botones Header
 .btn-purple {
     background-color: $mc-bypurple !important;
     color: $mc-whitecolor !important;
+    font-size: 17px;
     margin-top: 6px;
-    margin: 4px;
+    margin: 10px;
+    
 }
 
 .btn-purple:hover {
@@ -24,16 +38,17 @@ $mc-bymorado: #5a379b;
 .btn-re-purple {
     border-color: $mc-bypurple !important;
     color: $mc-fandango !important;
+    font-size: 17px;
     border-width: 2px;
     font-weight: bold;
     margin-top: 6px;
-    margin: 4px;
+    margin: 10px;
 }
 
 .el-button--primary {
     background-color: $mc-whitecolor;
     color: $mc-fandango;
-    border-color: $mc-whitecolor ;
+    border-color: $mc-whitecolor;
 }
 
 .btn-re-purple:hover {

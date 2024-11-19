@@ -13,6 +13,17 @@ $mc-bymorado: rgb(223, 222, 222);
     font-weight: 600;
     margin: 0;
   }
+  h2 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-align: center;
+    // margin: 30px 0;
+    // padding: 15px;
+    // background: linear-gradient(135deg, #f06, #f79);
+    border-radius: 15px;
+    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease
+}
 
   .el-row {
     margin-bottom: 20px;
@@ -86,6 +97,24 @@ $mc-bymorado: rgb(223, 222, 222);
     text-align: center;
   }
   // Fin
+//inicio - libera tiempo
+.custom-styles  {
+    h3{
+    color: #037140;
+    margin-top: 7rem;
+    }
+    p{
+    margin-top: 20px;
+    color: #710358;
+    }
+    img{
+      margin-top: 4rem;
+    }
+
+}
+
+
+
 
   // inicio srvicios a ofrecer
   .grid-content {

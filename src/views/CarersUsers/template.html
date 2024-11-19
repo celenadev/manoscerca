@@ -1,15 +1,16 @@
-<el-row>
-    <el-col :span="8" v-for="carers in ourCarers" :key="carers.id">
-        <div class="grid-content-our-carers">
-            <p class="title">{{ carers.first_name }}</p>
-            <p class="title">{{ carers.last_name }}</p>
-            <p class="title">{{ carers.formation }}</p>
-            <p class="text">{{ carers.addres }}</p>
-            <p class="text">{{ carers.email }}</p>
-            <RouterLink to="/carers-users">
-                <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
-                    data-bs-target="#registerModal">Más información</span>
-            </RouterLink>
+<div>
+    <el-row>
+        <div>
+            <h1>Soy todos los perfiles de  cuidadores</h1>
+            <router-link to="/profile-carer">
+                <el-button type="success" plain>Ver Profiles</el-button>
+            </router-link>
+            <hr>
         </div>
-    </el-col>
-</el-row>
+    </el-row>
+</div>
+
+
+
+
+

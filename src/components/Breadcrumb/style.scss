@@ -1,0 +1,24 @@
+// breadcrumb
+.custom-breadcrumb {
+    background-color: #cedbe7;
+    padding: 30px;
+}
+
+.custom-breadcrumb
+.el-breadcrumb__inner {
+    font-size: 16px;
+    color: #007bff;
+}
+
+.custom-breadcrumb .el-breadcrumb__separator {
+    color: #0f032d;
+}
+
+.custom-breadcrumb .el-breadcrumb__item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.custom-breadcrumb .el-breadcrumb__item a:hover {
+    text-decoration: underline;
+}

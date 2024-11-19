@@ -1,53 +1,39 @@
-<div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <RouterLink to="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <img src="../../../public/imagenes/manosCerca.png" alt="Logo" width="250" height="90"
-                title="Logo de manosCerca.es">
-        </RouterLink>
-
-        <ul class="nav nav-pills">
-            <li>
-                <el-dropdown>
-                    <el-button type="primary">
-                        ¿Como funciona?<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                            <RouterLink to="/vista-guia-para-familias" class="nav-link">Para familias</RouterLink>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                            <RouterLink to="/vista-guia-para-cuidadores" class="nav-link">Para cuidadores</RouterLink>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-
-                <el-dropdown>
-                    <el-button type="primary">
-                        Español<i class="el-icon-arrow-down el-icon--right"></i>
-                    </el-button>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                            <RouterLink to="#" class="nav-link">Inglés</RouterLink>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </li>
-            <!-- fin -->
-            <li class="nav-item">
-                <RouterLink to="/vista-login">
-                    <span class="btn btn-re-purple  hero_cta" aria-current="page" data-bs-toggle="modal"
-                        data-bs-target="#loginModal">
-                        Accede
-                    </span>
-                </RouterLink>
-            </li>
-            <li class="nav-item">
-                <RouterLink to="/vista-sign-up">
-                    <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
-                        data-bs-target="#registerModal">Registrarse</span>
-                </RouterLink>
-            </li>
-        </ul>
-    </header>
-</div>
+<header class="container-header">
+    <link rel="icon"  type="image/png"  href="../../../public/logo.ico">
+    <div class="header-content">
+        <div class="logo-section">
+            <RouterLink to="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="../../../public/imagenes/logo-mc.png" alt="Logo" title="Logo de manosCerca.es">
+            </RouterLink>
+        </div>
+        <div class="dropdown-section">
+            <el-dropdown trigger="click" class="space-link">
+                <span class="el-dropdown-link">
+                    ¿Como funciona?<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <RouterLink to="/vista-guia-para-familias" class="dropdown-item nav-link">Para Familias</RouterLink>
+                    <RouterLink to="/vista-guia-para-cuidadores" class="dropdown-item nav-link">Para Cuidadores</RouterLink>
+                </el-dropdown-menu>
+            </el-dropdown>
+            <el-dropdown trigger="click" class="space-link">
+                <span class="el-dropdown-link">
+                    Español<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <RouterLink to="#" class="dropdown-item nav-link">Inglés</RouterLink>
+                </el-dropdown-menu>
+            </el-dropdown>
+            <RouterLink to="/vista-login">
+                <el-button type="primary" class="btn-purple">Acceder</el-button>
+            </RouterLink>
+            <RouterLink to="/vista-sign-up">
+                <el-button type="primary" class="btn-re-purple" plain>Registrarse</el-button>
+            </RouterLink>
+        </div>
+    </div>
+    <div class="breadcrumb-section">
+        <Breadcrumb />
+    </div>
+    <!-- <Breadcrumb /> -->
+</header>

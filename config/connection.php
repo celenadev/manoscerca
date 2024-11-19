@@ -1,13 +1,16 @@
 <?php
 
-//Creo conexión a la base de datos
-import { createPool } from "mysql2/promise";
-const conexion = createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "manoscerca",
-//   port: 3306,
-});
-//Exportamos la conexión para poder utilizarla
-export default conexion;
+class connection_BD {
+  private $host = "localhost";
+  private $user = "root";
+  private $password = "";
+  private $database = "manoscerca";
+  public $conexion;
+
+  public function __construct() {
+    $this->conexion = new mysqli($this->host, $this->user, $this->password, $this->database)
+      or die(mysqli_error($this->conexion));
+    $this->conexion->set_charset("utf8");
+  }
+}
+?>
