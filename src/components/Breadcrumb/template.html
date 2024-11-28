@@ -1,13 +1,9 @@
-<!-- <el-breadcrumb separator-class="el-icon-arrow-right" class="custom-breadcrumb">
-  <el-breadcrumb-item v-for="(crumb, index) in generateBreadcrumb()" :key="index" :to="{ path: crumb.path }">
-    {{ crumb.text }}
-  </el-breadcrumb-item>
-</el-breadcrumb> -->
-
-<!-- <template>
+<div>
   <el-breadcrumb separator-class="el-icon-arrow-right">
-    <el-breadcrumb-item v-for="(breadcrumb, index) in breadcrumbs" :key="index" :to="breadcrumb.to">
-      {{ breadcrumb.label }}
-    </el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/vista-guia-para-familias' }">Familias</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/vista-guia-para-cuidadores' }">Cuidadores</el-breadcrumb-item>
+    <el-breadcrumb-item :to="{ path: '/carers-users' }">Perfil de cuidador</el-breadcrumb-item>
   </el-breadcrumb>
-</template> -->
+  <!-- <router-view></router-view> -->
+</div>

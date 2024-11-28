@@ -1,93 +1,99 @@
-<div class="main-principal">
-    <section class="section-portada">
-        <el-row>
-            <el-col :span="24">
-                <div class="grid-content bg-purple-dark">
-                    <el-carousel indicator-position="outside" height="600px">
-                        <el-carousel-item v-for="item in images" :key="item">
-                            <img :src="item" alt="Carousel Image" />
-                        </el-carousel-item>
-                    </el-carousel>
-                </div>
-            </el-col>
-        </el-row>
+<div class="section-portada">
+    <el-row>
         <el-col :span="24">
-            <div>
-                <h1>Que necesitas?</h1>
+            <div class="grid-content bg-purple-dark">
+                <el-carousel indicator-position="outside" height="600px">
+                    <el-carousel-item v-for="item in images" :key="item">
+                        <img :src="item" alt="Carousel Image" />
+                    </el-carousel-item>
+                </el-carousel>
             </div>
         </el-col>
-        <el-row>
-            <el-col :span="12" v-for="service in ourServices" :key="service.id">
-                <div class="grid-content-our-services">
-                    <img :src="service.img" :alt="service.title" class="image">
-                    <p class="title">{{ service.title }}</p>
-                    <p class="text">{{ service.text }}</p>
-                    <RouterLink to="/carers-users">
-                        <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
-                            data-bs-target="#registerModal">Más información</span>
-                    </RouterLink>
-                </div>
-            </el-col>
-        </el-row>
-        <el-col :span="24">
-            <div>
-                <h2>Libera tiempo para tu familia, trabajo y amigos</h2>
+    </el-row>
+    <el-col :span="24">
+        <div>
+            <h1>Que necesitas?</h1>
+        </div>
+    </el-col>
+    <el-row>
+        <el-col :span="12" v-for="service in ourServices" :key="service.id">
+            <div class="grid-content-our-services">
+                <img :src="service.img" :alt="service.title" class="image">
+                <p class="title">{{ service.title }}</p>
+                <p class="text">{{ service.text }}</p>
+                <RouterLink to="/carers-users">
+                    <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
+                        data-bs-target="#registerModal">Más información</span>
+                </RouterLink>
             </div>
         </el-col>
-        <el-row>
-            <el-col :span="6">
-                <div class="grid-content  custom-styles">
-                <h3>Habla con cuidadores cerca de ti</h3>
-                <p>Intercambia mensajes con cuidadores que cumplan con tus requisitos</p>
-                <img src="../../../public/icono/burbuja-de-dialogo.gif" style="width: 40%; height: auto;">
-                </div>
-            </el-col>
-            <el-col :span="12">
-                <div class="grid-content">
-                <img src="../../../public/imagenes/abuela-y-cuidadora.jpg" style="width: 70%; height: auto;border-radius: 10%;">
-                </div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content custom-styles">
-                    <h3>Busca cerca de ti</h3>
-                <p>Mira todas las cuidadores en tu misma zona, o selecciona los filtros según tus preferencias.</p>
-                <img src="../../../public/icono/investigacion.gif" style="width: 40%; height: auto;">
-                </div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="8">
-                <div class="grid-content bg-purple"></div>
-            </el-col>
-            <el-col :span="8">
-                <div class="grid-content bg-purple-light">
-                    <!-- <img src="../../../public/imagenes/Liberando_tiempo.png" style="width: 100%; height: auto;border-radius: 50%;"> -->
-                </div>
-            </el-col>
-            <el-col :span="8">
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple-light"></div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple"></div>
-            </el-col>
-            <el-col :span="6">
-                <div class="grid-content bg-purple-light"></div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <h2 class="nuestros-servicios">Servicios especializados de Asistencia a domicilio de personas mayores</h2>
-            <p>Nuestros servicios comprende todas las necesidades de los mayores. </p>
-            <el-col :span="8" v-for="service in services" :key="service.id">
-                <div class="grid-content">
-                    <img :src="service.img" alt="Servicios que ofrecemos en manoos cerca" class="service-image">
-                    <p class="service-description">{{ service.text}}</p>
-                </div>
-            </el-col>
-        </el-row>
-    </section>
-    <!-- Otra section -->
-    <section class="section-preguntas">
-    </section>
+    </el-row>
+    <el-col :span="24">
+        <div>
+            <h2>Libera tiempo para tu familia, trabajo y amigos</h2>
+        </div>
+    </el-col>
+    <el-row class="custom-styles">
+        <el-col :span="8">
+            <div class="grid-content">
+                <img src="../../../public/imagenes/manos_abuelos.jpg" alt="Imagen 1">
+            </div>
+        </el-col>
+        <el-col :span="16">
+       
+        </el-col>
+    </el-row>
+    <el-row>
+        <h2 class="nuestros-servicios">Servicios especializados de Asistencia a domicilio de personas mayores</h2>
+        <p>Nuestros servicios comprende todas las necesidades de los mayores. </p>
+        <el-col :span="8" v-for="service in services" :key="service.id">
+            <div class="grid-content">
+                <img :src="service.img" alt="Servicios que ofrecemos en manoos cerca" class="service-image">
+                <p class="service-description">{{ service.text}}</p>
+            </div>
+        </el-col>
+    </el-row>
+    <div class="grid-content">
+        <el-collapse v-model="activeName" accordion>
+            <el-collapse-item title="Libera tiempo para tu familia, trabajo y amigos" name="1" class="title-collapse"style="font-size: 20px; color: purple;">
+                <div class="texto-collapse">En manosCerca.es, entendemos que el tiempo es uno de los recursos más valiosos que tienes. Al confiar en nuestros servicios, puedes liberar tiempo significativo que de otro modo dedicarías a la búsqueda y gestión de cuidadores para tus seres queridos mayores.</div>
+                <div class="texto-collapse">Nuestra plataforma te permite encontrar cuidadores cualificados de manera rápida y eficiente, asegurando que tus mayores reciban el cuidado que necesitan mientras tú te concentras en tus responsabilidades laborales y personales.</div>
+            </el-collapse-item>
+            <el-collapse-item title="Confianza y tranquilidad garantizadas" name="2">
+                <div class="texto-collapse">Sabemos lo importante que es la tranquilidad cuando se trata del cuidado de tus seres queridos. En manosCerca.es, nos aseguramos de que todos nuestros cuidadores pasen por un riguroso proceso de selección y verificación.</div>
+                <div class="texto-collapse">Esto significa que puedes confiar en que estás dejando a tus mayores en manos seguras y competentes. Nuestra plataforma no solo facilita la búsqueda de cuidadores, sino que también te proporciona la confianza de saber que tus seres queridos están en buenas manos.</div>
+            </el-collapse-item>
+            <el-collapse-item title="Acceso fácil y rápido a cuidadores cualificados" name="3">
+                <div class="texto-collapse">Nuestra plataforma en línea está diseñada para ser intuitiva y fácil de usar, permitiéndote encontrar el cuidador adecuado sin complicaciones.</div>
+                <div class="texto-collapse">Con manosCerca.es, puedes acceder a una amplia base de datos de cuidadores cualificados, revisar sus perfiles y seleccionar el que mejor se adapte a las necesidades de tus mayores. </div>
+                <div class="texto-collapse">Este proceso eficiente te ahorra tiempo y esfuerzo, permitiéndote dedicar más tiempo a lo que realmente importa: tu familia, trabajo y amigos.</div>
+            </el-collapse-item>
+            <el-collapse-item title="El mejor servicio para tus seres queridos" name="4">
+                <div class="texto-collapse">En manosCerca.es, nos enorgullecemos de ofrecer un servicio de alta calidad que se adapta a las necesidades específicas de cada familia. Nuestro compromiso es proporcionar una solución confiable y accesible que garantice el bienestar de tus mayores. </div>
+                <div class="texto-collapse"> Al elegirnos, estás optando por la mejor opción en el mercado para el cuidado de tus seres queridos, asegurando que reciban la atención y el cariño que merecen. Con manosCerca.es, puedes estar seguro de que estás tomando la mejor decisión para tu familia.</div>
+            </el-collapse-item>
+            </el-collapse>
+    </div>
 </div>
+
+<!-- <el-row>
+    <el-col :span="6">
+        <div class="grid-content  custom-styles">
+        <h3>Habla con cuidadores cerca de ti</h3>
+        <p>Intercambia mensajes con cuidadores que cumplan con tus requisitos</p>
+        <img src="../../../public/icono/burbuja-de-dialogo.gif" style="width: 40%; height: auto;">
+        </div>
+    </el-col>
+    <el-col :span="12">
+        <div class="grid-content">
+        <img src="../../../public/imagenes/abuela-y-cuidadora.jpg" style="width: 70%; height: auto;border-radius: 10%;">
+        </div>
+    </el-col>
+    <el-col :span="6">
+        <div class="grid-content custom-styles">
+            <h3>Busca cerca de ti</h3>
+        <p>Mira todas las cuidadores en tu misma zona, o selecciona los filtros según tus preferencias.</p>
+        <img src="../../../public/icono/investigacion.gif" style="width: 40%; height: auto;">
+        </div>
+    </el-col>
+</el-row> -->

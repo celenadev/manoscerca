@@ -38,12 +38,12 @@ export default {
                 },
                 {
                     id: 4,
-                    img: require('/public/imagenes/servicios/servicio6.jpg'),
+                    img: require('/public/imagenes/servicios/servicio5.jpg'),
                     text: 'Proporcionamos cuidados e iguiene personal atendiendo las necesidades específicas de cada persona.'
                 },
                 {
                     id: 5,
-                    img: require('/public/imagenes/servicios/servicio5.jpg'),
+                    img: require('/public/imagenes/servicios/servicio1.jpg'),
                     text: 'Ofrecemos compañía y apoyo emocional para que los mayores no se sientan solos.'
                 },
                 {

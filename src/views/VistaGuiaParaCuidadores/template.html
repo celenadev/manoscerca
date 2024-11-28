@@ -1,51 +1,84 @@
-<section class="funcionamiento-cuidadores">
-    <h1>¿Cómo funciona para Cuidadores?</h1>
-
-    <nav class="nav-center ">
-        <router-link to="vista-guia-para-familias" class="nav-link" exact-active-class="active-link">Para
-            Familias</router-link>
-        <router-link to="vista-guia-para-cuidadores" class="nav-link" exact-active-class="active-link">Para
-            Cuidadores</router-link>
-    </nav>
-    <section class="section1">
-        <div class="div1-secc1">
-            <h2>¿Qué es manosCerca?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur a, temporibus voluptates hic
-                quisquam odit voluptas labore fuga cupiditate, culpa sit atque fugiat animi placeat laborum porro,
-                distinctio vero quos!</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, ullam blanditiis tenetur dolore
-                officiis obcaecati sit temporibus consectetur vitae quaerat itaque optio? Dolorum dolores similique quia
-                incidunt voluptatum voluptatibus ullam.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum reprehenderit pariatur provident quae quos
-                enim cupiditate, omnis unde? Iure facilis et veritatis vitae dicta voluptate, mollitia aspernatur
-                voluptas pariatur Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero id tenetur commodi omnis
-                voluptate reprehenderit, inventore quibusdam quas quae cum obcaecati ut temporibus nesciunt pariatur
-                provident molestiae? Id, porro sit.</p>
+<div class="funcionamiento-familias">
+    <el-row>
+        <el-col :span="24">
+            <hr>
+            <div class="nav-center grid-content bg-purple">
+                <router-link to="vista-guia-para-familias" class="nav-link" exact-active-class="active-link">Para
+                    Familias</router-link>
+                <router-link to="vista-guia-para-cuidadores" class="nav-link" exact-active-class="active-link">Para
+                    Cuidadores</router-link>
+            </div>
+        </el-col>
+        <el-col :span="24">
+            <div class="grid-content bg-purple">
+                <h1>Encuentra a las familias que necesitan tu ayuda cerca de ti</h1>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="15">
+            <div class="grid-content bg-purple">
+                <h2>¿Qué es manosCerca?</h2>
+                <p class="texto"> ManosCerca es una plataforma en línea diseñada para conectar a cuidadores con familias que necesitan apoyo para sus seres queridos mayores. Nuestra misión es facilitar la búsqueda y selección de familias que requieran tus servicios, asegurando que cada cuidador encuentre oportunidades adecuadas para sus habilidades y experiencia</p>
+            </div>
+        </el-col>
+        <el-col :span="9">
+            <div class="grid-content bg-purple">
+                <img src="../../../public/imagenes/junto-a-ti (1).jpg" alt="Imagen 1">
+            </div>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="9">
+            <div class="grid-content bg-purple">
+                <img src="../../../public/imagenes/img_abuelos.jpg" alt="Imagen 1">
+            </div>
+        </el-col>
+        <el-col :span="15">
+            <div class="grid-content bg-purple">
+                <h2>Establece tu perfil</h2>
+                <p class="texto"> Crea un perfil detallado que destaque tus habilidades, experiencia y disponibilidad. Asegúrate de incluir referencias y cualquier certificación relevante para aumentar tus posibilidades de ser seleccionado por las familias.</p>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="15">
+            <div class="grid-content">
+                <h2>Explora las oportunidades</h2>
+                <p class="texto">  Revisa las solicitudes de cuidado en tu zona para encontrar familias que necesiten tus servicios. Compara las necesidades de las familias con tus habilidades y experiencia, y envíales un mensaje si encuentras una buena coincidencia.</p>
+            </div>
+        </el-col>
+        <el-col :span="9">
+            <div class="grid-content">
+                <img src="../../../public/imagenes/abuela-y-cuidadora.jpg" alt="Imagen 1">
+            </div>
+        </el-col>
+    </el-row>
+    <el-col :span="24">
+        <div class="grid-content">
+            <h1>Seguridad</h1>
         </div>
-        <div class="div2-secc1">
-            <img src="../../../public/imagenes/paseo-abuelos.jpg" alt="">
-        </div>
-    </section>
-
-
-
-    <section class="section3">
-        <div class="div1-secc3">
-            <img src="../../../public/imagenes/buelos.jpg" alt="">
-        </div>
-        <div class="div2-secc3">
-            <h2>Completa tu perfil </h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet ipsam, perspiciatis tempora id at minima
-                fugiat ex est libero dolorum labore voluptas ut, explicabo optio doloribus doloremque soluta enim
-                excepturi!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, veniam repellendus neque id facere
-                perspiciatis magni ex est ipsum incidunt deleniti temporibus debitis. Voluptatum illum quam omnis
-                asperiores sit saepe?
-            </p>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus dolor tenetur autem tempora ipsum
-                dignissimos vel. Sint libero impedit ad eum, consectetur aut sit! Obcaecati nobis in dolorem rem vel?
-            </p>
-        </div>
-    </section>
-
-</section>
+    </el-col>
+    <el-row>
+        <el-col :span="8">
+            <div class="grid-content texto-seguridad">
+                <p>Mantener tu privacidad es primordial para nosotros, por lo que solo mostramos a otros usuarios los detalles que nos proporcionaste para encontrar la familia adecuada para ti. Recuerda, no compartimos tu información sensible. <strong>Tu seguridad y confianza son nuestra prioridad.</strong> Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos.</p>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content texto-seguridad">
+                <p>Antes de conoceros en persona, dedica tiempo a revisar los perfiles de las familias, incluidas sus fotografías. Asegúrate de preguntar sobre sus necesidades específicas y programa también una entrevista telefónica o una videollamada si eso te hace sentir más cómodo antes de conoceros en persona.</p>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content texto-seguridad">
+                <p>¿Notas que está sucediendo algo alarmante? No debes recibir ninguna presión para compartir tu información de contacto de inmediato ni para entablar conversaciones no profesionales. Si recibes un mensaje inapropiado o sospechoso, informa sobre ello a nuestro equipo para que podamos investigarlo.</p>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="4"><div class="grid-content"></div></el-col>
+        <el-col :span="16"><div class="grid-content"></div></el-col>
+        <el-col :span="4"><div class="grid-content"></div></el-col>
+    </el-row>
+</div>

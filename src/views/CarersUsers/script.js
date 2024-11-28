@@ -4,7 +4,41 @@ import axios from 'axios';
 export default {
     name: 'CarersUsers',
     data() {
-        return {};
+        return {
+            usuarios: [
+                {
+                    id: '1',
+                    formation: '',
+                    first_name: '',
+                    last_name: '',
+                    address: '',
+                    email: '',
+                    imagen: ''
+                },
+                {
+                    id: '2',
+                    formation: '',
+                    first_name: '',
+                    last_name: '',
+                    address: '',
+                    email: '',
+                    imagen: ''
+                },
+                {
+                    id: '3',
+                    formation: '',
+                    first_name: '',
+                    last_name: '',
+                    address: '',
+                    email: '',
+                    imagen: ''
+                },
+
+            ]
+
+
+
+        };
     },
     mounted() {
         this.getCarers();

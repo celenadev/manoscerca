@@ -1,6 +1,4 @@
 $mc-bymorado: rgb(223, 222, 222);
-
-.section-portada {
   h1 {
     background: linear-gradient(to right, #710358, #faf7fa);
     -webkit-background-clip: text;
@@ -100,24 +98,27 @@ $mc-bymorado: rgb(223, 222, 222);
   // Fin
 //inicio - libera tiempo
 .custom-styles  {
-    h3{
-    color: #037140;
-    margin-top: 7rem;
-    }
-    p{
-    margin-top: 20px;
-    color: #710358;
-    }
-    img{
-      margin-top: 4rem;
-    }
+  .grid-content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+  }
+}
+  // COLLAPSE
+  .texto-collapse{
+    color: #0c9d05;
+    font-size: 18px;
+  }
+.grid-content .el-collapse-item__header.title-collapse {
+  font-size: 20px !important; /* Tamaño de la letra */
+  color: rgb(128, 0, 0) !important; /* Color del texto */
 }
 
 
 
-
-
-  // inicio srvicios a ofrecer
+  // inicio sevicios a ofrecer
   .grid-content {
     text-align: center;
     padding: 20px;
@@ -127,7 +128,7 @@ $mc-bymorado: rgb(223, 222, 222);
   }
 
   .service-image {
-    max-width: 40%;
+    max-width: 50%;
     height: auto;
     border-radius: 8px;
     transition: transform 0.3s ease;
@@ -148,6 +149,7 @@ $mc-bymorado: rgb(223, 222, 222);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-weight: bold;
+    max-width: 100%;
   }
 
   .nuestros-servicios {
@@ -183,4 +185,3 @@ $mc-bymorado: rgb(223, 222, 222);
       width: 100%;
     }
   }
-}
