@@ -8,6 +8,8 @@ import CarersUsers from '../views/CarersUsers/index.vue'
 import ProfileCarer from '../views/ProfileCarer/index.vue'
 import ContactForm from '../views/ContactForm/index.vue'
 import NuestraEmpresa from '../views/NuestraEmpresa/index.vue'
+import HelpAndQuestions from '../views/HelpAndQuestions/index.vue'
+
 const routes = [
   {
     path: '/',
@@ -47,13 +49,18 @@ const routes = [
   },
   {
     path: '/contact-form',
-    name: 'Ccontact-form',
+    name: 'contact-form',
     component: ContactForm,
   },
   {
     path: '/nuestra-empresa',
     name: "nuestra-empresa",
     component:NuestraEmpresa,
+  },
+  {
+    path: '/help-and-questions',
+    name: "help-and-questions",
+    component:HelpAndQuestions,
   },
 ]
 

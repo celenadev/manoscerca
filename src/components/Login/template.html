@@ -1,23 +1,23 @@
 <main class="container-form">
-    <form class="form-signin1">
-        <h1>Inicio de sesión manosCerca</h1>
-        <div class="form-floating">
-            <input type="email" class="form-control" placeholder="name@example.com">
-            <label for="floatingInput" id="emailInput">Email</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" placeholder="contraseña">
-            <label for="floatingPassword" id="passwordInput">Contraseña</label>
-        </div>
-
-        <button class="btn  w-100 py-2 btn-purple" type="submit">Iniciar Sesión</button>
-        <div class="enlace-grupo">
-            <a class="" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
-            <p>¿Aún no tienes una cuenta? <a class="" href="register.html">Regístrate aquí</a></p>
-        </div>
-        <div class="terms-container">
-            <p>Al registrarse, aceptas los <a href="terminos.html" target="_blank">Términos y Condiciones</a> y la <a
-                    href="privacidad.html" target="_blank">Política de Privacidad</a>.</p>
-        </div>
+    <form @submit.prevent="onSubmit" class="form-signin1">
+      <h1>Inicio de sesión manosCerca</h1>
+      <div class="form-floating">
+        <input v-model="form.email" type="email" class="form-control" placeholder="name@example.com" name="email" v-validate="'required|email'" />
+        <label for="floatingInput" id="emailInput">Email</label>
+        <span v-if="errors.has('email')" class="text-danger">{{ errors.first('email') }}</span>
+      </div>
+      <div class="form-floating">
+        <input v-model="form.password" type="password" class="form-control" placeholder="contraseña" name="password" v-validate="'required|min:8'" />
+        <label for="floatingPassword" id="passwordInput">Contraseña</label>
+        <span v-if="errors.has('password')" class="text-danger">{{ errors.first('password') }}</span>
+      </div>
+      <button class="btn w-100 py-2 btn-purple" type="submit">Iniciar Sesión</button>
+      <div class="enlace-grupo">
+        <a class="" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+        <p>¿Aún no tienes una cuenta? <a class="" href="register.html">Regístrate aquí</a></p>
+      </div>
+      <div class="terms-container">
+        <p>Al registrarse, aceptas los <a href="terminos.html" target="_blank">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank">Política de Privacidad</a>.</p>
+      </div>
     </form>
-</main>
+  </main>

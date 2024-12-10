@@ -4,9 +4,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import router from './router'
+import VeeValidate from 'vee-validate'; // validaciones de formularios
 // Importando element
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+Vue.use(VeeValidate)  // validaciones de formularios
 
 Vue.use(VueRouter)
 

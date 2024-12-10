@@ -1,8 +1,12 @@
 import CarerApi from '@/api/CarerApi';
 import axios from 'axios';
+import CarerCard from '@/components/CarerCard/index.vue';
 
 export default {
     name: 'CarersUsers',
+    components: {
+        CarerCard
+    },
     data() {
         return {
             usuarios: [

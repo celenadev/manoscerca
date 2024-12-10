@@ -6,6 +6,7 @@ $mc-darkraspberry: #871e6c;
 $mc-bypurple: #b9439b;
 $mc-bymorado: #5a379b;
 $mc-fandango: #ac3b8f;
+$mc-purple-text:#8529be;
 $mc-gray:#e2e5e9;
 :root {
     --mc-byzantine: #{$mc-byzantine};
@@ -17,7 +18,49 @@ $mc-gray:#e2e5e9;
     --mc-gray: #{$mc-gray};
     --mc-bgColor: #{$mc-bgColor};
     --mc-whitecolor: #{$mc-whitecolor};
+    --mc-purple-text: #{$mc-purple-text};
 }
+// Titulos principales
+.title-h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+  }
+  .title-h1::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #333;
+    margin: 10px auto 0;
+  }
+
+  .title-h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2em;
+    color: #555;
+    text-align: center;
+    margin: 15px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .title-h3{
+    font-family: 'Verdana', sans-serif;
+    font-size: 1.75em;
+    color: #666;
+    text-align: center;
+    margin: 10px 0;
+    padding: 5px 0;
+  }
+// Fin de titulos principales
+
+
 
 //Botones Header
 .btn-purple {
@@ -55,5 +98,6 @@ $mc-gray:#e2e5e9;
     background-color: $mc-byzantine !important;
     color: $mc-whitecolor !important;
 }
+
 
 //Fin botones Header

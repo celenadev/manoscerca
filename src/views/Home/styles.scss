@@ -1,187 +1,177 @@
-$mc-bymorado: rgb(223, 222, 222);
-  h1 {
-    background: linear-gradient(to right, #710358, #faf7fa);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'Georgia', serif;
-    font-size: 3rem; // Ajusta el tamaño según sea necesario
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 0;
+@import '@/styles/main.scss';
+
+.el-row {
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
-  h2 {
-    background: linear-gradient(to right, #710358, #faf7fa);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: 'Georgia', serif;
-    font-size: 3rem; // Ajusta el tamaño según sea necesario
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
-    margin: 0;
 }
 
-  .el-row {
-    margin-bottom: 20px;
+.el-col {
+  border-radius: 4px;
+}
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+.bg-purple-dark {
+  background: white;
+}
 
-  .el-col {
-    border-radius: 4px;
-  }
+.bg-purple {
+  background: rgb(231, 231, 217);
+}
 
-  .bg-purple-dark {
-    background: white;
-  }
+.bg-purple-light {
+  background: rgb(180, 184, 179);
+}
 
-  .bg-purple {
-    background: rgb(231, 231, 217);
-  }
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
 
-  .bg-purple-light {
-    background: rgb(180, 184, 179);
-  }
+.el-carousel__item img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+}
 
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
+.el-carousel__item:nth-child(2n) {
+  background-color: white;
+}
 
-  .el-carousel__item img {
-    width: 100%;
-    height: 700px;
-    object-fit: cover;
-  }
+.el-carousel__item:nth-child(2n+1) {
+  background-color: white;
+}
 
-  .el-carousel__item:nth-child(2n) {
-    background-color: white;
-  }
-
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: white;
-  }
-
-  // Inicio que necesitas?
-  .grid-content-our-services {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0ecec; /* Color de fondo */
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px;
-  }
-  .image {
-    width: 100%;
-    max-width: 500px; /* Ajusta el tamaño máximo de la imagen */
-    height: 600px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  .title {
-    color: #080808;
-    font-size: 28px;
-    text-align: center;
-  }
-  .text {
-    color: #080808;
-    font-size: 20px;
-    text-align: center;
-  }
-  // Fin
+// Inicio que necesitas?
+.grid-content-our-services {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0ecec; /* Color de fondo */
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+.image {
+  width: 100%;
+  max-width: 500px; /* Ajusta el tamaño máximo de la imagen */
+  height: 600px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.title {
+  color: #080808;
+  font-size: 28px;
+  text-align: center;
+}
+.text {
+  color: #080808;
+  font-size: 20px;
+  text-align: center;
+}
+// Fin
 //inicio - libera tiempo
-.custom-styles  {
-  .grid-content img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      border-radius: 10px;
-  }
-}
-  // COLLAPSE
-  .texto-collapse{
-    color: #0c9d05;
-    font-size: 18px;
-  }
-.grid-content .el-collapse-item__header.title-collapse {
-  font-size: 20px !important; /* Tamaño de la letra */
-  color: rgb(128, 0, 0) !important; /* Color del texto */
-}
-
-
-
-  // inicio sevicios a ofrecer
-  .grid-content {
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 10px;
-
-  }
-
-  .service-image {
-    max-width: 50%;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-  }
-
-  .service-image:hover {
-    transform: scale(1.05);
-  }
-
-  .service-description {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-    line-height: 1.6;
-    text-align: center;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-weight: bold;
+.img-movil {
     max-width: 100%;
-  }
-
-  .nuestros-servicios {
-    text-align: center;
-    font-family: 'Georgia', serif;
-    font-size: 2em;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ecf0f1;
-    padding-bottom: 10px;
-  }
-
-  p {
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2em;
-    color: #34495e;
-    line-height: 1.6;
+    height: auto;
+    display: block;
     margin: 0 auto;
-    max-width: 600px;
+    border-radius: 10px;
+}
+.informatica {
+  background-color: #f9f9f9;
+  color: #464545;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  text-align: left;
+  font-size: 1.1em;
+}
+
+.informatica ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.informatica ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  display:block;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.informatica ul li::before {
+  content: '✔';
+  color: var(--purple-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.informatica h3 {
+  text-align: left;
+}
+.informatica p {
+  margin-bottom: 10px;
+  color: #34495e;
+  font-size: 1.1em;
+}
+
+.texto {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+// inicio sevicios a ofrecer
+.grid-content {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 10px;
+
+}
+
+.service-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.service-image:hover {
+  transform: scale(1.05);
+}
+
+.service-description {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  max-width: 100%;
+}
+
+// Fin
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
   }
 
-  // Fin
-
-  @keyframes slidein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-
-    to {
-      margin-left: 0%;
-      width: 100%;
-    }
+  to {
+    margin-left: 0%;
+    width: 100%;
   }
+}

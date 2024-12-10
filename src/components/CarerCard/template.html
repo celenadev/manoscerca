@@ -1,0 +1,20 @@
+<el-row>
+    <el-col :span="8" v-for="(o, index) in 10" :key="o">
+        <el-card class="card-custom" :body-style="{ padding: '0px' }">
+            <div class="image-container">
+                <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
+            </div>
+                <div class="info-container">
+                    <span class="info-label">Nombre: Juan</span><br>
+                    <span class="info-label">Apellidos: Pérez</span><br>
+                    <span class="info-label">Dirección: Calle Falsa 123</span>
+                    <div>
+                        <time class="time">{{ currentDate }}</time>
+                        <router-link to="/profile-carer">
+                            <el-button class="btn btn-purple" >Ver Perfil</el-button>
+                        </router-link>
+                    </div>
+                </div>
+        </el-card>
+    </el-col>
+</el-row>

@@ -1,15 +1,43 @@
+import { Validator, ValidationProvider, ValidationObserver } from 'vee-validate';
+import { required, email, min } from 'vee-validate';
+
+// Extender las reglas de validación
+Validator.extend('required', {
+  ...required,
+  getMessage: () => 'Este campo es obligatorio'
+});
+
+Validator.extend('email', {
+  ...email,
+  getMessage: () => 'Introduzca un email válido'
+});
+
+Validator.extend('min', {
+  ...min,
+  getMessage: () => 'La contraseña debe tener al menos 8 caracteres'
+});
+
 export default {
-    name: 'LoginComponent',
-    data () {
-        return {
-            email: '',
-            password: ''
-        };
-    },
-    methods: {
-        handleSubmit () {
-            // Aquí puedes agregar lógica para enviar los datos a tu backend
-            console.log('Formulario enviado:', this.form)
+  name: 'vistaLogin',
+  components: {
+    ValidationProvider,
+    ValidationObserver
+  },
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      }
+    };
+  },
+  methods: {
+    onSubmit() {
+      this.$refs.observer.validate().then(success => {
+        if (success) {
+          // Lógica para manejar el inicio de sesión
         }
+      });
     }
+  }
 };

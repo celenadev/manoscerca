@@ -1,0 +1,82 @@
+.time {
+  font-size: 13px;
+  color: #c91414;
+}
+
+.bottom {
+  margin-top: 20px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.image {
+  width: 200px; /* Ajusta el tamaño de la imagen */
+  height: 200px; /* Asegúrate de que la altura sea igual al ancho para que sea un círculo */
+  border-radius: 50%; /* Hace que la imagen sea redonda */
+  margin: 10px; /* Añade un margen alrededor de la imagen */
+  display: block;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Ajusta el padding según tus necesidades */
+}
+
+.image {
+  width: 200px; /* Ajusta el tamaño de la imagen */
+  height: 200px; /* Asegúrate de que la altura sea igual al ancho para que sea un círculo */
+  border-radius: 50%; /* Hace que la imagen sea redonda */
+  margin: 10px; /* Añade un margen alrededor de la imagen */
+}
+.card-custom {
+  padding: 20px; /* Ajusta el padding según tus necesidades */
+  margin: 10px; /* Ajusta el margen según tus necesidades */
+}
+
+.info-container {
+  padding: 14px;
+  background-color: #f9f9f9; /* Fondo suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.info-label {
+  display: block;
+  font-family: 'Arial', sans-serif; /* Fuente moderna */
+  font-size: 16px; /* Tamaño de fuente */
+  color: #333; /* Color de texto */
+  margin-bottom: 8px; /* Espaciado entre líneas */
+}
+
+.time {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #888;
+}
+
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 600px) {
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+  .card-custom {
+    padding: 10px;
+    margin: 5px;
+  }
+}
+
+/* Estilos para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .image {
+    width: 150px;
+    height: 150px;
+  }
+}
