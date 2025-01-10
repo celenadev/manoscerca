@@ -1,43 +1,27 @@
-import { Validator, ValidationProvider, ValidationObserver } from 'vee-validate';
-import { required, email, min } from 'vee-validate';
-
-// Extender las reglas de validación
-Validator.extend('required', {
-  ...required,
-  getMessage: () => 'Este campo es obligatorio'
-});
-
-Validator.extend('email', {
-  ...email,
-  getMessage: () => 'Introduzca un email válido'
-});
-
-Validator.extend('min', {
-  ...min,
-  getMessage: () => 'La contraseña debe tener al menos 8 caracteres'
-});
+import { email, minLength, required } from "vuelidate/lib/validators";
 
 export default {
-  name: 'vistaLogin',
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
-  data() {
-    return {
-      form: {
-        email: '',
-        password: ''
-      }
-    };
-  },
-  methods: {
-    onSubmit() {
-      this.$refs.observer.validate().then(success => {
-        if (success) {
-          // Lógica para manejar el inicio de sesión
+    name: 'LoginComponent',
+    data() {
+        return {
+            email: '',
+            password: '',
+            enviado:false
+        };
+    },
+    validations: {
+        email: { required, email },
+        password: { required, minLength: minLength(6) }
+
+    },
+    methods: {
+        validate() {
+            this.enviado = true;
+            // si el formulario es inválido, no continúa
+            if (this.$v.$invalid) {
+                return
+            }
+            console.log('Accediendo al sistema');
         }
-      });
-    }
-  }
+    },
 };

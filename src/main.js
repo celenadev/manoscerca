@@ -4,12 +4,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import router from './router'
-import VeeValidate from 'vee-validate'; // validaciones de formularios
+import vuelidate from 'vuelidate'
 // Importando element
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-Vue.use(VeeValidate)  // validaciones de formularios
+Vue.use(vuelidate)  // validaciones de formularios
 
 Vue.use(VueRouter)
 
@@ -27,6 +27,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // Importa el archivo principal de estilos
 import './styles/main.scss'
+
+// Crear el bus de eventos global
+const EventBus = new Vue()
+Vue.prototype.$bus = EventBus
 
 new Vue({
   router,

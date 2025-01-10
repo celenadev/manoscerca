@@ -9,6 +9,7 @@ import ProfileCarer from '../views/ProfileCarer/index.vue'
 import ContactForm from '../views/ContactForm/index.vue'
 import NuestraEmpresa from '../views/NuestraEmpresa/index.vue'
 import HelpAndQuestions from '../views/HelpAndQuestions/index.vue'
+import ViewsCompleteRole from '../views/ViewsCompleteRole/index.vue'
 
 const routes = [
   {
@@ -61,6 +62,11 @@ const routes = [
     path: '/help-and-questions',
     name: "help-and-questions",
     component:HelpAndQuestions,
+  },
+  {
+    path: '/views-complete-role',
+    name: 'views-complete-role',
+    component: ViewsCompleteRole,
   },
 ]
 

@@ -61,20 +61,18 @@ $mc-gray:#e2e5e9;
 // Fin de titulos principales
 
 
-
 //Botones Header
 .btn-purple {
     background-color: $mc-bypurple !important;
     color: $mc-whitecolor !important;
+    font-weight: bold;
+    border-width: 2px;
     font-size: 17px;
-    margin-top: 6px;
-    margin: 10px;
-    
 }
 
 .btn-purple:hover {
     background-color: $mc-byzantine !important;
-    border-color: $mc-bymorado !important;
+    border-color: $mc-gray!important;
     color: $mc-whitecolor;
 }
 
@@ -84,8 +82,7 @@ $mc-gray:#e2e5e9;
     font-size: 17px;
     border-width: 2px;
     font-weight: bold;
-    margin-top: 6px;
-    margin: 10px;
+    margin-left: 10px;
 }
 
 .el-button--primary {
@@ -98,6 +95,41 @@ $mc-gray:#e2e5e9;
     background-color: $mc-byzantine !important;
     color: $mc-whitecolor !important;
 }
-
-
 //Fin botones Header
+// Inicio botones modals
+.el-button--cancel {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.el-button--cancel:hover {
+  background-color: #e6e6e6;
+  color: #000;
+}
+
+.el-button--confirm {
+  background-color: $mc-bypurple !important;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.el-button--confirm:hover {
+  background-color: $mc-byzantine !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  color: aliceblue;
+}
+// Fin de botones de modals
+
+// Color  cajas errores
+  .mensajeError {
+    color: red;
+}

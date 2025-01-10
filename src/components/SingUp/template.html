@@ -1,20 +1,26 @@
 <main class="container-form">
-    <form class="form-signin1">
+    <form class="form-signin1" v-on:submit.prevent="validate">
         <h1>Bienvenido a manosCerca</h1>
         <div class="form-floating">
-            <input type="nameape" class="form-control" placeholder="Nombre y apellidos">
-            <label for="floatingPassword" id="nameapeInput">Nombre y Apellidos</label>
+            <input v-model="name" id="name" type="name" class="form-control" placeholder="name" name="name"/>
+            <label for="name">Nombre y Apellidos</label>
+            <div v-if="enviado && !$v.name.required" class="mensajeError">Debe escribir un nombre y apellidos</div>
         </div>
         <div class="form-floating">
-            <input type="email" class="form-control" placeholder="name@example.com">
-            <label for="floatingInput" id="emailInput">Email</label>
+            <input v-model="email" id="email" type="email" class="form-control" placeholder="name@example.com" name="email"/>
+            <label for="email">Email</label>
+            <div v-if="enviado && !$v.email.required" class="mensajeError">Debe escribir un email</div>
+            <div v-if="enviado && !$v.email.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"</div>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" placeholder="contraseña">
-            <label for="floatingPassword" id="passwordInput">Contraseña</label>
+            <input v-model="password" id="password" type="password" class="form-control" placeholder="contraseña" name="password"/>
+            <label for="password">Contraseña</label>
+            <div v-if="enviado && !$v.password.required" class="mensajeError">Debe escribir una contraseña</div>
+            <div v-if="enviado && !$v.password.minLength" class="mensajeError">La contraseña debe tener mínimo 6 caracteres</div>
         </div>
-
-        <button class="btn  w-100 py-2 btn-purple" type="submit">Regístrate gratis</button>
+        <RouterLink to="/views-complete-role">
+            <el-button type="primary" class="btn w-100 py-2 btn-purple">Regístrate gratis</el-button>
+        </RouterLink>
         <div class="enlace-grupo">
             <p>¿Ya tienes una cuenta?<a class="" href="register.html">Inicia sesión</a></p>
         </div>

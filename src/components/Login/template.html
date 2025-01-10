@@ -1,23 +1,28 @@
 <main class="container-form">
-    <form @submit.prevent="onSubmit" class="form-signin1">
-      <h1>Inicio de sesión manosCerca</h1>
-      <div class="form-floating">
-        <input v-model="form.email" type="email" class="form-control" placeholder="name@example.com" name="email" v-validate="'required|email'" />
-        <label for="floatingInput" id="emailInput">Email</label>
-        <span v-if="errors.has('email')" class="text-danger">{{ errors.first('email') }}</span>
-      </div>
-      <div class="form-floating">
-        <input v-model="form.password" type="password" class="form-control" placeholder="contraseña" name="password" v-validate="'required|min:8'" />
-        <label for="floatingPassword" id="passwordInput">Contraseña</label>
-        <span v-if="errors.has('password')" class="text-danger">{{ errors.first('password') }}</span>
-      </div>
-      <button class="btn w-100 py-2 btn-purple" type="submit">Iniciar Sesión</button>
-      <div class="enlace-grupo">
-        <a class="" href="forgot-password.html">¿Olvidaste tu contraseña?</a>
-        <p>¿Aún no tienes una cuenta? <a class="" href="register.html">Regístrate aquí</a></p>
-      </div>
-      <div class="terms-container">
-        <p>Al registrarse, aceptas los <a href="terminos.html" target="_blank">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank">Política de Privacidad</a>.</p>
-      </div>
-    </form>
-  </main>
+  <form class="form-signin1" v-on:submit.prevent="validate">
+    <h1>Inicio de sesión manosCerca</h1>
+    <div class="form-floating">
+      <input v-model="email" id="email" type="email" class="form-control" placeholder="name@example.com" name="email"/>
+      <label for="email">Email</label>
+      <div v-if="enviado && !$v.email.required" class="mensajeError">Debe escribir un email</div>
+      <div v-if="enviado && !$v.email.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"</div>
+    </div>
+    <div class="form-floating">
+      <input v-model="password" id="password" type="password" class="form-control" placeholder="contraseña" name="password"/>
+      <label for="password">Contraseña</label>
+      <div v-if="enviado && !$v.password.required" class="mensajeError">Debe escribir una contraseña</div>
+      <div v-if="enviado && !$v.password.minLength" class="mensajeError">La contraseña debe tener mínimo 6 caracteres</div>
+    </div>
+    <hr>
+    <button class="btn w-100 py-2 btn-purple" type="submit">Iniciar Sesión</button>
+    <div class="enlace-grupo">
+      <a class="" href="forgot-password.html">¿Olvidó tu contraseña?</a>
+      <RouterLink to="/vista-sign-up">
+        <p>¿No tiene una cuenta? Regístrese Aquí<a class="" href="register.html"></a></p>
+      </RouterLink>
+    </div>
+    <div class="terms-container">
+      <p>Al registrarse, aceptas los <a href="terminos.html" target="_blank">Términos y Condiciones</a> y la <a href="privacidad.html" target="_blank">Política de Privacidad.</a></p>
+    </div>
+  </form>
+</main>
