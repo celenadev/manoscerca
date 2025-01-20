@@ -1,26 +1,27 @@
-
 <div class="container-profile">
     <div class="row-fila-one">
-        <div class="img-carer">
-            <img src="../../../public/imagenes/img_abuelos_felices.jpg" alt="" width="400px">
+        <div class="image-container">
+            <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
+            <!-- <img :src="carer.imagen" class="image"> -->
         </div>
         <div class="info-carer">
-            <h1>Nombre</h1>
-            <p>Ciudad</p>
-            <div class="skills">
+            <div class="information-carer">
+                <h1>{{ carer.name }}</h1>
+                <p> {{ carer.city }}, {{ carer.address }}</p>
+            </div>
+            <div class="information-carer">
                 <h2>Formación</h2>
-                <p>Habilidad 1</p>
-                <p>Habilidad 2</p>
+                <p> {{ carer.formation }}</p>
             </div>
-            <div class="experience">
+            <div class="information-carer">
                 <h2>Experiencia</h2>
-                <p>Experiencia 1</p>
-                <p>Experiencia 2</p>
+                <p> {{ carer.year }} años </p>
             </div>
-            <div class="services">
+            <div class="information-carer">
                 <h2>Servicios de cuidados de Rocío</h2>
-                <p>Experiencia 1</p>
-                <p>Experiencia 2</p>
+                <ul>
+                    <li>{{ carer.help_type }}</li>
+                </ul>
             </div>
             <div>
                 <RouterLink to="/contact-form">
@@ -30,8 +31,6 @@
         </div>
     </div>
     <div class="row-fila-two">
-        <div>Sililares</div>
+        <div>Similares</div>
     </div>
 </div>
-
-

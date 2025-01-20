@@ -10,14 +10,16 @@ export default {
                 {
                     id: 1,
                     img: require('/public/imagenes/abuelos-pareja.jpg'),
-                    title:'Ayuda para tus mayores',
-                    text: 'Tus familiares en las mejores manos.'
+                    title:'Buscas  empleo?',
+                    text: 'Tus familiares en las mejores manos.',
+                    link: '/dependents-users'
                 },
                 {
                     id: 2,
                     img: require('/public/imagenes/hands.jpg'),
-                    title:'Cuidadores de Confianza',
-                    text: 'Apoyo y cuidado para tus seres queridos.'
+                    title:'Necesitas un cuidador?',
+                    text: 'Apoyo y cuidado para tus seres queridos.',
+                    link: '/carers-users'
                 }
             ],
             services: [

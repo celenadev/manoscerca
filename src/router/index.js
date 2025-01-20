@@ -10,7 +10,8 @@ import ContactForm from '../views/ContactForm/index.vue'
 import NuestraEmpresa from '../views/NuestraEmpresa/index.vue'
 import HelpAndQuestions from '../views/HelpAndQuestions/index.vue'
 import ViewsCompleteRole from '../views/ViewsCompleteRole/index.vue'
-
+import DependentsUsers from '../views/DependentsUsers/index.vue'
+import ProfileDependent from '../views/ProfileDependent/index.vue'
 const routes = [
   {
     path: '/',
@@ -44,9 +45,19 @@ const routes = [
     component: CarersUsers,
   },
   {
-    path: '/profile-carer',
+    path: '/dependents-users',
+    name: 'dependents-users',
+    component: DependentsUsers,
+  },
+  {
+    path: '/profile-carer/:id',
     name: 'profile-carer',
     component: ProfileCarer,
+  },
+  {
+    path: '/profile-dependent/:id',
+    name: 'profile-dependent',
+    component: ProfileDependent,
   },
   {
     path: '/contact-form',
@@ -56,12 +67,12 @@ const routes = [
   {
     path: '/nuestra-empresa',
     name: "nuestra-empresa",
-    component:NuestraEmpresa,
+    component: NuestraEmpresa,
   },
   {
     path: '/help-and-questions',
     name: "help-and-questions",
-    component:HelpAndQuestions,
+    component: HelpAndQuestions,
   },
   {
     path: '/views-complete-role',
@@ -69,7 +80,6 @@ const routes = [
     component: ViewsCompleteRole,
   },
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

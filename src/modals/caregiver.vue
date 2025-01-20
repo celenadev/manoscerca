@@ -50,11 +50,11 @@
           <el-checkbox label="Aseo Personal" name="help_type"></el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="Disponibilidad" prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="Jornada completa"></el-radio>
-          <el-radio label="Jornada parcial"></el-radio>
-        </el-radio-group>
+      <el-form-item label="Disponibilidad" prop="work_day">
+        <el-select v-model="ruleForm.work_day" placeholder="Disponibilidad">
+          <el-option label="Jornada completa" value="1"></el-option>
+          <el-option label="Jornada parcial" value="2"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="Preséntate" prop="presentation">
         <el-input type="textarea" v-model="ruleForm.presentation"></el-input>
@@ -76,6 +76,7 @@
 
 <script>
 import CarerApi from "@/api/CarerApi";
+import { Message } from 'element-ui';
 
 export default {
   data() {
@@ -186,10 +187,15 @@ export default {
         if (valid) {
           try {
             const response = await CarerApi.addCarer(this.ruleForm);
-            console.log("Carer añadido:", response.data);
+            console.log("Cuidador añadido:", response.data);
             this.dialogVisible = false;
+            Message({
+            message: 'Registrado con éxito',
+            type: 'success',
+            duration: 3000
+            });
           } catch (error) {
-            console.error("Error al añadir el carer:", error);
+            console.error("Error al añadir al cuidador:", error);
           }
         } else {
           console.log("Error en el formulario");
@@ -197,6 +203,7 @@ export default {
         }
       });
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

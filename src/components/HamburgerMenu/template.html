@@ -1,0 +1,16 @@
+<div class="burger-menu">
+  <div class="burger-icon" @click="toggleMenu">
+    &#9776;
+  </div>
+  <div class="menu-content" v-if="menuOpen">
+    <RouterLink to="/vista-guia-para-familias" class="dropdown-item nav-link">Para Familias</RouterLink>
+    <RouterLink to="/vista-guia-para-cuidadores" class="dropdown-item nav-link">Para Cuidadores</RouterLink>
+    <RouterLink to="#" class="dropdown-item nav-link">Inglés</RouterLink>
+    <RouterLink to="/vista-login">
+      <el-button type="primary" class="btn-purple">Acceder</el-button>
+    </RouterLink>
+    <RouterLink to="/vista-sign-up">
+      <el-button type="primary" class="btn-re-purple" plain>Registrarse</el-button>
+    </RouterLink>
+  </div>
+</div>

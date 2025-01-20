@@ -1,20 +1,21 @@
 $mc-byzantine: #801563;
 
 .footer-clean {
-    padding:10px;
-    background-color:#cfcfcf;
-    color:#fdfeff;
+    padding: 10px;
+    background-color: #cfcfcf;
+    color: #fdfeff;
 
     .container-footer {
         display: flex;
-        justify-content:space-evenly; /* Distribuye los elementos con espacio entre ellos */
-        background-color:#ffff; /* Color de fondo del footer */
-        padding: 5px; /* Espaciado interno */
+        justify-content: space-evenly;
+        background-color: #ffff;
+        padding: 5px;
     }
+
     .container-footer div {
-        flex: 1; /* Cada div ocupará el mismo espacio */
-        text-align: center; /* Centra el texto dentro de cada div */
-        padding: 10px; /* Espaciado interno de cada div */
+        flex: 1;
+        text-align: center;
+        padding: 10px;
     }
 
     .container-footer h3 {
@@ -22,100 +23,91 @@ $mc-byzantine: #801563;
         font-size: 1.1em;
         color: #3d3c3c;
     }
+
     .container-footer ul {
-        list-style-type: none; /* Elimina los puntos de la lista */
+        list-style-type: none;
         padding: 0;
     }
+
     .container-footer ul li {
-        margin: 20px ; /* Espaciado entre los elementos de la lista */
+        margin: 20px;
     }
+
     .container-footer ul li a {
-        text-decoration: none; /* Elimina el subrayado de los enlaces */
-        color: black; /* Color de los enlaces */
+        text-decoration: none;
+        color: black;
         transition: color 0.3s;
-        font-size: 18px /* Transición suave para el cambio de color */
+        font-size: 18px;
     }
+
     .container-footer ul li a:hover {
         color: #133a64;
-        font-size: 20px; /* Color de los enlaces al pasar el ratón */
+        font-size: 20px;
     }
+
     .logo-container {
         flex: 1;
         text-align: center;
     }
+
     .logo-container img {
-        max-width: 200px; /* Ajusta el tamaño del logo */
+        max-width: 200px;
         height: auto;
-        margin-bottom: 10px; /* Espacio debajo del logo */
+        margin-bottom: 10px;
     }
+
     .social-icons {
         display: flex;
         justify-content: center;
         justify-content: space-evenly;
-        margin-bottom: 10px; /* Espacio debajo de los iconos */
+        margin-bottom: 10px;
     }
+
     .social-icons a img {
-        width: 30px; /* Ajusta el tamaño de los iconos */
+        width: 30px;
         height: auto;
     }
+
     .social-container p {
-        font-weight: bold; /* Hace que el texto esté en negrita */
-        font-size: 1.0em; /* Tamaño de la fuente */
-        color:#801563; /* Color del texto */
-        text-align: center; /* Justifica el texto */
+        font-weight: bold;
+        font-size: 1.0em;
+        color: #801563;
+        text-align: center;
     }
-    .text-center{
-        color:#801563;
+
+    .text-center {
+        color: #801563;
         font-size: 20px;
         padding: 10px;
     }
 }
 
-//mapa
-  // .social-container p {
-    //     font-weight: bold; /* Hace que el texto esté en negrita */
-    //     font-size: 0.8em; /* Tamaño de la fuente */
-    //     color:#801563; /* Color del texto */
-    //     text-align: center; /* Justifica el texto */
-    // }
-    // .phone{
-    //     font-weight: bold;
-    // }
-    // .mapa-politicas{
-    //     display: flex;
-    //     flex-direction: row;
-    //     align-items: center;
-    //     justify-content: space-around;
+@media (max-width: 768px) {
+    @media (max-width: 768px) {
+        .container-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    // }
-    // .mapa-politicas {
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: space-between;
-    //     align-items: center;
-    // }
+        .logo-container,
+        .social-container,
+        .contact-column {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    // iframe {
-    //     padding: 10px;
-    //     width:500px;
-    //     height: 200px;
-    //     border: 0;
-    // }
-    // .copy{
-    //     display: flex;
-    //     background-color: #801563;
-    //     margin: 20px;
-    //     padding: 10px;
-    //     border: 1px solid #ccc;
-    //     border-radius: 15px;
-    //     width: 40%;
-    //     height: 100px;
-    //     justify-content: center;
-    //     align-items: center;
-    // }
-    // .copy a{
-    //     color: #007bff;
-    //     font-weight: bold;
-    //     justify-content: center;
-    //     padding: 20px;
-    // }
+        .social-icons a {
+            margin: 0 10px;
+        }
+
+        .container-footer div {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .text-center {
+            padding: 20px 0;
+        }
+    }
+}

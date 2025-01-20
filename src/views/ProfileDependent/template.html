@@ -1,0 +1,36 @@
+<div class="container-profile">
+    <div class="row-fila-one">
+        <div class="image-container">
+            <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
+            <!-- <img :src="dependent.imagen" class="image"> -->
+        </div>
+        <div class="info-dependent">
+            <div class="information-dependent">
+                <h1>{{ dependent.name }}</h1>
+                <p> {{ dependent.city }}, {{ dependent.address }}</p>
+            </div>
+            <div class="information-dependent">
+                <h2>Tareas a realizar</h2>
+                <ul>
+                    <li>{{ dependent.tasks }}</li>
+                </ul>
+            </div>
+            <div class="information-dependent">
+                <h2>Jornada</h2>
+                <p> {{ dependent.work_day }} años </p>
+            </div>
+            <div class="information-dependent">
+                <h2>Descripción de la oferta</h2>
+                <p> {{ dependent.description }} </p>
+            </div>
+            <div>
+                <RouterLink to="/contact-form">
+                    <el-button type="primary" class="btn-purple">Contactar</el-button>
+                </RouterLink>
+            </div>
+        </div>
+    </div>
+    <div class="row-fila-two">
+        <div>Similares</div>
+    </div>
+</div>

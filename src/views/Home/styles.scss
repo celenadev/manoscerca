@@ -74,7 +74,7 @@
 // Fin
 //inicio - libera tiempo
 .img-movil {
-    max-width: 100%;
+    max-width: 90%;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -163,7 +163,6 @@
 }
 
 // Fin
-
 @keyframes slidein {
   from {
     margin-left: 100%;
@@ -175,3 +174,10 @@
     width: 100%;
   }
 }
+// Media Query
+// @media (max-width: 768px) {
+//   .informatica {
+//       display: none;
+//   }
+
+// }

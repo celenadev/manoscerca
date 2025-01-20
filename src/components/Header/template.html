@@ -6,32 +6,37 @@
                 <img src="../../../public/imagenes/logo-mc.png" alt="Logo" title="Logo de manosCerca.es">
             </RouterLink>
         </div>
-        <div class="dropdown-section">
-            <el-dropdown trigger="click" class="space-link">
-                <span class="el-dropdown-link">
-                    ¿Como funciona?<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                    <RouterLink to="/vista-guia-para-familias" class="dropdown-item nav-link">Para Familias</RouterLink>
-                    <RouterLink to="/vista-guia-para-cuidadores" class="dropdown-item nav-link">Para Cuidadores</RouterLink>
-                </el-dropdown-menu>
-            </el-dropdown>
-            <el-dropdown trigger="click" class="space-link">
-                <span class="el-dropdown-link">
-                    Español<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                    <RouterLink to="#" class="dropdown-item nav-link">Inglés</RouterLink>
-                </el-dropdown-menu>
-            </el-dropdown>
-            <RouterLink to="/vista-login">
-                <el-button type="primary" class="btn-purple">Acceder</el-button>
-            </RouterLink>
-            <RouterLink to="/vista-sign-up">
-                <el-button type="primary" class="btn-re-purple" plain>Registrarse</el-button>
-            </RouterLink>
+         <!-- Si  no es  un móvil -->
+        <div class="dropdown-section" v-if="!isMobile">
+            <div class="dropdown-section">
+                <el-dropdown trigger="click" class="space-link">
+                    <span class="el-dropdown-link">
+                        ¿Como funciona?<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <RouterLink to="/vista-guia-para-familias" class="dropdown-item nav-link">Para Familias</RouterLink>
+                        <RouterLink to="/vista-guia-para-cuidadores" class="dropdown-item nav-link">Para Cuidadores</RouterLink>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <el-dropdown trigger="click" class="space-link">
+                    <span class="el-dropdown-link">
+                        Español<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <RouterLink to="#" class="dropdown-item nav-link">Inglés</RouterLink>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <RouterLink to="/vista-login">
+                    <el-button type="primary" class="btn-purple">Acceder</el-button>
+                </RouterLink>
+                <RouterLink to="/vista-sign-up">
+                    <el-button type="primary" class="btn-re-purple" plain>Registrarse</el-button>
+                </RouterLink>
+            </div>
         </div>
+        <HamburgerMenu v-if="isMobile" />
     </div>
+    <!-- Muestra menú hamburguesa en  tamaños móviles -->
     <div class="breadcrumb-section">
         <Breadcrumb />
     </div>

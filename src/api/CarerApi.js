@@ -1,31 +1,39 @@
-// import request from 'axios'
-// class CarerApi {
-//     // Método para guardar un nuevo usuario
-//     addCarer() {
-//       return request({
-//         url: `/api/carers`,
-//         method: 'post'
-//       })
-//     }
-    
-// }
-// export { UserApi as default }
-// export default new CarerApi()
+import request from "axios";
 
-import request from 'axios';
-
+const url = "http://localhost:4000/api/carers";
 class CarerApi {
-    // Método para guardar un nuevo usuario
-    //El método addCarer está encapsulado dentro de una clase (CarerApi)
-    // Los datos del nuevo carer se pasan como un argumento (newCarer) al método addCarer
+  // Método para guardar un nuevo usuario
+  //El método addCarer está encapsulado dentro de una clase (CarerApi)
+  // Los datos del nuevo carer se pasan como un argumento (newCarer) al método addCarer
+  async addCarer(newCarer) {
+    try {
+          return await request.post(`${url}/add`,newCarer);
+      } catch (error) {
+          console.error("Error en API de cuidadores:", error);
+          throw error;
+      }
+  }
 
-    addCarer(newCarer) {
-        return request({
-            url: `/api/carers`,
-            method: 'post',
-            data: newCarer
-        });
+  // Método para listar todos los Cuidadores
+  async getAll() {
+    try {
+      const response = await request.get(`${url}/getAll`);
+      return response.data;
+    } catch (error) {
+      console.error("Error al listar los cuidadores", error);
+      throw error;
+    }
+  }
+
+    // Método para mostrar datos del cuidador seleccionado
+    async getById(id) {
+      try {
+        const response = await request.get(`${url}/getById/${id}`);
+        return response.data;
+      } catch (error) {
+        console.error("Error", error);
+        throw error;
+      }
     }
 }
-
 export default new CarerApi();

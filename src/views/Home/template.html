@@ -21,7 +21,7 @@
                 <img :src="service.img" :alt="service.title" class="image">
                 <p class="title">{{ service.title }}</p>
                 <p class="text">{{ service.text }}</p>
-                <RouterLink to="/carers-users">
+                <RouterLink :to="service.link">
                     <span class="btn btn-purple hero_cta " data-bs-toggle="modal"
                         data-bs-target="#registerModal">Más información</span>
                 </RouterLink>
@@ -55,6 +55,7 @@
             </div>
         </el-col>
     </el-row>
+
     <el-row>
         <h2 class="title-h2">Nuestros servicios comprende todas las necesidades de los mayores.</h2>
         <el-col :span="8" v-for="service in services" :key="service.id">

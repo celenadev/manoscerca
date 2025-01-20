@@ -40,14 +40,14 @@
           <el-checkbox label="Solo acompañamiento domiciliario" name="tasks"></el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="Tipo de jornada" prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="Jornada completa"></el-radio>
-          <el-radio label="Jornada parcial"></el-radio>
-        </el-radio-group>
+        <el-form-item label="Tipo de jornada" prop="work_day">
+        <el-select v-model="ruleForm.work_day" placeholder="Jornada">
+          <el-option label="Jornada completa" value="1"></el-option>
+          <el-option label="Jornada parcial" value="2"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="Describa su oferta" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc" placeholder="Buscamos un cuidador para tareas domésticas generales. Horario flexible y buen ambiente de trabajo. Preferiblemente con experiencia."></el-input>
+      <el-form-item label="Describa su oferta" prop="description">
+        <el-input type="textarea" v-model="ruleForm.description" placeholder="Buscamos un cuidador para tareas domésticas generales. Horario flexible y buen ambiente de trabajo. Preferiblemente con experiencia."></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -57,6 +57,9 @@
   </el-dialog>
 </template>
 <script>
+import DependentApi from "@/api/DependentApi";
+import { Message } from 'element-ui';
+
 export default {
   data() {
     return {
@@ -68,8 +71,8 @@ export default {
         email: 'familiaprueba1@gamil.com',
         password: 'familia2025',
         tasks: ['Solo acompañamiento domiciliario'],
-        resource: '',
-        desc: 'Buscamos un cuidador para  acompañamiento de un mayor. Preferiblemente con experiencia.'
+        work_day: "",
+        description: 'Buscamos un cuidador para  acompañamiento de un mayor. Preferiblemente con experiencia.'
       },
         rules: {
         name: [
@@ -106,17 +109,28 @@ export default {
       this.dialogVisible = true;
     });
   },
-   methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('Enviado!');
-          } else {
-            console.log('Error al enviar!!');
-            return false;
+    methods: {
+    async submitForm(formName) {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid) {
+          try {
+            const response = await DependentApi.addDependent(this.ruleForm);
+            console.log("Usuario dependiente añadido:", response.data);
+            this.dialogVisible = false;
+            Message({
+            message: 'Registrado con éxito',
+            type: 'success',
+            duration: 3000
+            });
+          } catch (error) {
+            console.error("Error al añadir al dependiente:", error);
           }
-        });
-      },
+        } else {
+          console.log("Error en el formulario");
+          return false;
+        }
+      });
+    },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
