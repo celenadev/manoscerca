@@ -11,6 +11,9 @@ export default {
         this.loadAllCarers();
     },
     methods: {
+        goToProfile(id) {
+            this.$router.push({ name: 'profile-carer', params: { id } });
+        },
         async loadAllCarers() {
             try {
                 const response = await CarerApi.getAll();

@@ -16,9 +16,7 @@
                 <span class="info-label">Disponibilidad: {{ carer.work_day }}</span>
                 <div>
                     <!-- Paso el id del cuidador por parámetro  -->
-                    <router-link :to="{ name: 'profile-carer', params: { id: carer.id } }">
-                        <el-button class="btn btn-purple">Ver Perfil</el-button>
-                    </router-link>
+                    <el-button @click="goToProfile(carer.id)" class="btn btn-purple">Ver Perfil</el-button>
                 </div>
             </div>
         </el-card>

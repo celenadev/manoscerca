@@ -18,15 +18,23 @@
                 <p> {{ carer.year }} años </p>
             </div>
             <div class="information-carer">
-                <h2>Servicios de cuidados de Rocío</h2>
+                <h2>Servicios de cuidados de {{ carer.name }}</h2>
                 <ul>
                     <li>{{ carer.help_type }}</li>
                 </ul>
+            </div>
+            <div class="information-carer">
+                <h2>Presentación</h2>
+                <p> {{ carer.presentation }} </p>
             </div>
             <div>
                 <RouterLink to="/contact-form">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
+            </div>
+            <!-- Botón para abrir el modal en modo de edición -->
+            <div>
+                <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>
     </div>

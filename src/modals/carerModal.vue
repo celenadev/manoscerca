@@ -1,7 +1,8 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" width="80%">
     <template slot="title">
-      <h2>Formulario De Registro Para Cuidadores</h2>
+      <h2 v-if="isEditMode">Modificar Perfil</h2>
+      <h2 v-else>Formulario De Registro Para Cuidadores</h2>
     </template>
     <el-form
       :model="ruleForm"
@@ -25,8 +26,18 @@
       <el-form-item label="Email" prop="email">
         <el-input v-model="ruleForm.email"></el-input>
       </el-form-item>
+      <el-form-item
+        v-if="isEditMode"
+        label="Antigua contraseña"
+        prop="oldPassword"
+      >
+        <el-input v-model="ruleForm.oldPassword" type="password"></el-input>
+      </el-form-item>
       <el-form-item label="Contraseña" prop="password">
         <el-input v-model="ruleForm.password" type="password"></el-input>
+      </el-form-item>
+      <el-form-item label="Repita contraseña" prop="repeatPassword">
+        <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
       <el-form-item label="Experiencia" prop="year">
         <el-select v-model="ruleForm.year" placeholder="Años de experiencia">
@@ -76,23 +87,26 @@
 
 <script>
 import CarerApi from "@/api/CarerApi";
-import { Message } from 'element-ui';
+import { Message } from "element-ui";
 
+const DEFAULT_PRESENTATION ="Cuidador con 5 años de experiencia en el cuidado de mayores. Soy paciente y dedicado, con habilidades en gestión de medicación y apoyo en actividades diarias.";
 export default {
+  name: "carer-modal",
   data() {
     return {
       dialogVisible: false,
+      isEditMode: false,
       ruleForm: {
-        name: "CuidadorPrueba1",
-        formation: "Ayuda a domicilio",
-        city: "Córdoba",
-        address: "Calle  la palma nº4",
-        email: "cuiador1@gmail.com",
-        password: "cuidador2025",
+        name: "",
+        formation: "",
+        city: "",
+        address: "",
+        email: "",
+        password: "",
         year: "",
-        help_type: ["Citas médicas"],
+        help_type: [],
         work_day: "",
-        presentation: "Cuidador con 5 años de experiencia en el cuidado de mayores. Soy paciente y dedicado, con habilidades en gestión de medicación y apoyo en actividades diarias.",
+        presentation: DEFAULT_PRESENTATION,
       },
       rules: {
         name: [
@@ -162,7 +176,7 @@ export default {
             trigger: "change",
           },
         ],
-       work_day: [
+        work_day: [
           {
             required: true,
             message: "Por favor selecciona tu disponibilidad",
@@ -173,11 +187,17 @@ export default {
           { required: true, message: "Por favor preséntate", trigger: "blur" },
         ],
       },
-      guardadoOk: false,
     };
   },
   created() {
-    this.$bus.$on("open-caregiver-dialog", () => {
+    this.$bus.$on("open-carer-modal", (params) => {
+      if (params) {
+        // Recupera los datos para ser editados
+        this.editCarer(params);
+      } else {
+        // Limpia el formulario para un nuevo registro
+        this.resetForm();
+      }
       this.dialogVisible = true;
     });
   },
@@ -190,9 +210,9 @@ export default {
             console.log("Cuidador añadido:", response.data);
             this.dialogVisible = false;
             Message({
-            message: 'Registrado con éxito',
-            type: 'success',
-            duration: 3000
+              message: "Registrado con éxito",
+              type: "success",
+              duration: 3000,
             });
           } catch (error) {
             console.error("Error al añadir al cuidador:", error);
@@ -203,9 +223,32 @@ export default {
         }
       });
     },
-
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    editCarer(params) {
+      this.isEditMode = true;
+      this.ruleForm.name = params.name || "";
+      this.ruleForm.formation = params.formation || "";
+      this.ruleForm.city = params.city || "";
+      this.ruleForm.address = params.address || "";
+      this.ruleForm.email = params.email || "";
+      this.ruleForm.year = params.year || "";
+      this.ruleForm.help_type = params.help_type || [];
+      this.ruleForm.work_day = params.work_day || "";
+      this.ruleForm.presentation = params.presentation || DEFAULT_PRESENTATION;
+    },
+    resetForm() {
+      this.isEditMode = false;
+      this.ruleForm = {
+        name: "",
+        formation: "",
+        city: "",
+        address: "",
+        email: "",
+        password: "",
+        year: "",
+        help_type: [],
+        work_day: "",
+        presentation: DEFAULT_PRESENTATION,
+      };
     },
   },
 };

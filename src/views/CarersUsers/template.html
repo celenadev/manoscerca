@@ -1,13 +1,20 @@
 <el-row>
     <div>
         <h1 class="title-h1">Nuestros cuidadores</h1>
+        <!-- ESTE CODIGO HACE PETAR LA APLICACION -->
+        <!-- INTENTAS USAR LA VARIABLE carers PARA EL V-FOR CUANDO NO EXISTE -->
+        <!-- ESTO ES EL CAUSANTE DE QUE EL PERFIL TENGAS QUE RECARGARLO -->
+        <!-- <div>
+            <input v-model="city" placeholder="Buscar por ciudad" />
+            <button @click="fetchCarers">Buscar</button>
+            <ul>
+                <li v-for="carer in carers" :key="carer.id">
+                    {{ carer.name }} - {{ carer.city }}
+                </li>
+            </ul>
+        </div> -->
         <div>
             <CarerCard />
         </div>
     </div>
 </el-row>
-
-
-
-
-

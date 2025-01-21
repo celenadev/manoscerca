@@ -1,16 +1,14 @@
-import SignUpComponent from '@/views/VistaGuiaParaCuidadores';
+import SignUpComponent from '@/views/CarerGuide';
 
 export default {
     //Llamada al contenedor creado
-    name: 'vista-guia-para-cuidadores',
+    name: 'carer-guide',
     components: {
         SignUpComponent
     },
 
     data () {
         return {
-
-
         }
     }
 }

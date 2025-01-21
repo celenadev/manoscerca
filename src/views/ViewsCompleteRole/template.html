@@ -1,3 +1,14 @@
-<div>
-    <RegistrationRole />
+<div class="container-rol">
+    <h1>Quiero registrarme como:</h1>
+    <hr />
+    <div class="button-row">
+        <el-button type="info" plain class="full-width large-text" @click="selectRole('dependent')">Familias</el-button>
+    </div>
+    <div class="button-row">
+        <el-button type="info" plain class="full-width large-text" @click="selectRole('carer')">Cuidador</el-button>
+    </div>
+    <div class="button-row">
+        <el-button type="primary" class="btn-purple full-width large-text" @click="openDialog">Siguiente</el-button>
+    </div>
+    <div v-if="errorMessage" class="mensajeError">{{ errorMessage }}</div>
 </div>

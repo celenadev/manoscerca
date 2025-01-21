@@ -1,9 +1,26 @@
-import RegistrationRole from '@/components/RegistrationRole/index.vue';
-
 export default {
-    //Llamada al contenedor
-    name: 'viewsCompleteRole',
-    components: {
-        RegistrationRole
+    name: 'views-complete-role',
+    data() {
+        return {
+            selectedRole: null,
+            errorMessage: ''
+        };
+    },
+    methods: {
+        selectRole(role) {
+            this.selectedRole = role;
+            this.errorMessage = ''; // Limpiar el mensaje de error al seleccionar una opción
+        },
+        openDialog() {
+            if (this.selectedRole) {
+                if (this.selectedRole === 'dependent') {
+                    this.$bus.$emit('open-dependent-modal');
+                } else if (this.selectedRole === 'carer') {
+                    this.$bus.$emit('open-carer-modal');
+                }
+            } else {
+                this.errorMessage = 'Debe seleccionar una opción antes de continuar.';
+            }
+        }
     }
-}
+};

@@ -1,13 +1,12 @@
 import VueRouter from 'vue-router'
 import Home from '../views/Home/index.vue'
 import vistaLogin from '../views/VistaLogin/index.vue'
-import vistaSignUp from '../views/VistaSignUp/index.vue'
-import VistaGuiaParaFamilias from '../views/VistaGuiaParaFamilias/index.vue'
-import VistaGuiaParaCuidadores from '../views/VistaGuiaParaCuidadores/index.vue'
+import DependentGuide from '../views/DependentGuide/index.vue'
+import CarerGuide from '../views/CarerGuide/index.vue'
 import CarersUsers from '../views/CarersUsers/index.vue'
 import ProfileCarer from '../views/ProfileCarer/index.vue'
 import ContactForm from '../views/ContactForm/index.vue'
-import NuestraEmpresa from '../views/NuestraEmpresa/index.vue'
+import OurCompany from '../views/OurCompany/index.vue'
 import HelpAndQuestions from '../views/HelpAndQuestions/index.vue'
 import ViewsCompleteRole from '../views/ViewsCompleteRole/index.vue'
 import DependentsUsers from '../views/DependentsUsers/index.vue'
@@ -25,19 +24,14 @@ const routes = [
     component: vistaLogin,
   },
   {
-    path: '/vista-sign-up',
-    name: 'vista-sign-up',
-    component: vistaSignUp,
+    path: '/dependent-guide',
+    name: "dependent-guide",
+    component: DependentGuide,
   },
   {
-    path: '/vista-guia-para-familias',
-    name: "vista-guia-para-familias",
-    component: VistaGuiaParaFamilias,
-  },
-  {
-    path: '/vista-guia-para-cuidadores',
-    name: "vista-guia-para-cuidadores",
-    component: VistaGuiaParaCuidadores,
+    path: '/carer-guide',
+    name: "carer-guide",
+    component: CarerGuide,
   },
   {
     path: '/carers-users',
@@ -65,9 +59,9 @@ const routes = [
     component: ContactForm,
   },
   {
-    path: '/nuestra-empresa',
-    name: "nuestra-empresa",
-    component: NuestraEmpresa,
+    path: '/our-company',
+    name: "our-company",
+    component: OurCompany,
   },
   {
     path: '/help-and-questions',

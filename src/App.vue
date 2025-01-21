@@ -5,7 +5,7 @@
       <router-view />
       <componentFooter />
       <DependentModal />
-      <CaregiverModal />
+      <CarerModal />
     </main>
   </div>
 </template>
@@ -13,15 +13,15 @@
 <script>
 import componentHeader from '@/components/Header/index.vue';
 import componentFooter from '@/components/Footer/index.vue';
-import DependentModal from '@/modals/dependent.vue'
-import CaregiverModal from '@/modals/caregiver.vue'; //  modal para cuidadores
+import DependentModal from '@/modals/dependentModal.vue';
+import CarerModal from '@/modals/carerModal.vue';
 export default {
   name: 'App',
   components: {
     componentHeader,
     componentFooter,
     DependentModal, // Modals
-    CaregiverModal
+    CarerModal
   },
 }
 </script>

@@ -1,6 +1,6 @@
 
 export default {
-    name: 'NuestraEmpresa',
+    name: 'our-comapany',
     data() {
         return {
         }
