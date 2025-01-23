@@ -47,20 +47,23 @@
           <el-option label="más de 4 años" value="4"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="¿Qué ayudas ofreces?" prop="help_type">
-        <el-checkbox-group v-model="ruleForm.help_type">
-          <el-checkbox label="La compra" name="help_type"></el-checkbox>
-          <el-checkbox label="Cocina" name="help_type"></el-checkbox>
-          <el-checkbox label="Citas médicas" name="help_type"></el-checkbox>
-          <el-checkbox
-            label="Conducir con mayores"
-            name="help_type"
-          ></el-checkbox>
-          <el-checkbox label="Tareas domésticas" name="help_type"></el-checkbox>
-          <el-checkbox label="Paseos" name="help_type"></el-checkbox>
-          <el-checkbox label="Aseo Personal" name="help_type"></el-checkbox>
-        </el-checkbox-group>
+      <!-- INICIO SELECT MÚLTIPLE -->
+      <el-form-item label="¿Qué ayudas ofreces?" prop="tasks">
+        <el-select
+          v-model="ruleForm.tasks"
+          multiple
+          placeholder="Tareas que pudes realizar"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.id_services"
+            :label="item.description"
+            :value="item.id_services"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
+      <!-- FIN SELECT-->
       <el-form-item label="Disponibilidad" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Disponibilidad">
           <el-option label="Jornada completa" value="1"></el-option>
@@ -72,6 +75,16 @@
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
+      <!-- Eliminar el perfil -->
+      <div v-if="isEditMode">
+        <p @click="confirmRemove">Eliminar Perfil</p>
+        <div v-if="showRemoveMessage" class="remove-message">
+          ¿Está seguro que desea eliminar su perfil?
+          <button @click="removeProfile(ruleForm.id)">Sí</button>
+          <button @click="cancelRemove">No</button>
+        </div>
+      </div>
+      <!-- Eliminar el perfil -->
       <el-button class="el-button--cancel" @click="dialogVisible = false"
         >Cancelar</el-button
       >
@@ -87,27 +100,35 @@
 
 <script>
 import CarerApi from "@/api/CarerApi";
-import { Message } from "element-ui";
+import ServiceApi from "@/api/ServiceApi";
+import {
+  notifySuccess,
+  notifyError,
+  notifyInfo,
+} from "../../src/Languaje/notifications";
 
-const DEFAULT_PRESENTATION ="Cuidador con 5 años de experiencia en el cuidado de mayores. Soy paciente y dedicado, con habilidades en gestión de medicación y apoyo en actividades diarias.";
 export default {
   name: "carer-modal",
   data() {
     return {
       dialogVisible: false,
       isEditMode: false,
+      showRemoveMessage: false, // para eliminar el perfil
       ruleForm: {
         name: "",
         formation: "",
         city: "",
         address: "",
         email: "",
+        oldPassword: "",
         password: "",
+        repeatPassword: "",
         year: "",
-        help_type: [],
+        tasks: [],
         work_day: "",
-        presentation: DEFAULT_PRESENTATION,
+        presentation: "",
       },
+      options: [], // array que almacena  la lista de tareas
       rules: {
         name: [
           {
@@ -161,6 +182,30 @@ export default {
             trigger: "blur",
           },
         ],
+        oldPassword: [
+          {
+            required: true,
+            message: "Por favor ingresa tu antigua contraseña",
+            trigger: "blur",
+          },
+        ],
+        repeatPassword: [
+          {
+            required: true,
+            message: "Por favor repite tu contraseña",
+            trigger: "blur",
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value !== this.ruleForm.password) {
+                callback(new Error("Las contraseñas no coinciden"));
+              } else {
+                callback();
+              }
+            },
+            trigger: "blur",
+          },
+        ],
         year: [
           {
             required: true,
@@ -168,7 +213,7 @@ export default {
             trigger: "change",
           },
         ],
-        help_type: [
+        tasks: [
           {
             type: "array",
             required: true,
@@ -190,18 +235,22 @@ export default {
     };
   },
   created() {
-    this.$bus.$on("open-carer-modal", (params) => {
-      if (params) {
-        // Recupera los datos para ser editados
-        this.editCarer(params);
-      } else {
-        // Limpia el formulario para un nuevo registro
-        this.resetForm();
-      }
-      this.dialogVisible = true;
-    });
+    this.initializeView();
   },
   methods: {
+    initializeView() {
+      this.$bus.$on("open-carer-modal", (params) => {
+        if (params) {
+          // Recupera los datos para ser editados
+          this.editCarer(params);
+        } else {
+          // Limpia el formulario para un nuevo registro
+          this.resetForm();
+        }
+        this.dialogVisible = true;
+      });
+      this.load_services(); // carga  la lista de tareas
+    },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -209,12 +258,13 @@ export default {
             const response = await CarerApi.addCarer(this.ruleForm);
             console.log("Cuidador añadido:", response.data);
             this.dialogVisible = false;
-            Message({
-              message: "Registrado con éxito",
-              type: "success",
-              duration: 3000,
-            });
+            notifySuccess(
+              "Bienvenido  a nuestro sistema, Perfil creado con éxito"
+            );
           } catch (error) {
+            notifyError(
+              "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
+            );
             console.error("Error al añadir al cuidador:", error);
           }
         } else {
@@ -225,15 +275,16 @@ export default {
     },
     editCarer(params) {
       this.isEditMode = true;
+      this.ruleForm.id = params.id || "";
       this.ruleForm.name = params.name || "";
       this.ruleForm.formation = params.formation || "";
       this.ruleForm.city = params.city || "";
       this.ruleForm.address = params.address || "";
       this.ruleForm.email = params.email || "";
       this.ruleForm.year = params.year || "";
-      this.ruleForm.help_type = params.help_type || [];
+      this.ruleForm.tasks = params.tasks || [];
       this.ruleForm.work_day = params.work_day || "";
-      this.ruleForm.presentation = params.presentation || DEFAULT_PRESENTATION;
+      this.ruleForm.presentation = params.presentation || "";
     },
     resetForm() {
       this.isEditMode = false;
@@ -245,11 +296,80 @@ export default {
         email: "",
         password: "",
         year: "",
-        help_type: [],
+        tasks: [],
         work_day: "",
-        presentation: DEFAULT_PRESENTATION,
+        presentation: "",
       };
+    },
+    confirmRemove() {
+      this.showRemoveMessage = true;
+    },
+    async removeProfile(id) {
+      try {
+        const response = await CarerApi.deleteById(id);
+        if (response.status === 200) {
+          notifySuccess("Perfil Familiar eliminado exitosamente");
+          this.resetForm();
+          this.dialogVisible = false;
+          this.$router.push("/");
+        }
+      } catch (error) {
+        notifyError("Hubo un problema al eliminar su perfil");
+      } finally {
+        this.showRemoveMessage = false;
+      }
+    },
+    cancelRemove() {
+      this.showRemoveMessage = false;
+      notifyInfo("Ha dicho cancelar");
+    },
+    // Carga la lista de los servicios o tareas en el modal
+    async load_services() {
+      try {
+        const response = await ServiceApi.getAll();
+        this.options = response.body;
+      } catch (error) {
+        console.error("Error al cargar la lista de servicios:", error);
+      }
     },
   },
 };
 </script>
+<style scoped>
+p {
+  color: rgb(94, 92, 92);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 80px;
+  font-size: 14px;
+}
+
+p:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.remove-message {
+  margin-left: 60px;
+  color: #721c24;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.remove-message button {
+  background-color: #d0cece;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.remove-message button:hover {
+  background-color: #801563;
+  color: aliceblue;
+}
+</style>

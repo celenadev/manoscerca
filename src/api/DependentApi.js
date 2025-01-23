@@ -31,5 +31,15 @@ class DependentApi {
       throw error;
     }
   }
+    // Método para eliminar un perfil de cuidador
+    async deleteById(id) {
+      try {
+        const response = await request.delete(`${url}/deleteById/${id}`);
+        return response.data;
+      } catch (error) {
+        console.error("Error al eliminar el perfil de Familia desde API:", error);
+        throw error;
+      }
+    }
 }
 export default new DependentApi();

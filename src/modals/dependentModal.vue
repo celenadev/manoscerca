@@ -36,21 +36,23 @@
       <el-form-item label="Repita contraseña" prop="repeatPassword">
         <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
+      <!-- INICIO SELECT MÚLTIPLE -->
       <el-form-item label="Tareas a realizar" prop="tasks">
-        <el-checkbox-group v-model="ruleForm.tasks">
-          <el-checkbox label="La compra" name="tasks"></el-checkbox>
-          <el-checkbox label="Cocina" name="tasks"></el-checkbox>
-          <el-checkbox label="Citas médicas" name="tasks"></el-checkbox>
-          <el-checkbox label="Conducir con mayores" name="tasks"></el-checkbox>
-          <el-checkbox label="Tareas domésticas" name="tasks"></el-checkbox>
-          <el-checkbox label="Paseos" name="tasks"></el-checkbox>
-          <el-checkbox label="Aseo Personal" name="tasks"></el-checkbox>
-          <el-checkbox
-            label="Solo acompañamiento domiciliario"
-            name="tasks"
-          ></el-checkbox>
-        </el-checkbox-group>
+        <el-select
+          v-model="ruleForm.tasks"
+          multiple
+          placeholder="Tareas a realizar"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.id_services"
+            :label="item.description"
+            :value="item.id_services"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
+      <!-- FIN SELECT-->
       <el-form-item label="Tipo de jornada" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Jornada">
           <el-option label="Jornada completa" value="1"></el-option>
@@ -58,14 +60,20 @@
         </el-select>
       </el-form-item>
       <el-form-item label="Describa su oferta" prop="description">
-        <el-input
-          type="textarea"
-          v-model="ruleForm.description"
-          placeholder="Buscamos un cuidador para tareas domésticas generales. Horario flexible y buen ambiente de trabajo. Preferiblemente con experiencia."
-        ></el-input>
+        <el-input type="textarea" v-model="ruleForm.description"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
+      <!-- Eliminar el perfil -->
+      <div v-if="isEditMode">
+        <p @click="confirmDelete">Eliminar Perfil</p>
+        <div v-if="showDeleteMessage" class="delete-message">
+          ¿Está seguro que desea eliminar su perfil?
+          <button @click="deleteProfile(ruleForm.id)">Sí</button>
+          <button @click="cancelDelete">No</button>
+        </div>
+      </div>
+      <!-- Eliminar el perfil -->
       <el-button class="el-button--cancel" @click="dialogVisible = false"
         >Cancelar</el-button
       >
@@ -80,26 +88,32 @@
 </template>
 <script>
 import DependentApi from "@/api/DependentApi";
-import { Message } from "element-ui";
-
-const DEFAULT_DESCRIPTION =
-  "..Buscamos un cuidador para  acompañamiento de un mayor. Preferiblemente con experiencia.";
+import ServiceApi from "@/api/ServiceApi";
+import {
+  notifySuccess,
+  notifyError,
+  notifyInfo,
+} from "../../src/Languaje/notifications";
 export default {
   name: "dependent-modal",
   data() {
     return {
       dialogVisible: false,
       isEditMode: false,
+      showDeleteMessage: false, // para eliminar el perfil
       ruleForm: {
         name: "",
         city: "",
         address: "",
         email: "",
+        oldPassword: "",
         password: "",
+        repeatPassword: "",
         tasks: [],
         work_day: "",
-        description: DEFAULT_DESCRIPTION,
+        description: "",
       },
+      options: [],// array que almacena  la lista de tareas
       rules: {
         name: [
           {
@@ -146,6 +160,30 @@ export default {
             trigger: "blur",
           },
         ],
+        oldPassword: [
+          {
+            required: true,
+            message: "Por favor ingresa tu antigua contraseña",
+            trigger: "blur",
+          },
+        ],
+        repeatPassword: [
+          {
+            required: true,
+            message: "Por favor repite tu contraseña",
+            trigger: "blur",
+          },
+          {
+            validator: (rule, value, callback) => {
+              if (value !== this.ruleForm.password) {
+                callback(new Error("Las contraseñas no coinciden"));
+              } else {
+                callback();
+              }
+            },
+            trigger: "blur",
+          },
+        ],
         tasks: [
           {
             type: "array",
@@ -172,6 +210,10 @@ export default {
     };
   },
   created() {
+    this.initializeView()
+  },
+  methods: {
+    initializeView(){
     this.$bus.$on("open-dependent-modal", (params) => {
       if (params) {
         // Recupera los datos para ser editados
@@ -182,8 +224,9 @@ export default {
       }
       this.dialogVisible = true;
     });
-  },
-  methods: {
+    this.load_services();
+
+    },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -191,13 +234,14 @@ export default {
             const response = await DependentApi.addDependent(this.ruleForm);
             console.log("Usuario dependiente añadido:", response.data);
             this.dialogVisible = false;
-            Message({
-              message: "Registrado con éxito",
-              type: "success",
-              duration: 3000,
-            });
+            notifySuccess(
+              "Bienvenido  a nuestro sistema, Perfil creado con éxito"
+            );
           } catch (error) {
-            console.error("Error al añadir al dependiente:", error);
+            notifyError(
+              "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
+            );
+            console.error("Fallo al crear familiar:", error);
           }
         } else {
           console.log("Error en el formulario");
@@ -206,16 +250,19 @@ export default {
       });
     },
     editDependent(params) {
+      this.isEditMode = true;
+      this.ruleForm.id = params.id || "";
       this.ruleForm.name = params.name || "";
       this.ruleForm.city = params.city || "";
       this.ruleForm.address = params.address || "";
       this.ruleForm.email = params.email || "";
       this.ruleForm.password = params.password || [];
       this.ruleForm.work_day = params.work_day || "";
-      this.ruleForm.presentation = params.presentation || DEFAULT_DESCRIPTION;
+      this.ruleForm.presentation = params.presentation || "";
       this.ruleForm.tasks = params.tasks || "";
     },
     resetForm() {
+      this.isEditMode = false;
       this.ruleForm = {
         name: "",
         city: "",
@@ -224,9 +271,78 @@ export default {
         password: "",
         tasks: [],
         work_day: "",
-        description: DEFAULT_DESCRIPTION,
+        description: "",
       };
+    },
+    confirmDelete() {
+      this.showDeleteMessage = true;
+    },
+    // Función que se ejecuta para borrar un perfil de usuario familia
+    async deleteProfile(id) {
+      try {
+        const response = await DependentApi.deleteById(id);
+        if (response.status === 200) {
+          notifySuccess("Perfil Familiar eliminado exitosamente");
+          this.resetForm();
+          this.dialogVisible = false;
+          this.$router.push("/");
+        }
+      } catch (error) {
+        notifyError("Hubo un problema al eliminar el perfil familiar");
+      } finally {
+        this.showdeleteMessage = false;
+      }
+    },
+    cancelDelete() {
+      this.showDeleteMessage = false;
+      notifyInfo("Ha  dicho cancelar");
+    },
+    // Carga la lista de los servicios o tareas en el modal
+    async load_services() {
+      try {
+        const response = await ServiceApi.getAll();
+        this.options = response.body;
+      } catch (error) {
+        console.error("Error al cargar la lista de servicios:", error);
+      }
     },
   },
 };
 </script>
+<style scoped>
+p {
+  color: rgb(94, 92, 92);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 80px;
+  font-size: 14px;
+}
+
+p:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.delete-message {
+  margin-left: 60px;
+  color: #721c24;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.delete-message button {
+  background-color: #d0cece;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.delete-message button:hover {
+  background-color: #801563;
+  color: aliceblue;
+}
+</style>
