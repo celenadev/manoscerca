@@ -1,7 +1,7 @@
 <div class="container-profile">
     <div class="row-fila-one">
         <div class="image-container">
-            <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
+            <img src="../../../public/imagenes/ayuda_abuelo.jpg" class="image">
             <!-- <img :src="dependent.imagen" class="image"> -->
         </div>
         <div class="info-dependent">
@@ -12,12 +12,14 @@
             <div class="information-dependent">
                 <h2>Tareas a realizar</h2>
                 <ul>
-                    <li>{{ dependent.tasks }}</li>
+                    <li v-for="task in dependent.tasks" :key="task.id_tasks_dependent">
+                        {{ task.service_description }}
+                    </li>
                 </ul>
             </div>
             <div class="information-dependent">
                 <h2>Jornada</h2>
-                <p> {{ dependent.work_day }} años </p>
+                <p> {{ dependent.work_day }} </p>
             </div>
             <div class="information-dependent">
                 <h2>Descripción de la oferta</h2>
@@ -28,8 +30,8 @@
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
             </div>
-             <!-- Botón para abrir el modal en modo de edición -->
-             <div>
+                <!-- Botón para abrir el modal en modo de edición -->
+            <div>
                 <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>

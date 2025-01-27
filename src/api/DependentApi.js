@@ -31,6 +31,16 @@ class DependentApi {
       throw error;
     }
   }
+
+  async getByIdProfile(id) {
+    try {
+      const response = await request.get(`${url}/getByIdProfile/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error", error);
+      throw error;
+    }
+  }
     // Método para eliminar un perfil de cuidador
     async deleteById(id) {
       try {

@@ -4,26 +4,28 @@
             <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
             <!-- <img :src="carer.imagen" class="image"> -->
         </div>
-        <div class="info-carer">
-            <div class="information-carer">
+        <div class="info-user">
+            <div class="info-info">
                 <h1>{{ carer.name }}</h1>
                 <p> {{ carer.city }}, {{ carer.address }}</p>
             </div>
-            <div class="information-carer">
+            <div class="info-info">
                 <h2>Formación</h2>
                 <p> {{ carer.formation }}</p>
             </div>
-            <div class="information-carer">
+            <div class="info-info">
                 <h2>Experiencia</h2>
                 <p> {{ carer.year }} años </p>
             </div>
-            <div class="information-carer">
+            <div class="info-info">
                 <h2>Servicios de cuidados de {{ carer.name }}</h2>
                 <ul>
-                    <li>{{ carer.help_type }}</li>
+                    <li v-for="task in carer.tasks" :key="task.id_tasks_carer">
+                        {{ task.service_description }}
+                    </li>
                 </ul>
             </div>
-            <div class="information-carer">
+            <div class="info-info">
                 <h2>Presentación</h2>
                 <p> {{ carer.presentation }} </p>
             </div>

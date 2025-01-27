@@ -35,6 +35,17 @@ class CarerApi {
       throw error;
     }
   }
+
+  async getByIdProfileC(id) {
+    try {
+      const response = await request.get(`${url}/getByIdProfileC/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error", error);
+      throw error;
+    }
+  }
+
   // Método para eliminar un perfil de cuidador
   async deleteById(id) {
     try {

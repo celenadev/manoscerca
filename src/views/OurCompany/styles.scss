@@ -1,5 +1,4 @@
 .container-nosotros {
-   background-color:  rgb(246, 243, 243);
       max-width: 100%;
 
       .card-with-overlay {
@@ -72,15 +71,15 @@
          margin-bottom: 20px;
    }
    .nuestra-historia {
-      background-color: #dad4d4; /* Color de fondo */
-      padding: 20px; /* Espacio interno del div */
-      text-align: center; /* Centrar el texto */
+      padding: 20px;
+      text-align: center;
+      margin: 20px;
    }
 
    .nuestra-historia h2, .nuestra-historia p {
-      margin: 10px 0; /* Margen superior e inferior para h2 y p */
-      max-width: 100%; /* Asegura que el texto se adapte al contenedor */
-      box-sizing: border-box; /* Incluye el padding y el borde en el tamaño total del elemento */
+      margin: 10px 0;
+      max-width: 100%;
+      box-sizing: border-box;
    }
    .grid-content {
       border-radius: 4px;

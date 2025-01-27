@@ -11,6 +11,7 @@ import HelpAndQuestions from '../views/HelpAndQuestions/index.vue'
 import ViewsCompleteRole from '../views/ViewsCompleteRole/index.vue'
 import DependentsUsers from '../views/DependentsUsers/index.vue'
 import ProfileDependent from '../views/ProfileDependent/index.vue'
+import PasswordReset from '../views/PasswordReset/index.vue'
 const routes = [
   {
     path: '/',
@@ -72,6 +73,11 @@ const routes = [
     path: '/views-complete-role',
     name: 'views-complete-role',
     component: ViewsCompleteRole,
+  },
+  {
+    path: '/views-password-reset',
+    name: 'views-password-reset',
+    component: PasswordReset,
   },
 ]
 const router = new VueRouter({

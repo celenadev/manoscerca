@@ -209,12 +209,13 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.initializeView();
   },
   methods: {
     initializeView() {
       this.$bus.$on("open-dependent-modal", (params) => {
+        this.load_services();
         if (params) {
           // Recupera los datos para ser editados
           this.editDependent(params);
@@ -224,7 +225,6 @@ export default {
         }
         this.dialogVisible = true;
       });
-      this.load_services();
     },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {

@@ -234,12 +234,13 @@ export default {
       },
     };
   },
-  created() {
+  mounted() {
     this.initializeView();
   },
   methods: {
     initializeView() {
       this.$bus.$on("open-carer-modal", (params) => {
+        this.load_services(); // carga  la lista de tareas
         if (params) {
           // Recupera los datos para ser editados
           this.editCarer(params);
@@ -249,7 +250,6 @@ export default {
         }
         this.dialogVisible = true;
       });
-      this.load_services(); // carga  la lista de tareas
     },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {

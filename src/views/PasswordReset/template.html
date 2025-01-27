@@ -1,0 +1,38 @@
+<main class="container-form">
+    <h1 class="title-h1">Recuperar contraseña</h1>
+    <form class="form-signin1" v-on:submit.prevent="validate">
+        <div class="form-floating">
+            <!-- v-model="$v.email.$model" -->
+            <input  id="email" type="text" class="form-control" />
+            <label for="email">Escriba su email</label>
+            <div  class="mensajeError">Debe escribir un email válido</div>
+            <div  class="mensajeError">El formato del email no es válido</div>
+            <!-- v-if="enviado && !$v.email.required" -->
+        </div>
+        <p class="parrafo-text">
+            En manosCerca.es trataremos tus datos para personalizar el servicio ofrecido, notificarte comunicaciones
+            internas, noticias y ofertas, así como realizar analíticas de tráfico y datos de uso. Puedes revocar el
+            consentimiento, ejercer tus derechos de acceso, rectificación, cancelación, oposición,
+            limitación del tratamiento, portabilidad y supresión escribiéndonos a .
+            <a  href="forgot-password.html">privacidad@manoscerca.es</a>
+        </p>
+        <button type="submit" class="btn w-100 py-2 btn-purple">Siguiente</button>
+    </form>
+</main>
+
+<!-- <div  class="container-form">
+    <h1 class="title-h1">Recuperar contraseña</h1>
+    <el-form   :model="ruleForm" :rules="rules" ref="ruleForm" label-width="180px" class="demo-ruleForm">
+        <el-form-item label="Email" prop="email">
+            <el-input v-model="ruleForm.email"></el-input>
+        </el-form-item>
+        <p class="parrafo-text">
+            En manosCerca.es trataremos tus datos para personalizar el servicio ofrecido, notificarte comunicaciones
+            internas, noticias y ofertas, así como realizar analíticas de tráfico y datos de uso. Puedes revocar el
+            consentimiento, ejercer tus derechos de acceso, rectificación, cancelación, oposición,
+            limitación del tratamiento, portabilidad y supresión escribiéndonos a .
+            <a href="forgot-password.html">privacidad@manoscerca.es</a>
+        </p>
+        <button type="submit" class="btn w-100 py-2 btn-purple">Siguiente</button>
+    </el-form>
+</div> -->
