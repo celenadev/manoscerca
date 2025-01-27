@@ -4,7 +4,6 @@ export default {
     data() {
         return {
             dependents: [],
-            currentDate: new Date()
         };
     },
     created() {

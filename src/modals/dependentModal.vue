@@ -55,8 +55,8 @@
       <!-- FIN SELECT-->
       <el-form-item label="Tipo de jornada" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Jornada">
-          <el-option label="Jornada completa" value="1"></el-option>
-          <el-option label="Jornada parcial" value="2"></el-option>
+          <el-option label="Jornada completa" value="Jornada completa"></el-option>
+          <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Describa su oferta" prop="description">
@@ -113,7 +113,7 @@ export default {
         work_day: "",
         description: "",
       },
-      options: [],// array que almacena  la lista de tareas
+      options: [], // array que almacena  la lista de tareas
       rules: {
         name: [
           {
@@ -210,22 +210,21 @@ export default {
     };
   },
   created() {
-    this.initializeView()
+    this.initializeView();
   },
   methods: {
-    initializeView(){
-    this.$bus.$on("open-dependent-modal", (params) => {
-      if (params) {
-        // Recupera los datos para ser editados
-        this.editDependent(params);
-      } else {
-        // Limpia el formulario para un nuevo registro
-        this.resetForm();
-      }
-      this.dialogVisible = true;
-    });
-    this.load_services();
-
+    initializeView() {
+      this.$bus.$on("open-dependent-modal", (params) => {
+        if (params) {
+          // Recupera los datos para ser editados
+          this.editDependent(params);
+        } else {
+          // Limpia el formulario para un nuevo registro
+          this.resetForm();
+        }
+        this.dialogVisible = true;
+      });
+      this.load_services();
     },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {

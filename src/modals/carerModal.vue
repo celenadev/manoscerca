@@ -66,8 +66,8 @@
       <!-- FIN SELECT-->
       <el-form-item label="Disponibilidad" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Disponibilidad">
-          <el-option label="Jornada completa" value="1"></el-option>
-          <el-option label="Jornada parcial" value="2"></el-option>
+          <el-option label="Jornada completa" value="Jornada completa"></el-option>
+          <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Preséntate" prop="presentation">
