@@ -30,7 +30,7 @@ export default {
           ...data[0],
           tasks: data.map(item => ({
             id_services: item.id_services,
-            id_tasks_dependent: item.id_tasks_dependent,
+            id_tasks_dependents: item.id_tasks_dependents,
             service_description: item.service_description
           }))
         };
