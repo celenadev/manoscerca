@@ -1,13 +1,28 @@
 <el-row>
     <div>
-        <h1 class="title-h1">Nuestras  Ofertas</h1>
-        <div>
-            <DependentCard />
+      <h1 class="title-h1">Nuestras Ofertas</h1>
+      <div class="filter">
+        <h3>Encuentra tu próximo trabajo</h3>
+        <el-input v-model="filters.city" placeholder="Filtrar por ciudad" class="filter-input"></el-input>
+        <el-select v-model="filters.work_day" placeholder="Filtrar por jornada" class="filter-select">
+          <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
+          <el-option label="Jornada completa" value="Jornada completa"></el-option>
+        </el-select>
+        <el-button class="btn-second" @click="buscar">Buscar</el-button>
+      </div>
+      <el-row :gutter="20">
+        <div v-if="dependents.length > 0">
+          <el-col :span="8" v-for="dependent in dependents" :key="dependent.id">
+            <DependentCard :dependent="dependent" />
+          </el-col>
         </div>
+        <div v-else class="no-data-message">
+          <p>No se han encontrado datos para los filtros aplicados.</p>
+        </div>
+      </el-row>
+      <div class="block">
+        <el-pagination layout="prev, pager, next" :total="totalRecords" :page-size="5"
+          :current-page.sync="currentPage" @current-change="loadDependents"></el-pagination>
+      </div>
     </div>
-</el-row>
-
-
-
-
-
+  </el-row>

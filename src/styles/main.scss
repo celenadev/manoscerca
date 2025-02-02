@@ -8,6 +8,11 @@ $mc-bymorado: #5a379b;
 $mc-fandango: #ac3b8f;
 $mc-purple-text:#8529be;
 $mc-gray:#e2e5e9;
+$mc-form-purple: #b9439b;
+$mc-bd-color: #e70bc3;
+$mc-bynegro: black;
+$mc-btnSecond:#839192;
+
 :root {
     --mc-byzantine: #{$mc-byzantine};
     --mc-bypurple: #{$mc-bypurple};
@@ -19,6 +24,10 @@ $mc-gray:#e2e5e9;
     --mc-bgColor: #{$mc-bgColor};
     --mc-whitecolor: #{$mc-whitecolor};
     --mc-purple-text: #{$mc-purple-text};
+    --mc-form-purple: #{$mc-form-purple};
+    --mc-bd-color: #{$mc-bd-color};
+    --mc-bynegro: #{$mc-bynegro};
+    --mc-btnSecond: #{$mc-btnSecond};
 }
 // Titulos principales
 .title-h1 {
@@ -43,7 +52,7 @@ $mc-gray:#e2e5e9;
 
   .title-h2 {
     font-family: 'Arial', sans-serif;
-    font-size: 2em;
+    font-size: 2.1em;
     color: #555;
     text-align: center;
     margin: 15px 0;
@@ -62,6 +71,21 @@ $mc-gray:#e2e5e9;
 
 
 //Botones Header
+.btn-second {
+  background-color: $mc-btnSecond !important;
+  color: $mc-whitecolor !important;
+  font-weight: bold;
+  border-width: 2px;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.btn-second:hover {
+  background-color: $mc-bynegro !important;
+  border-color: $mc-gray!important;
+  color: $mc-whitecolor;
+}
+
 .btn-purple {
     background-color: $mc-bypurple !important;
     color: $mc-whitecolor !important;
@@ -70,15 +94,12 @@ $mc-gray:#e2e5e9;
     font-size: 17px;
     margin-top: 10px;
     margin-left: 10px;
-
 }
-
 .btn-purple:hover {
     background-color: $mc-byzantine !important;
     border-color: $mc-gray!important;
     color: $mc-whitecolor;
 }
-
 .btn-re-purple {
     border-color: $mc-bypurple !important;
     color: $mc-fandango !important;
@@ -88,13 +109,11 @@ $mc-gray:#e2e5e9;
     margin-top: 10px;
     margin-left: 10px;
 }
-
 .el-button--primary {
     background-color: $mc-whitecolor;
     color: $mc-fandango;
     border-color: $mc-whitecolor;
 }
-
 .btn-re-purple:hover {
     background-color: $mc-byzantine !important;
     color: $mc-whitecolor !important;
@@ -136,4 +155,115 @@ $mc-gray:#e2e5e9;
 // Color  cajas errores
   .mensajeError {
     color: red;
+}
+
+// Formulario para contacto con manoscerca.es
+.container-form {
+  background-color: rgb(245, 255, 157);
+  width: 1000px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .form-signin1 {
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+      border-radius: 10px;
+      width: 600px;
+      margin: auto;
+  }
+
+  .form-floating {
+      margin-bottom: 15px;
+  }
+  .form-control {
+    border: 1px solid mc-whitecolor;
+      border-radius: 4px;
+      padding: 10px 15px;
+      transition: border-color 0.3s ease-in-out;
+  }
+  .form-control:focus {
+    border-color: $mc-byzantine;
+  }
+  a{
+    color:$mc-byzantine;
+  }
+  textarea {
+      min-height: 150px;
+  }
+}
+// Fin formulario para contacto
+
+// Filter
+.filter{
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin:10px;
+}
+.filter-input{
+  margin-bottom: 20px;
+  max-width: 280px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+// // Fin de filter
+
+// Paginación
+.block {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.demonstration {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.el-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.el-pagination .el-pager li {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size:large;
+}
+.el-pagination .el-pager li:hover {
+  background-color: #d9d9d9;
+}
+
+.el-pagination .el-pagination__prev,
+.el-pagination .el-pagination__next {
+  color: #409EFF;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.el-pagination .el-pagination__prev:hover,
+.el-pagination .el-pagination__next:hover {
+  background-color: #d9d9d9;
+}
+// Fin de pagination
+
+// Datos no encontrados al filtrar
+.no-data-message {
+  text-align: center;
+  margin-top: 20px;
+  color: #ca6b6b;
+  font-size: 16px;
+  font-weight: bold;
 }

@@ -1,9 +1,8 @@
-<el-row>
+<!-- <el-row>
     <el-col :span="8" v-for="(carer, index) in carers" :key="carer.id">
         <el-card class="card-custom" :body-style="{ padding: '0px' }">
             <div class="image-container">
                 <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image">
-                <!-- <img :src="carer.imagen" class="image"> -->
             </div>
             <div class="info-container">
                 <span class="info-label">Nombre: {{ carer.name }}</span><br>
@@ -15,10 +14,32 @@
                 <span class="info-label">Tus ayudas son: {{ carer.help_type }}</span>
                 <span class="info-label">Disponibilidad: {{ carer.work_day }}</span>
                 <div>
-                    <!-- Paso el id del cuidador por parámetro  -->
                     <el-button @click="goToProfile(carer.id)" class="btn btn-purple">Ver Perfil</el-button>
                 </div>
             </div>
         </el-card>
     </el-col>
-</el-row>
+</el-row> -->
+
+<el-card v-if="carer.id" class="card-custom" :body-style="{ padding: '0px' }">
+    <div class="image-container">
+        <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image" />
+        <!-- <img :src="carer.imagen" class="image"> -->
+    </div>
+    <div class="info-container">
+        <span class="info-label">Nombre: {{ carer.name }}</span><br>
+        <span class="info-label">Apellidos: {{ carer.city }}</span><br>
+        <span class="info-label">Dirección: {{ carer.address }}</span><br>
+        <span class="info-label">Email: {{ carer.email }}</span><br>
+        <span class="info-label">Formación: {{ carer.formation }}</span>
+        <span class="info-label">Años de experiencia: {{ carer.year }}</span>
+        <span class="info-label">Tus ayudas son: {{ carer.help_type }}</span>
+        <span class="info-label">Disponibilidad: {{ carer.work_day }}</span>
+        <div>
+            <!-- Paso el id del cuidador por parámetro  -->
+            <router-link :to="{ name: 'profile-carer', params: { id: carer.id } }">
+                <el-button class="btn btn-purple">Ver Perfil</el-button>
+            </router-link>
+        </div>
+    </div>
+</el-card>

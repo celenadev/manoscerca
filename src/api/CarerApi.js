@@ -25,6 +25,19 @@ class CarerApi {
     }
   }
 
+  // Método para listar todos los familiares
+  async getPaginated(page = 1, limit = 5, filters = {}) {
+    try {
+      const response = await request.post(`${url}/getPaginated`, {
+        page, limit, filters
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error al listar los perfiles de los cuidadores", error);
+      throw error;
+    }
+  }
+
   // Método para mostrar datos del cuidador seleccionado
   async getById(id) {
     try {

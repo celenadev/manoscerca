@@ -1,42 +1,117 @@
 <el-row>
   <h1 class="title-h1">Contacta con manoscerca</h1>
   <div class="custom-collapse-container">
-    <p class="parrafo-text">Consulta nuestras respuestas a las preguntas más frecuentes o rellena el siguiente formulario para ponerte en contacto con nosotros.</p>
+    <p class="parrafo-text">
+      Consulta nuestras respuestas a las preguntas más frecuentes o rellena el
+      siguiente formulario para ponerte en contacto con nosotros.
+    </p>
     <el-collapse accordion>
       <el-collapse-item title="¿Qué es manosCerca.es?" name="1">
-        <div class="custom-title">manosCerca.es es una plataforma en línea diseñada para conectar a familias con cuidadores de confianza para sus seres queridos mayores. Facilitamos la búsqueda y selección de cuidadores cualificados para asegurar que tus mayores reciban el mejor cuidado posible.</div>
+        <div class="custom-title">
+          manosCerca.es es una plataforma en línea diseñada para conectar a
+          familias con cuidadores de confianza para sus seres queridos mayores.
+          Facilitamos la búsqueda y selección de cuidadores cualificados para
+          asegurar que tus mayores reciban el mejor cuidado posible.
+        </div>
       </el-collapse-item>
-      <el-collapse-item title="¿Cómo revisa manosCerca.es a los nuevos miembros?" name="2">
-        <div class="custom-title">En manosCerca.es no realizamos verificaciones de antecedentes porque no somos una agencia de empleo. Los usuarios pueden buscar, comparar y examinar a otros miembros por su cuenta.</div>
-        <div class="custom-title">Recomendamos comprobar referencias y realizar entrevistas formales antes de tomar una decisión. Si recibes un mensaje inapropiado, repórtalo para que nuestro equipo lo investigue.</div>
+      <el-collapse-item
+        title="¿Cómo revisa manosCerca.es a los nuevos miembros?"
+        name="2"
+      >
+        <div class="custom-title">
+          En manosCerca.es no realizamos verificaciones de antecedentes porque
+          no somos una agencia de empleo. Los usuarios pueden buscar, comparar y
+          examinar a otros miembros por su cuenta.
+        </div>
+        <div class="custom-title">
+          Recomendamos comprobar referencias y realizar entrevistas formales
+          antes de tomar una decisión. Si recibes un mensaje inapropiado,
+          repórtalo para que nuestro equipo lo investigue.
+        </div>
       </el-collapse-item>
-      <el-collapse-item title="¿Cómo encuentro un cuidador cerca de mí en línea?" name="3">
-        <div class="custom-title"> Antes de comenzar tu búsqueda, tómate un momento para decidir cuáles son tus necesidades. ¿Necesitas ayuda a tiempo completo? ¿Cuidado a tiempo parcial? ¿Ayuda en momentos puntuales? Haz una lista de preferencias sobre las características necesarias y deseables para que puedas aplicar los filtros correctos en nuestra herramienta web.</div>
-        <div class="custom-title">Le proporcionaremos una lista de cuidadores disponibles cerca de ti. Luego podrás seleccionar y examinar por tu cuenta a los candidatos más prometedores, solicitando referencias y organizando una entrevista formal. Si encuentras un cuidador que cumpla con tus requisitos,puedes contactarlo inmediatamente,o puedes tomarte las cosas con calma y esperar a que los cuidadores interesados te envíen un mensaje primero.</div>
+      <el-collapse-item
+        title="¿Cómo encuentro un cuidador cerca de mí en línea?"
+        name="3"
+      >
+        <div class="custom-title">
+          Antes de comenzar tu búsqueda, tómate un momento para decidir cuáles
+          son tus necesidades. ¿Necesitas ayuda a tiempo completo? ¿Cuidado a
+          tiempo parcial? ¿Ayuda en momentos puntuales? Haz una lista de
+          preferencias sobre las características necesarias y deseables para que
+          puedas aplicar los filtros correctos en nuestra herramienta web.
+        </div>
+        <div class="custom-title">
+          Le proporcionaremos una lista de cuidadores disponibles cerca de ti.
+          Luego podrás seleccionar y examinar por tu cuenta a los candidatos más
+          prometedores, solicitando referencias y organizando una entrevista
+          formal. Si encuentras un cuidador que cumpla con tus requisitos,puedes
+          contactarlo inmediatamente,o puedes tomarte las cosas con calma y
+          esperar a que los cuidadores interesados te envíen un mensaje primero.
+        </div>
       </el-collapse-item>
-      <el-collapse-item title="¿Qué tipo de servicios ofrecen los cuidadores en manosCerca.es?" name="4">
-        <div class="custom-title">Nuestros cuidadores ofrecen una amplia gama de servicios, incluyendo cuidado personal, asistencia en el hogar, compañía, y apoyo en actividades diarias. </div>
-        <div class="custom-title">Puedes especificar tus necesidades y encontrar cuidadores que se especialicen en esos servicios.</div>
+      <el-collapse-item
+        title="¿Qué tipo de servicios ofrecen los cuidadores en manosCerca.es?"
+        name="4"
+      >
+        <div class="custom-title">
+          Nuestros cuidadores ofrecen una amplia gama de servicios, incluyendo
+          cuidado personal, asistencia en el hogar, compañía, y apoyo en
+          actividades diarias.
+        </div>
+        <div class="custom-title">
+          Puedes especificar tus necesidades y encontrar cuidadores que se
+          especialicen en esos servicios.
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>
-  <el-row>
-    <div class="form-contact">
+  <!-- Formulario -->
+  <div class="container-form">
+    <form class="form-signin1" v-on:submit.prevent="validate">
       <h2 class="title-h2">Contacta con nosotros</h2>
-      <p class="parrafo-text">Rellena el siguiente formulario para ponerte en contacto con nosotros o envíanos un correo electrónico a info@manoscerca.es</p>
-      <el-form :label-position="labelPosition" label-width="100px" :model="formLabelAlign">
-        <el-form-item label="Nombre">
-          <el-input v-model="formLabelAlign.name" type="text"></el-input>
-        </el-form-item>
-        <el-form-item label="Email">
-          <el-input v-model="formLabelAlign.email" type="text"></el-input>
-        </el-form-item>
-        <el-form-item label="Tu pregunta o comentario">
-          <el-input v-model="formLabelAlign.message" type="textarea"></el-input>
-        </el-form-item>
-        <el-button class="btn btn-purple">Enviar mensaje</el-button>
-      </el-form>
-    </div>
-  </el-row>
+      <div class="form-floating">
+        <input
+          v-model="email"
+          id="email"
+          type="email"
+          class="form-control"
+          name="email"
+        />
+        <label for="email">Email</label>
+        <div v-if="enviado && !$v.email.required" class="mensajeError">
+          Debe escribir un email
+        </div>
+        <div v-if="enviado && !$v.email.email" class="mensajeError">
+          Formato de email incorrecto, "ejemplo@gmail.com"
+        </div>
+      </div>
+      <div class="form-floating">
+        <input
+          v-model="name"
+          id="name"
+          type="name"
+          class="form-control"
+          name="name"
+        />
+        <label for="name">Nombre y apellidos</label>
+        <div v-if="enviado && !$v.name.required" class="mensajeError">
+          Debe escribir un nombre
+        </div>
+      </div>
+      <div class="form-floating">
+        <textarea
+          v-model="mensaje"
+          id="mensaje"
+          class="form-control"
+          placeholder="Escribe tu mensaje aquí"
+          name="mensaje"
+        ></textarea>
+        <label for="mensaje">Mensaje</label>
+        <div v-if="enviado && !$v.mensaje.required" class="mensajeError">
+          Debe escribir un mensaje
+        </div>
+      </div>
+      <button class="btn w-100 py-2 btn-purple" type="submit">Siguiente</button>
+    </form>
+  </div>
 </el-row>
-

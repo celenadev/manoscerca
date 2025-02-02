@@ -257,7 +257,7 @@ export default {
       this.ruleForm.email = params.email || "";
       this.ruleForm.password = params.password || [];
       this.ruleForm.work_day = params.work_day || "";
-      this.ruleForm.presentation = params.presentation || "";
+      this.ruleForm.description = params.description || "";
       this.ruleForm.tasks = params.tasks || "";
     },
     resetForm() {

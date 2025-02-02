@@ -1,24 +1,29 @@
-import { required } from "vuelidate/lib/validators";
+import { email, required } from "vuelidate/lib/validators";
+import { notifyInfo } from "@/Languaje/notifications";
 
 export default {
-    name: 'SignUpComponent',
+    name: 'LoginComponent',
     data() {
         return {
-            name: '',
-            message: 'He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante. Creo que podríamos tener una buena oportunidad de colaboración. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarnos mutuamente. Gracias y espero tu respuesta.',
+            email: '',
+            mensaje: 'He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarnos mutuamente. Gracias y espero tu respuesta',
             enviado: false
         };
     },
     validations: {
-        name: { required }
+        email: { required, email },
+        mensaje: { required }
     },
     methods: {
         validate() {
             this.enviado = true;
-            // si el formulario es inválido, no continúa
             if (this.$v.$invalid) {
-                return
+                return;
             }
+            this.mostrarAlerta();
+        },
+        mostrarAlerta() {
+            notifyInfo("Tu mensaje ha sido enviado con éxito. Te responderemos a la brevedad. ¡Gracias por contactarnos!");
         }
-    },
+    }
 };

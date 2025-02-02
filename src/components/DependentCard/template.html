@@ -1,28 +1,20 @@
-<el-row>
-  <el-col
-    :span="8"
-    v-for="(dependent, index) in dependents"
-    :key="dependent.id"
-  >
-    <el-card class="card-custom" :body-style="{ padding: '0px' }">
-      <div class="image-container">
-        <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image" />
-        <!-- <img :src="dependent.imagen" class="image"> -->
-      </div>
-      <div class="info-container">
-        <span class="info-label">Nombre: {{ dependent.name }}</span><br />
-        <span class="info-label">Ciudad de residencia: {{ dependent.city }}</span><br />
-        <span class="info-label">Dirección: {{ dependent.address }}</span><br />
-        <span class="info-label">Diponibilidad: {{ dependent.work_day }}</span>
-      <div>
-          <!-- Paso el id del cuidador por parámetro  -->
-          <router-link
-            :to="{ name: 'profile-dependent', params: { id: dependent.id } }"
-          >
-            <el-button class="btn btn-purple">Ver Perfil</el-button>
-          </router-link>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-</el-row>
+<el-card v-if="dependent.id" class="card-custom" :body-style="{ padding: '0px' }">
+  <div class="image-container">
+    <img src="../../../public/imagenes/junto-a-ti (6).jpg" class="image" />
+    <!-- <img :src="dependent.imagen" class="image"> -->
+  </div>
+  <div class="info-container">
+    <span class="info-label">Nombre: {{ dependent.name }}</span><br />
+    <span class="info-label">Ciudad de residencia: {{ dependent.city }}</span><br />
+    <span class="info-label">Dirección: {{ dependent.address }}</span><br />
+    <span class="info-label">Diponibilidad: {{ dependent.work_day }}</span>
+  <div>
+      <!-- Paso el id del cuidador por parámetro  -->
+      <router-link
+        :to="{ name: 'profile-dependent', params: { id: dependent.id } }"
+      >
+        <el-button class="btn btn-purple">Ver Perfil</el-button>
+      </router-link>
+    </div>
+  </div>
+</el-card>
