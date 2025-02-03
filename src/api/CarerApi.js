@@ -49,9 +49,9 @@ class CarerApi {
     }
   }
 
-  async getByIdProfileC(id) {
+  async getByIdProfile(id) {
     try {
-      const response = await request.get(`${url}/getByIdProfileC/${id}`);
+      const response = await request.get(`${url}/getByIdProfile/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error", error);

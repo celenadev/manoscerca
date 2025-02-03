@@ -2,28 +2,27 @@
     <div class="row-fila-one">
         <div class="image-container">
             <img src="../../../public/imagenes/ayuda_abuelo.jpg" class="image">
-            <!-- <img :src="dependent.imagen" class="image"> -->
         </div>
         <div class="info-dependent">
             <div class="information-dependent">
                 <h1>{{ dependent.name }}</h1>
-                <p> {{ dependent.city }}, {{ dependent.address }}</p>
+                <p>{{ dependent.city }}, {{ dependent.address }}</p>
+                <p>Email: {{ dependent.email }}</p>
             </div>
             <div class="information-dependent">
                 <h2>Tareas a realizar</h2>
                 <ul>
-                    <li v-for="task in dependent.tasks" :key="task.id_tasks_dependents">
-                        {{ task.service_description }}
+                    <li v-for="(task, index) in dependent.tasks" :key="index"> {{ task.service_description }}
                     </li>
                 </ul>
             </div>
             <div class="information-dependent">
                 <h2>Jornada</h2>
-                <p> {{ dependent.work_day }} </p>
+                <p>{{ dependent.work_day }}</p>
             </div>
             <div class="information-dependent">
                 <h2>Descripción de la oferta</h2>
-                <p> {{ dependent.description }} </p>
+                <p>{{ dependent.description }}</p>
             </div>
             <div>
                 <RouterLink to="/contact-form">
@@ -33,7 +32,6 @@
                     <el-button type="primary" class="btn-second">Salir</el-button>
                 </RouterLink>
             </div>
-                <!-- Botón para abrir el modal en modo de edición -->
             <div>
                 <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>

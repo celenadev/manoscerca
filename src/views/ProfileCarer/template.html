@@ -8,6 +8,8 @@
             <div class="info-info">
                 <h1>{{ carer.name }}</h1>
                 <p> {{ carer.city }}, {{ carer.address }}</p>
+                <p>Email: {{ carer.email }}</p>
+
             </div>
             <div class="info-info">
                 <h2>Formación</h2>
@@ -42,6 +44,7 @@
                 <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>
+        <time class="time">{{ currentDate }}</time>
     </div>
     <div class="row-fila-two">
         <div>Similares</div>
