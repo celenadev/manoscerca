@@ -1,3 +1,36 @@
-<div>
-    <LoginComponent />
-</div>
+<main class="container-form">
+    <form class="form-signin1" @submit.prevent="validate">
+        <h1>Inicio de sesión manosCerca</h1>
+        <div class="form-floating">
+            <input v-model="email" id="email" type="email" class="form-control" placeholder="name@example.com"
+                name="email" />
+            <label for="email">Email</label>
+            <div v-if="enviado && !$v.email.required" class="mensajeError">Debe escribir un email</div>
+            <div v-if="enviado && !$v.email.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"
+            </div>
+        </div>
+        <div class="form-floating">
+            <input v-model="password" id="password" type="password" class="form-control" placeholder="contraseña"
+                name="password" />
+            <label for="password">Contraseña</label>
+            <div v-if="enviado && !$v.password.required" class="mensajeError">Debe escribir una contraseña</div>
+            <div v-if="enviado && !$v.password.minLength" class="mensajeError">La contraseña debe tener mínimo 6
+                caracteres</div>
+        </div>
+        <hr>
+        <button class="btn w-100 py-2 btn-purple" type="submit">Iniciar Sesión</button>
+        <div v-if="loginError" class="mensajeError">{{ loginError }}</div>
+    </form>
+    <div class="enlace-grupo">
+        <RouterLink to="/views-password-reset">
+            <a href="#">¿Olvidó su contraseña?</a>
+        </RouterLink>
+        <RouterLink to="/views-complete-role">
+            <p>¿No tiene una cuenta? Regístrese Aquí</p>
+        </RouterLink>
+    </div>
+    <div class="terms-container">
+        <p>Al registrarse, aceptas los <a href="terminos.html" target="_blank">Términos y Condiciones</a> y la <a
+                href="privacidad.html" target="_blank">Política de Privacidad.</a></p>
+    </div>
+</main>

@@ -261,6 +261,8 @@ export default {
             notifySuccess(
               "Bienvenido  a nuestro sistema, Perfil creado con éxito"
             );
+            // Redirigir a la página /dependiente-users
+            this.$router.push('/dependents-users');
           } catch (error) {
             notifyError(
               "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"

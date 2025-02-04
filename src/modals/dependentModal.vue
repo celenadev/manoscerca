@@ -236,6 +236,8 @@ export default {
             notifySuccess(
               "Bienvenido  a nuestro sistema, Perfil creado con éxito"
             );
+              // Redirigir a la página /carers-users
+            this.$router.push('/carers-users');
           } catch (error) {
             notifyError(
               "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
