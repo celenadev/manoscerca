@@ -6,4 +6,9 @@ export default {
             default: {}
         }
     },
+    computed: {
+        imageUrl() {
+            return `http://localhost:4000/uploads/${this.carer.image}`;
+        }
+    }
 }

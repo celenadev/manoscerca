@@ -1,30 +1,61 @@
 import request from "axios";
 
 const url = "http://localhost:4000/api/carers";
+// const baseUrl = '/uploads/'; // O la ruta correcta a tus imágenes
 class CarerApi {
   // Método para guardar un nuevo usuario
   //El método addCarer está encapsulado dentro de una clase (CarerApi)
   // Los datos del nuevo carer se pasan como un argumento (newCarer) al método addCarer
   async addCarer(newCarer) {
+    debugger
     try {
-      return await request.post(`${url}/add`, newCarer);
+      return await request.post(`${url}/add`, newCarer, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
     } catch (error) {
       console.error("Error en API de cuidadores:", error);
       throw error;
     }
   }
 
-  // Método para listar todos los Cuidadores
+
+  //Método para listar todos los Cuidadores
   async getAll() {
     try {
       const response = await request.get(`${url}/getAll`);
       return response.data;
+
     } catch (error) {
       console.error("Error al listar los cuidadores", error);
       throw error;
     }
   }
 
+
+
+
+
+  // Método para listar todos los Cuidadores
+  // async getAll() {
+  //   try {
+  //     const response = await request.get(`${url}/getAll`);
+  //     const carers = response.data;
+
+  //     // Modifica la respuesta para incluir la URL de la imagen:
+  //     const carersWithUrls = carers.map(carer => ({
+  //       ...carer,
+  //       imageUrl: baseUrl + carer.image // Asume que 'image' es el nombre del archivo
+  //     }));
+
+  //     return carersWithUrls; // Devuelve el array modificado
+
+  //   } catch (error) {
+  //     console.error("Error al listar los cuidadores", error);
+  //     throw error;
+  //   }
+  // }
   // Método para listar todos los familiares
   async getPaginated(page = 1, limit = 5, filters = {}) {
     try {

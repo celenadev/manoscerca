@@ -267,3 +267,16 @@ $mc-btnSecond:#839192;
   font-size: 16px;
   font-weight: bold;
 }
+
+// Subir archivos
+.upload-demo {
+  width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.upload-demo .el-upload__text {
+  font-size: 14px;
+}
+// fin de subir archivos

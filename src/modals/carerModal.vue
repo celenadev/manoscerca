@@ -66,13 +66,37 @@
       <!-- FIN SELECT-->
       <el-form-item label="Disponibilidad" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Disponibilidad">
-          <el-option label="Jornada completa" value="Jornada completa"></el-option>
-          <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
+          <el-option
+            label="Jornada completa"
+            value="Jornada completa"
+          ></el-option>
+          <el-option
+            label="Jornada parcial"
+            value="Jornada parcial"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Preséntate" prop="presentation">
         <el-input type="textarea" v-model="ruleForm.presentation"></el-input>
       </el-form-item>
+      <!-- IMG -->
+      <el-form-item label="Imagen de Perfil" prop="image">
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          :on-change="handleChangeAvatar"
+          :on-error="handleAvatarError"
+          :before-upload="beforeAvatarUpload"
+          :on-remove="handleRemove"
+          :auto-upload="false"
+          :limit="1"
+        >
+          <el-button size="small" type="primary">Seleccionar imagen</el-button>
+          <div slot="tip" class="el-upload__tip">Solo archivos .jpg y .png</div>
+        </el-upload>
+      </el-form-item>
+
+      <!-- IMG -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <!-- Eliminar el perfil -->
@@ -114,20 +138,23 @@ export default {
       dialogVisible: false,
       isEditMode: false,
       showRemoveMessage: false, // para eliminar el perfil
+      file: null,
       ruleForm: {
-        name: "",
-        formation: "",
-        city: "",
-        address: "",
-        email: "",
+        name: "aaa",
+        formation: "bbb",
+        city: "ccc",
+        address: "dddd",
+        email: "fff@ggg.es",
         oldPassword: "",
         password: "",
         repeatPassword: "",
         year: "",
         tasks: [],
         work_day: "",
-        presentation: "",
+        presentation: "asdasda",
+        image: "",
       },
+      uploadUrl: "", // URL del backend  http://localhost:3000/api/upload
       options: [], // array que almacena  la lista de tareas
       rules: {
         name: [
@@ -231,6 +258,14 @@ export default {
         presentation: [
           { required: true, message: "Por favor preséntate", trigger: "blur" },
         ],
+        image: [
+          // Reglas para la imagen
+          {
+            required: false,
+            message: "Por favor sube una imagen de perfil",
+            trigger: "change",
+          }, // No es obligatorio al principio
+        ],
       },
     };
   },
@@ -255,19 +290,28 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await CarerApi.addCarer(this.ruleForm);
-            console.log("Cuidador añadido:", response.data);
+            let formData = new FormData(); // Para enviar la imagen y los datos del formulario
+            console.log('this.file');
+            console.log(this.file);
+            if (this.file && this.file.raw) {
+              console.log('this.file');
+              console.log(this.file);
+              formData.append('image', this.file.raw)
+            }
+            formData.append('data', JSON.stringify(this.ruleForm))
+
+            const response = await CarerApi.addCarer(formData); // Enviar FormData
+            console.log("Usuario dependiente añadido:", response.data);
             this.dialogVisible = false;
             notifySuccess(
-              "Bienvenido  a nuestro sistema, Perfil creado con éxito"
+              "Bienvenido a nuestro sistema, Perfil creado con éxito"
             );
-            // Redirigir a la página /dependiente-users
-            this.$router.push('/dependents-users');
+            this.$router.push("/carers-users");
           } catch (error) {
             notifyError(
               "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
             );
-            console.error("Error al añadir al cuidador:", error);
+            console.error("Fallo al crear cuidador:", error);
           }
         } else {
           console.log("Error en el formulario");
@@ -275,6 +319,33 @@ export default {
         }
       });
     },
+    handleChangeAvatar(file) {
+      this.file = file; // Guarda el objeto File para enviarlo al backend
+      console.log("Imagen subida:", this.file);
+    },
+    handleAvatarError(err) {
+      notifyError("Error al subir la imagen de perfil");
+      console.error("Error al subir la imagen:", err);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG && !isPNG) {
+        this.$message.error("La imagen debe ser JPG o PNG!");
+      }
+      if (!isLt2M) {
+        this.$message.error("La imagen debe ser menor a 2MB!");
+      }
+      return isJPG && isPNG && isLt2M;
+    },
+
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+      this.ruleForm.image = null; // Elimina la imagen del formulario
+    },
+
     editCarer(params) {
       this.isEditMode = true;
       this.ruleForm.id = params.id || "";
@@ -291,17 +362,20 @@ export default {
     resetForm() {
       this.isEditMode = false;
       this.ruleForm = {
-        name: "",
-        formation: "",
-        city: "",
-        address: "",
-        email: "",
-        password: "",
+        name: "aaa",
+        formation: "bbb",
+        city: "ccc",
+        address: "dddd",
+        email: "fff@ggg.es",
+        oldPassword: "",
+        password: "asdasd123",
+        repeatPassword: "asdasd123",
         year: "",
         tasks: [],
         work_day: "",
-        presentation: "",
-      };
+        presentation: "asdasda",
+        image: "",
+      }
     },
     confirmRemove() {
       this.showRemoveMessage = true;
