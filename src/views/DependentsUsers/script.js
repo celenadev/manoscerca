@@ -29,7 +29,7 @@ export default {
       filters.work_day = this.filters.work_day !== '' ? this.filters.work_day : undefined;
       this.loadDependents(this.page, filters);
     },
-    async loadDependents(page = 1, filters = {},limit = 5) {
+    async loadDependents(page = 1, filters = {},limit = this.pageSize) {
       try {
         const response = await DependentApi.getPaginated(page, limit, filters);
         this.dependents = response.body.data;

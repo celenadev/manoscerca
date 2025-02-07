@@ -92,8 +92,24 @@
           :limit="1"
         >
           <el-button size="small" type="primary">Seleccionar imagen</el-button>
-          <div slot="tip" class="el-upload__tip">Solo archivos .jpg y .png</div>
+          <div slot="tip" class="el-upload__tip">
+            Solo archivos .jpg, .jpeg, .png
+          </div>
         </el-upload>
+        <div v-if="imageUrl" class="image-preview">
+          <img :src="imageUrl" alt="Vista previa de la imagen" />
+          <div class="image-controls">
+            <el-button size="mini" @click="rotateLeft"
+              >Rotar Izquierda</el-button
+            >
+            <el-button size="mini" @click="rotateRight"
+              >Rotar Derecha</el-button
+            >
+          </div>
+        </div>
+        <div v-else-if="ruleForm.image" class="image-preview">
+          <img :src="ruleForm.image" alt="Imagen de perfil existente" />
+        </div>
       </el-form-item>
 
       <!-- IMG -->
@@ -139,22 +155,26 @@ export default {
       isEditMode: false,
       showRemoveMessage: false, // para eliminar el perfil
       file: null,
+      imageUrl: "", // Nueva variable para la URL de la imagen a previzualizar
+      defaultImage: "http://localhost:4000/uploads/default-profile.jpg", // Ruta a la imagen por defecto
+      rotation: 0,
+      originalImage: "",
       ruleForm: {
-        name: "aaa",
-        formation: "bbb",
-        city: "ccc",
-        address: "dddd",
-        email: "fff@ggg.es",
+        name: "",
+        formation: "",
+        city: "",
+        address: "",
+        email: "",
         oldPassword: "",
         password: "",
         repeatPassword: "",
         year: "",
         tasks: [],
         work_day: "",
-        presentation: "asdasda",
+        presentation: "",
         image: "",
       },
-      uploadUrl: "", // URL del backend  http://localhost:3000/api/upload
+      uploadUrl: "",
       options: [], // array que almacena  la lista de tareas
       rules: {
         name: [
@@ -291,16 +311,16 @@ export default {
         if (valid) {
           try {
             let formData = new FormData(); // Para enviar la imagen y los datos del formulario
-            console.log('this.file');
-            console.log(this.file);
             if (this.file && this.file.raw) {
-              console.log('this.file');
-              console.log(this.file);
-              formData.append('image', this.file.raw)
+             formData.append("image", this.file.raw);
+              this.ruleForm.image = this.file.name;
+            } else if (!this.ruleForm.image || this.ruleForm.image === this.defaultImage) {
+              this.ruleForm.image = this.defaultImage; // Usa la imagen por defecto si no hay imagen nueva ni original
             }
-            formData.append('data', JSON.stringify(this.ruleForm))
+            formData.append("data", JSON.stringify(this.ruleForm));
 
             const response = await CarerApi.addCarer(formData); // Enviar FormData
+
             console.log("Usuario dependiente añadido:", response.data);
             this.dialogVisible = false;
             notifySuccess(
@@ -320,12 +340,12 @@ export default {
       });
     },
     handleChangeAvatar(file) {
-      this.file = file; // Guarda el objeto File para enviarlo al backend
-      console.log("Imagen subida:", this.file);
+      this.file = file;
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.rotation = 0;
     },
-    handleAvatarError(err) {
+    handleAvatarError() {
       notifyError("Error al subir la imagen de perfil");
-      console.error("Error al subir la imagen:", err);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -341,12 +361,22 @@ export default {
       return isJPG && isPNG && isLt2M;
     },
 
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-      this.ruleForm.image = null; // Elimina la imagen del formulario
+    handleRemove() {
+      this.file = null;
+      this.imageUrl = '';
+      this.rotation = 0;
+      this.ruleForm.image = this.originalImage; // Restaura la imagen original
+    },
+    rotateLeft() {
+      this.rotation -= 90;
+    },
+
+    rotateRight() {
+      this.rotation += 90;
     },
 
     editCarer(params) {
+      this.isEditMode = true;
       this.isEditMode = true;
       this.ruleForm.id = params.id || "";
       this.ruleForm.name = params.name || "";
@@ -358,24 +388,26 @@ export default {
       this.ruleForm.tasks = params.tasks || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.presentation = params.presentation || "";
+      this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
+      this.originalImage = params.image || this.defaultImage; // Guarda la imagen original
     },
     resetForm() {
       this.isEditMode = false;
       this.ruleForm = {
-        name: "aaa",
-        formation: "bbb",
-        city: "ccc",
-        address: "dddd",
-        email: "fff@ggg.es",
+        name: "",
+        formation: "",
+        city: "",
+        address: "",
+        email: "",
         oldPassword: "",
-        password: "asdasd123",
-        repeatPassword: "asdasd123",
+        password: "",
+        repeatPassword: "",
         year: "",
         tasks: [],
         work_day: "",
-        presentation: "asdasda",
+        presentation: "",
         image: "",
-      }
+      };
     },
     confirmRemove() {
       this.showRemoveMessage = true;

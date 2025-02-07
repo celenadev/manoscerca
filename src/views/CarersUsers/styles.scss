@@ -1,29 +1,16 @@
-// $mc-bymorado: rgb(223, 222, 222);
 
-// .grid-content-our-carers {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     background-color: #f0ecec;
-//     padding: 20px;
-//     border-radius: 10px;
-//     margin: 10px;
-//   }
-//   .image {
-//     width: 100%;
-//     max-width: 300px;
-//     height: 300px;
-//     border-radius: 10px;
-//     margin-bottom: 10px;
-//   }
-//   .title {
-//     color: #080808;
-//     font-size: 28px;
-//     text-align: center;
-//   }
-//   .text {
-//     color: #080808;
-//     font-size: 20px;
-//     text-align: center;
-//   }
+
+// Media Query para las card en tamaños de pantallas móvil
+@media (max-width: 1299px) { /* Para pantallas menores a 1300px */
+    .el-col {
+      width: 50% !important; /* Dos tarjetas por fila */
+      margin-bottom: 20px !important;
+    }
+  }
+  
+  @media (max-width: 799px) { /* Para pantallas menores a 800px */
+    .el-col {
+      width: 100% !important; /* Una tarjeta por fila */
+      margin-bottom: 20px !important;
+    }
+  }

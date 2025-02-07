@@ -1,13 +1,11 @@
 import request from "axios";
 
 const url = "http://localhost:4000/api/carers";
-// const baseUrl = '/uploads/'; // O la ruta correcta a tus imágenes
 class CarerApi {
   // Método para guardar un nuevo usuario
   //El método addCarer está encapsulado dentro de una clase (CarerApi)
   // Los datos del nuevo carer se pasan como un argumento (newCarer) al método addCarer
   async addCarer(newCarer) {
-    debugger
     try {
       return await request.post(`${url}/add`, newCarer, {
         headers: {
@@ -57,11 +55,15 @@ class CarerApi {
   //   }
   // }
   // Método para listar todos los familiares
-  async getPaginated(page = 1, limit = 5, filters = {}) {
+  async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
     try {
-      const response = await request.post(`${url}/getPaginated`, {
-        page, limit, filters
-      });
+      const dataToSend = {
+          page: page,
+          limit: limit,
+          filters: filters
+      };
+      console.log("Datos enviados al backend:", dataToSend); // Para depurar
+      const response = await request.post(`${url}/getPaginated`, dataToSend)
       return response.data;
     } catch (error) {
       console.error("Error al listar los perfiles de los cuidadores", error);

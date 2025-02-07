@@ -171,3 +171,26 @@
     width: 100%;
   }
 }
+
+
+@media (max-width: 799px) {
+  .el-row {
+    display: block !important; /* Fuerza a que los elementos se apilen verticalmente */
+  }
+
+  .el-col {
+    width: 100% !important; /* Ocupa todo el ancho disponible */
+    margin-bottom: 20px !important; /* Espacio entre las imágenes */
+  }
+
+  .image {
+    width: 100% !important; /* La imagen también ocupa todo el ancho */
+    height: auto !important; /* Mantiene la proporción de aspecto de la imagen */
+    display: block !important; /* Evita espacios en blanco debajo de la imagen */
+    margin: 0 auto !important; /* Centra la imagen horizontalmente */
+  }
+
+  .grid-content-our-services {
+    text-align: center; /* Centra el texto y el botón */
+  }
+}

@@ -55,22 +55,17 @@
 }
 
 
-/* Estilos para dispositivos móviles */
-@media (max-width: 600px) {
-  .image {
-    width: 100px;
-    height: 100px;
-  }
+/* Media query para pantallas menores a 800px */
+@media (min-width: 799px) { /* 799px para que sea hasta 800px inclusive */
   .card-custom {
-    padding: 10px;
-    margin: 5px;
+    width: 100% !important; /* Ocupa el 100% del ancho */
+    margin: 10px 0 !important; /* Ajusta los márgenes (arriba/abajo 10px, izquierda/derecha 0) */
+    padding: 20px !important;  /* Conserva el padding si lo deseas */
+    box-sizing: border-box !important; /* Incluye padding y border en el ancho */
   }
-}
 
-/* Estilos para tablets */
-@media (min-width: 601px) and (max-width: 1024px) {
   .image {
-    width: 150px;
+    width: 150px; /* Ajusta el tamaño de la imagen para móviles */
     height: 150px;
   }
 }

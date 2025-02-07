@@ -26,7 +26,7 @@ class DependentApi {
   }
 
   // Método para listar todos los familiares
-  async getPaginated(page = 1, limit = 5, filters = {}) {
+  async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
     try {
       const response = await request.post(`${url}/getPaginated`, {
         page, limit,filters

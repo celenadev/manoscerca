@@ -280,3 +280,18 @@ $mc-btnSecond:#839192;
   font-size: 14px;
 }
 // fin de subir archivos
+
+
+//Previzualización de la img de perfil
+.image-preview {
+  margin-top: 10px;
+  text-align:left;
+}
+
+.image-preview img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+//Fin de previzualización de la img de perfil
