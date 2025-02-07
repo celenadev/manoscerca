@@ -34,6 +34,19 @@ class UserApi {
       }
     }
   }
+
+  async deleteById(id) {
+    try {
+      const response = await request.delete(`${url}/deleteById/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error al eliminar el usuario desde API:", error);
+      throw error;
+    }
+  }
+
+
+
 }
 
 export default new UserApi();

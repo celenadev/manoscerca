@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" width="80%">
+  <el-dialog :visible.sync="dialogVisible" width="90%">
     <template slot="title">
       <h2 v-if="isEditMode">Modificar Perfil</h2>
       <h2 v-else>Formulario De Registro Para Cuidadores</h2>
@@ -41,10 +41,10 @@
       </el-form-item>
       <el-form-item label="Experiencia" prop="year">
         <el-select v-model="ruleForm.year" placeholder="Años de experiencia">
-          <el-option label="1 año" value="1"></el-option>
-          <el-option label="2 años" value="2"></el-option>
-          <el-option label="3 años" value="3"></el-option>
-          <el-option label="más de 4 años" value="4"></el-option>
+          <el-option key="1" label="1 año" value="1"></el-option>
+          <el-option key="2" label="2 años" value="2"></el-option>
+          <el-option key="3" label="3 años" value="3"></el-option>
+          <el-option key="4" label="más de 4 años" value="4"></el-option>
         </el-select>
       </el-form-item>
       <!-- INICIO SELECT MÚLTIPLE -->
@@ -69,10 +69,12 @@
           <el-option
             label="Jornada completa"
             value="Jornada completa"
+            key="1"
           ></el-option>
           <el-option
             label="Jornada parcial"
             value="Jornada parcial"
+            key="2"
           ></el-option>
         </el-select>
       </el-form-item>
@@ -98,14 +100,6 @@
         </el-upload>
         <div v-if="imageUrl" class="image-preview">
           <img :src="imageUrl" alt="Vista previa de la imagen" />
-          <div class="image-controls">
-            <el-button size="mini" @click="rotateLeft"
-              >Rotar Izquierda</el-button
-            >
-            <el-button size="mini" @click="rotateRight"
-              >Rotar Derecha</el-button
-            >
-          </div>
         </div>
         <div v-else-if="ruleForm.image" class="image-preview">
           <img :src="ruleForm.image" alt="Imagen de perfil existente" />
@@ -120,7 +114,7 @@
         <p @click="confirmRemove">Eliminar Perfil</p>
         <div v-if="showRemoveMessage" class="remove-message">
           ¿Está seguro que desea eliminar su perfil?
-          <button @click="removeProfile(ruleForm.id)">Sí</button>
+          <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">Sí</button>
           <button @click="cancelRemove">No</button>
         </div>
       </div>
@@ -140,6 +134,7 @@
 
 <script>
 import CarerApi from "@/api/CarerApi";
+import UserApi from "@/api/UserApi";
 import ServiceApi from "@/api/ServiceApi";
 import {
   notifySuccess,
@@ -157,8 +152,8 @@ export default {
       file: null,
       imageUrl: "", // Nueva variable para la URL de la imagen a previzualizar
       defaultImage: "http://localhost:4000/uploads/default-profile.jpg", // Ruta a la imagen por defecto
-      rotation: 0,
       originalImage: "",
+      originalPassword: "", // Nueva propiedad para almacenar la contraseña original
       ruleForm: {
         name: "",
         formation: "",
@@ -312,13 +307,23 @@ export default {
           try {
             let formData = new FormData(); // Para enviar la imagen y los datos del formulario
             if (this.file && this.file.raw) {
-             formData.append("image", this.file.raw);
-              this.ruleForm.image = this.file.name;
-            } else if (!this.ruleForm.image || this.ruleForm.image === this.defaultImage) {
-              this.ruleForm.image = this.defaultImage; // Usa la imagen por defecto si no hay imagen nueva ni original
-            }
-            formData.append("data", JSON.stringify(this.ruleForm));
+              formData.append("image", this.file.raw);
+                this.ruleForm.image = this.file.name;
+              } else if (!this.ruleForm.image || this.ruleForm.image === this.defaultImage) {
+                this.ruleForm.image = this.defaultImage; // Usa la imagen por defecto si no hay imagen nueva ni original
+              }
 
+              // Password logic:
+            if (this.ruleForm.password) { // Check if a new password was entered
+              formData.append("password", this.ruleForm.password);
+              if (this.isEditMode) {
+                formData.append("oldPassword", this.ruleForm.oldPassword);
+              }
+            } else if (this.isEditMode) { // If no new password and in edit mode, send the original password
+              formData.append("password", this.originalPassword);
+            }
+
+            formData.append("data", JSON.stringify(this.ruleForm));
             const response = await CarerApi.addCarer(formData); // Enviar FormData
 
             console.log("Usuario dependiente añadido:", response.data);
@@ -367,18 +372,11 @@ export default {
       this.rotation = 0;
       this.ruleForm.image = this.originalImage; // Restaura la imagen original
     },
-    rotateLeft() {
-      this.rotation -= 90;
-    },
-
-    rotateRight() {
-      this.rotation += 90;
-    },
-
     editCarer(params) {
       this.isEditMode = true;
       this.isEditMode = true;
       this.ruleForm.id = params.id || "";
+      this.ruleForm.user_id = params.user_id || "";
       this.ruleForm.name = params.name || "";
       this.ruleForm.formation = params.formation || "";
       this.ruleForm.city = params.city || "";
@@ -388,9 +386,24 @@ export default {
       this.ruleForm.tasks = params.tasks || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.presentation = params.presentation || "";
+      this.originalPassword = params.password || ""; // Store the original password
+      this.ruleForm.oldPassword = ""; // Clear old password field
+      this.ruleForm.password = ""; // Clear new password field
+      this.ruleForm.repeatPassword = ""; // Clear repeat password field
+
+
       this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
-      this.originalImage = params.image || this.defaultImage; // Guarda la imagen original
-    },
+      // Construct the image URL here:
+      if (params.image) {
+          this.ruleForm.image = `http://localhost:4000/uploads/${params.image}`; // Correct URL construction
+          this.imageUrl = this.ruleForm.image; // Set imageUrl for preview
+      } else {
+          this.ruleForm.image = this.defaultImage;
+          this.imageUrl = this.defaultImage; // Set imageUrl for preview
+      }
+
+      this.originalImage = this.ruleForm.image; // Guarda la imagen original
+  },
     resetForm() {
       this.isEditMode = false;
       this.ruleForm = {
@@ -412,11 +425,12 @@ export default {
     confirmRemove() {
       this.showRemoveMessage = true;
     },
-    async removeProfile(id) {
+    async removeProfile(id, user_id) {
       try {
         const response = await CarerApi.deleteById(id);
-        if (response.status === 200) {
-          notifySuccess("Perfil Familiar eliminado exitosamente");
+        const responseUser = await UserApi.deleteById(user_id);
+        if (response.status === 200 && responseUser.status === 200) {
+          notifySuccess("Su perfil como usuario cuidador ha sido eliminado con éxito");
           this.resetForm();
           this.dialogVisible = false;
           this.$router.push("/");
