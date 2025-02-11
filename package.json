@@ -15,10 +15,10 @@
     "element-ui": "^2.15.14",
     "node-sass": "^9.0.0",
     "sass-loader": "^16.0.2",
-    "vee-validate": "^2.2.15",
     "vue": "^2.6.14",
     "vue-axios": "^3.5.2",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

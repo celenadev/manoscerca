@@ -102,7 +102,10 @@
           <img :src="imageUrl" alt="Vista previa de la imagen" />
         </div>
         <div v-else-if="ruleForm.image" class="image-preview">
-          <img :src="createUrl(ruleForm.image)" alt="Imagen de perfil existente" />
+          <img
+            :src="createUrl(ruleForm.image)"
+            alt="Imagen de perfil existente"
+          />
         </div>
       </el-form-item>
 
@@ -229,9 +232,10 @@ export default {
         oldPassword: [
           {
             required: false,
-            message: "Por favor ingresa tu antigua contraseña",
+            message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
+          { validator: this.validateOldPassword, trigger: 'blur' }
         ],
         repeatPassword: [
           {
@@ -303,6 +307,25 @@ export default {
         this.dialogVisible = true;
       });
     },
+
+    // validación para contraseña
+    async validateOldPassword(rule, value, callback) {
+      if (!this.isEditMode) {
+        return callback();
+      }
+      try {
+        const response = await UserApi.verifyPassword(this.ruleForm.user_id, value);
+        if (response.data.success) {
+          callback();
+        } else {
+          callback(new Error('Contraseña antigua incorrecta'));
+          this.$message.error('Contraseña antigua incorrecta'); // Mostrar mensaje de error
+        }
+      } catch (error) {
+        callback(new Error('Error al verificar contraseña'));
+        this.$message.error('Error al verificar contraseñaaaaa'); // Mostrar mensaje de error
+      }
+    },
     async submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -318,16 +341,16 @@ export default {
             ) {
               this.ruleForm.image = this.defaultImage;
             }
-            // Agregar los datos del formulario *antes* de la llamada a la API
+
             formData.append("data", JSON.stringify(this.ruleForm));
 
-            let response; // Variable para almacenar la respuesta
+            let response;
 
             if (this.isEditMode) {
               response = await CarerApi.editCarer(this.ruleForm.id, formData);
               notifySuccess("Perfil actualizado con éxito");
             } else {
-              response = await CarerApi.addCarer(formData); // Llamar a addCarer
+              response = await CarerApi.addCarer(formData);
               notifySuccess("Perfil creado con éxito");
             }
 
@@ -382,7 +405,8 @@ export default {
       this.ruleForm.address = params.address || "";
       this.ruleForm.email = params.email || "";
       this.ruleForm.year = params.year || "";
-      this.ruleForm.tasks = params.tasks.map(task => Number(task.id_services)) || [];
+      this.ruleForm.tasks =
+        params.tasks.map((task) => Number(task.id_services)) || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.presentation = params.presentation || "";
       this.originalPassword = params.password || ""; // Store the original password
@@ -400,7 +424,7 @@ export default {
       this.originalImage = this.ruleForm.image;
     },
     createUrl(image) {
-      return `http://localhost:4000/uploads/${image}`
+      return `http://localhost:4000/uploads/${image}`;
     },
     resetForm() {
       this.isEditMode = false;
