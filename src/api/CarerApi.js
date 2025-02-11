@@ -18,6 +18,18 @@ class CarerApi {
     }
   }
 
+  async editCarer(id, carerData) {
+    try {
+      return await request.put(`${url}/edit/${id}`, carerData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) {
+      console.error("Error en API de cuidadores (edit):", error);
+      throw error;
+    }
+  }
 
   //Método para listar todos los Cuidadores
   async getAll() {
@@ -30,10 +42,6 @@ class CarerApi {
       throw error;
     }
   }
-
-
-
-
 
   // Método para listar todos los Cuidadores
   // async getAll() {
@@ -58,9 +66,9 @@ class CarerApi {
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
     try {
       const dataToSend = {
-          page: page,
-          limit: limit,
-          filters: filters
+        page: page,
+        limit: limit,
+        filters: filters
       };
       console.log("Datos enviados al backend:", dataToSend); // Para depurar
       const response = await request.post(`${url}/getPaginated`, dataToSend)

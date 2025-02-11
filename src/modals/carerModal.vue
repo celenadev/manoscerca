@@ -36,7 +36,7 @@
       <el-form-item label="Contraseña" prop="password">
         <el-input v-model="ruleForm.password" type="password"></el-input>
       </el-form-item>
-      <el-form-item label="Repita contraseña" prop="repeatPassword">
+      <el-form-item label="Repita la contraseña" prop="repeatPassword">
         <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
       <el-form-item label="Experiencia" prop="year">
@@ -102,7 +102,7 @@
           <img :src="imageUrl" alt="Vista previa de la imagen" />
         </div>
         <div v-else-if="ruleForm.image" class="image-preview">
-          <img :src="ruleForm.image" alt="Imagen de perfil existente" />
+          <img :src="createUrl(ruleForm.image)" alt="Imagen de perfil existente" />
         </div>
       </el-form-item>
 
@@ -114,7 +114,9 @@
         <p @click="confirmRemove">Eliminar Perfil</p>
         <div v-if="showRemoveMessage" class="remove-message">
           ¿Está seguro que desea eliminar su perfil?
-          <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">Sí</button>
+          <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">
+            Sí
+          </button>
           <button @click="cancelRemove">No</button>
         </div>
       </div>
@@ -150,8 +152,8 @@ export default {
       isEditMode: false,
       showRemoveMessage: false, // para eliminar el perfil
       file: null,
-      imageUrl: "", // Nueva variable para la URL de la imagen a previzualizar
-      defaultImage: "http://localhost:4000/uploads/default-profile.jpg", // Ruta a la imagen por defecto
+      imageUrl: "",
+      defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
       originalImage: "",
       originalPassword: "", // Nueva propiedad para almacenar la contraseña original
       ruleForm: {
@@ -214,7 +216,7 @@ export default {
         ],
         password: [
           {
-            required: true,
+            required: false,
             message: "Por favor ingresa tu contraseña",
             trigger: "blur",
           },
@@ -226,14 +228,14 @@ export default {
         ],
         oldPassword: [
           {
-            required: true,
+            required: false,
             message: "Por favor ingresa tu antigua contraseña",
             trigger: "blur",
           },
         ],
         repeatPassword: [
           {
-            required: true,
+            required: false,
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
@@ -305,38 +307,36 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            let formData = new FormData(); // Para enviar la imagen y los datos del formulario
+            let formData = new FormData();
+
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
-                this.ruleForm.image = this.file.name;
-              } else if (!this.ruleForm.image || this.ruleForm.image === this.defaultImage) {
-                this.ruleForm.image = this.defaultImage; // Usa la imagen por defecto si no hay imagen nueva ni original
-              }
+              this.ruleForm.image = this.file.name;
+            } else if (
+              !this.ruleForm.image ||
+              this.ruleForm.image === this.defaultImage
+            ) {
+              this.ruleForm.image = this.defaultImage;
+            }
+            // Agregar los datos del formulario *antes* de la llamada a la API
+            formData.append("data", JSON.stringify(this.ruleForm));
 
-              // Password logic:
-            if (this.ruleForm.password) { // Check if a new password was entered
-              formData.append("password", this.ruleForm.password);
-              if (this.isEditMode) {
-                formData.append("oldPassword", this.ruleForm.oldPassword);
-              }
-            } else if (this.isEditMode) { // If no new password and in edit mode, send the original password
-              formData.append("password", this.originalPassword);
+            let response; // Variable para almacenar la respuesta
+
+            if (this.isEditMode) {
+              response = await CarerApi.editCarer(this.ruleForm.id, formData);
+              notifySuccess("Perfil actualizado con éxito");
+            } else {
+              response = await CarerApi.addCarer(formData); // Llamar a addCarer
+              notifySuccess("Perfil creado con éxito");
             }
 
-            formData.append("data", JSON.stringify(this.ruleForm));
-            const response = await CarerApi.addCarer(formData); // Enviar FormData
-
-            console.log("Usuario dependiente añadido:", response.data);
+            console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
             this.dialogVisible = false;
-            notifySuccess(
-              "Bienvenido a nuestro sistema, Perfil creado con éxito"
-            );
-            this.$router.push("/carers-users");
+            this.$router.push("/carers-users"); // Redirigir después de la operación exitosa
           } catch (error) {
-            notifyError(
-              "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
-            );
-            console.error("Fallo al crear cuidador:", error);
+            notifyError("Hemos tenido un error. Inténtelo de nuevo");
+            console.error("Fallo en la operación:", error);
           }
         } else {
           console.log("Error en el formulario");
@@ -368,12 +368,11 @@ export default {
 
     handleRemove() {
       this.file = null;
-      this.imageUrl = '';
+      this.imageUrl = "";
       this.rotation = 0;
       this.ruleForm.image = this.originalImage; // Restaura la imagen original
     },
     editCarer(params) {
-      this.isEditMode = true;
       this.isEditMode = true;
       this.ruleForm.id = params.id || "";
       this.ruleForm.user_id = params.user_id || "";
@@ -383,7 +382,7 @@ export default {
       this.ruleForm.address = params.address || "";
       this.ruleForm.email = params.email || "";
       this.ruleForm.year = params.year || "";
-      this.ruleForm.tasks = params.tasks || [];
+      this.ruleForm.tasks = params.tasks.map(task => Number(task.id_services)) || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.presentation = params.presentation || "";
       this.originalPassword = params.password || ""; // Store the original password
@@ -391,19 +390,18 @@ export default {
       this.ruleForm.password = ""; // Clear new password field
       this.ruleForm.repeatPassword = ""; // Clear repeat password field
 
-
       this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
       // Construct the image URL here:
       if (params.image) {
-          this.ruleForm.image = `http://localhost:4000/uploads/${params.image}`; // Correct URL construction
-          this.imageUrl = this.ruleForm.image; // Set imageUrl for preview
+        this.imageUrl = this.createUrl(params.image);
       } else {
-          this.ruleForm.image = this.defaultImage;
-          this.imageUrl = this.defaultImage; // Set imageUrl for preview
+        this.imageUrl = this.defaultImage;
       }
-
-      this.originalImage = this.ruleForm.image; // Guarda la imagen original
-  },
+      this.originalImage = this.ruleForm.image;
+    },
+    createUrl(image) {
+      return `http://localhost:4000/uploads/${image}`
+    },
     resetForm() {
       this.isEditMode = false;
       this.ruleForm = {
@@ -430,7 +428,9 @@ export default {
         const response = await CarerApi.deleteById(id);
         const responseUser = await UserApi.deleteById(user_id);
         if (response.status === 200 && responseUser.status === 200) {
-          notifySuccess("Su perfil como usuario cuidador ha sido eliminado con éxito");
+          notifySuccess(
+            "Su perfil como usuario cuidador ha sido eliminado con éxito"
+          );
           this.resetForm();
           this.dialogVisible = false;
           this.$router.push("/");

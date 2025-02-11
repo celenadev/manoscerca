@@ -41,7 +41,7 @@ export default {
               this.carer.tasks.push({
                 id_services: carerData.service_idsArray[i],
                 id_tasks_carers: carerData.task_idsArray ? carerData.task_idsArray[i] : null, // Maneja el caso de que task_idsArray sea nulo
-                service_description: carerData.serviciosArray[i]
+                description: carerData.serviciosArray[i]
               });
             }
           }

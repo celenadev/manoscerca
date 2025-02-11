@@ -37,7 +37,7 @@ export default {
                         this.dependent.tasks.push({
                             id_services: dependentData.service_idsArray[i],
                             id_tasks_dependents: dependentData.task_idsArray ? dependentData.task_idsArray[i] : null, // Maneja el caso de que task_idsArray sea nulo
-                            service_description: dependentData.serviciosArray[i]
+                            description: dependentData.serviciosArray[i]
                         });
                     }
                 }
