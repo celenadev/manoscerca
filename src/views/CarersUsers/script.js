@@ -1,24 +1,24 @@
-import CarerCard from '@/components/CarerCard/index.vue';
-import CarerApi from '@/api/CarerApi';
+import CarerCard from "@/components/CarerCard/index.vue";
+import CarerApi from "@/api/CarerApi";
 
 export default {
-    name: 'CarersUsers',
+    name: "CarersUsers",
     components: {
-        CarerCard
+        CarerCard,
     },
     data() {
         return {
             filters: {
-                city: '',
-                work_day: '',
-                year: ''
+                city: "",
+                work_day: "",
+                year: "",
             },
             carers: [],
             currentPage: 1,
             totalPages: 1,
             totalRecords: 0,
-            pageSize: 3 // Define el tamaño de página aquí
-        }
+            pageSize: 3, // Define el tamaño de página aquí
+        };
     },
     created() {
         this.loadCarers();
@@ -31,7 +31,7 @@ export default {
                 year: this.filters.year || undefined,
                 work_day: this.filters.work_day || undefined,
             };
-            this.loadCarers(this.currentPage, filters); // Corregido: usa currentPage y pasa filtros
+            this.loadCarers(this.currentPage, filters);
         },
         async loadCarers(page = 1, filters = {}, limit = this.pageSize) {
             try {
@@ -39,16 +39,14 @@ export default {
                 this.carers = response.body.data;
                 this.currentPage = response.body.currentPage;
                 this.totalRecords = response.body.totalRecords;
-                this.totalPages = Math.ceil(this.totalRecords / this.pageSize); // Se calcula una sola vez
-                console.log("Respuesta de la API:", response.body); // Para depurar
+                this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
             } catch (error) {
-                console.error('Error al obtener los perfiles de cuidadores:', error);
+                console.error("Error al obtener los perfiles de cuidadores:", error);
             }
         },
         handlePageChange(newPage) {
             this.currentPage = newPage;
             this.loadCarers(newPage, this.filters);
-          },
-    }
-
-}
+        },
+    },
+};

@@ -12,6 +12,8 @@ export default {
   },
   mounted() {
     this.loadCarer();
+    //  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
+    this.$bus.$on("edit-carer", () => this.loadCarer())
   },
   computed: {
     imageUrl() {
@@ -24,8 +26,6 @@ export default {
         const response = await CarerApi.getByIdProfile(this.$route.params.id);
         const data = response.body;
 
-        console.log(data); // Verifica los datos recibidos
-
         if (data && data.length > 0) { // Verifica si hay datos
           const carerData = data[0]; // Toma el primer elemento (ya que GROUP BY debería devolver solo uno)
 
@@ -33,8 +33,6 @@ export default {
             ...carerData,
             tasks: [] // Inicializa tasks como un array vacío
           };
-          console.log(this.carer);
-
           // Procesa las tareas si existen
           if (carerData.serviciosArray && carerData.service_idsArray) {
             for (let i = 0; i < carerData.serviciosArray.length; i++) {
@@ -46,30 +44,16 @@ export default {
             }
           }
         } else {
-          console.warn("No se encontraron datos para este ID.");
-          // Puedes manejar este caso mostrando un mensaje al usuario, redirigiendo, etc.
-        }
+          console.error('No se encontraron datos para este ID');}
       } catch (error) {
         console.error('Error al obtener el cuidador', error);
       }
     },
     openEditModal() {
-      console.log();
       this.$bus.$emit('open-carer-modal', this.carer);
     },
     updateCarer(updatedCarer) {
       this.carer = updatedCarer;
-      // Lógica para actualizar el cuidador en el backend si es necesario
     }
   }
 };
-
-
-// async loadCarer() {
-//   try {
-//     const response = await CarerApi.getById(this.$route.params.id);
-//     this.carer = response.body[0];
-//   } catch (error) {
-//     console.error('Error al obtener el cuidador');
-//   }
-// },

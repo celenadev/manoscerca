@@ -3,14 +3,14 @@
 // Media Query para las card en tamaños de pantallas móvil
 @media (max-width: 1299px) { /* Para pantallas menores a 1300px */
     .el-col {
-      width: 50% !important; /* Dos tarjetas por fila */
+      width: 50% !important;
       margin-bottom: 20px !important;
     }
   }
   
   @media (max-width: 799px) { /* Para pantallas menores a 800px */
     .el-col {
-      width: 100% !important; /* Una tarjeta por fila */
+      width: 100% !important;
       margin-bottom: 20px !important;
     }
   }

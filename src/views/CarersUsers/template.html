@@ -3,11 +3,11 @@
         <h1 class="title-h1">Nuestras Cuidadores</h1>
         <div class="filter">
             <h3>Encuentra tu próximo cuidador</h3>
-            <el-input v-model="filters.city" placeholder="Filtrar por ciudad" class="filter-input"></el-input>
             <el-select v-model="filters.work_day" placeholder="Filtrar por jornada" class="filter-select">
                 <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
                 <el-option label="Jornada completa" value="Jornada completa"></el-option>
             </el-select>
+            <el-input v-model="filters.city" placeholder="Filtrar por ciudad" class="filter-input"></el-input>
             <el-select v-model="filters.year" placeholder="Filtrar por años de experiencia" class="filter-select">
                 <el-option label="1 año" value="1"></el-option>
                 <el-option label="2 años" value="2"></el-option>

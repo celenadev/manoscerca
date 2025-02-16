@@ -295,3 +295,42 @@ $mc-btnSecond:#839192;
   object-fit: cover;
 }
 //Fin de previzualización de la img de perfil
+
+// Estilos para el botón de eliminar el perfil de usuarios
+.p-borrar {
+  color: rgb(94, 92, 92);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 80px;
+  font-size: 14px;
+}
+
+.p-borrar:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.remove-message {
+  margin-left: 60px;
+  color: #721c24;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.remove-message button {
+  background-color: #d0cece;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.remove-message button:hover {
+  background-color: #801563;
+  color: aliceblue;
+}
+// Estilos para el botón de eliminar el perfil de usuarios

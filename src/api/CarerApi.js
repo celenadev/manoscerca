@@ -2,9 +2,11 @@ import request from "axios";
 
 const url = "http://localhost:4000/api/carers";
 class CarerApi {
-  // Método para guardar un nuevo usuario
-  //El método addCarer está encapsulado dentro de una clase (CarerApi)
-  // Los datos del nuevo carer se pasan como un argumento (newCarer) al método addCarer
+/**
+ * Añade un nuevo cuidador.
+ * @param {*} newCarer  Los datos del nuevo cuidador.
+ * @returns  Una promesa que resuelve los datos de la respuesta de la API.
+ */
   async addCarer(newCarer) {
     try {
       return await request.post(`${url}/add`, newCarer, {
@@ -17,7 +19,12 @@ class CarerApi {
       throw error;
     }
   }
-
+/**
+ * Edita la información de un cuidador existente
+ * @param {*} id   El ID del cuidador a editar.
+ * @param {*} carerData Los nuevos datos del cuidador.
+ * @returns Una promesa que resuelve los datos de la respuesta de la API.
+ */
   async editCarer(id, carerData) {
     try {
       return await request.put(`${url}/edit/${id}`, carerData, {
@@ -31,38 +38,26 @@ class CarerApi {
     }
   }
 
-  //Método para listar todos los Cuidadores
+  /**
+   * Método para listar todos los Cuidadores
+   * @returns Toda la información de los perfiles de cuidadores
+   */
   async getAll() {
     try {
       const response = await request.get(`${url}/getAll`);
       return response.data;
-
     } catch (error) {
       console.error("Error al listar los cuidadores", error);
       throw error;
     }
   }
-
-  // Método para listar todos los Cuidadores
-  // async getAll() {
-  //   try {
-  //     const response = await request.get(`${url}/getAll`);
-  //     const carers = response.data;
-
-  //     // Modifica la respuesta para incluir la URL de la imagen:
-  //     const carersWithUrls = carers.map(carer => ({
-  //       ...carer,
-  //       imageUrl: baseUrl + carer.image // Asume que 'image' es el nombre del archivo
-  //     }));
-
-  //     return carersWithUrls; // Devuelve el array modificado
-
-  //   } catch (error) {
-  //     console.error("Error al listar los cuidadores", error);
-  //     throw error;
-  //   }
-  // }
-  // Método para listar todos los familiares
+/**
+ * Obtiene una lista paginada de cuidadores con filtros opcionales.
+ * @param {*} page El número de la página a obtener.
+ * @param {*} limit l número de elementos por página
+ * @param {*} filters Los filtros a aplicar en la búsqueda.
+ * @returns Una promesa que resuelve los datos de la respuesta de la API.
+ */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
     try {
       const dataToSend = {
@@ -70,7 +65,6 @@ class CarerApi {
         limit: limit,
         filters: filters
       };
-      console.log("Datos enviados al backend:", dataToSend); // Para depurar
       const response = await request.post(`${url}/getPaginated`, dataToSend)
       return response.data;
     } catch (error) {
@@ -79,7 +73,11 @@ class CarerApi {
     }
   }
 
-  // Método para mostrar datos del cuidador seleccionado
+/**
+ *  Obtiene el perfil de un cuidador por su ID.
+ * @param {*} id El ID del cuidador.
+ * @returns Una promesa que resuelve los datos de la respuesta de la API.
+ */
   async getById(id) {
     try {
       const response = await request.get(`${url}/getById/${id}`);
@@ -89,7 +87,11 @@ class CarerApi {
       throw error;
     }
   }
-
+/**
+ * Obtiene el perfil de un cuidador por su ID.
+ * @param {*} id El ID del cuidador.
+ * @returns Una promesa que resuelve los datos de la respuesta de la API.
+ */
   async getByIdProfile(id) {
     try {
       const response = await request.get(`${url}/getByIdProfile/${id}`);
@@ -100,7 +102,11 @@ class CarerApi {
     }
   }
 
-  // Método para eliminar un perfil de cuidador
+  /**
+   *  Elimina un perfil de cuidador por su ID.
+   * @param {*} id El ID del cuidador a eliminar.
+   * @returns  Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async deleteById(id) {
     try {
       const response = await request.delete(`${url}/deleteById/${id}`);

@@ -114,7 +114,7 @@
     <span slot="footer" class="dialog-footer">
       <!-- Eliminar el perfil -->
       <div v-if="isEditMode">
-        <p @click="confirmRemove">Eliminar Perfil</p>
+        <p class="p-borrar" @click="confirmRemove">Eliminar Perfil</p>
         <div v-if="showRemoveMessage" class="remove-message">
           ¿Está seguro que desea eliminar su perfil?
           <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">
@@ -235,7 +235,7 @@ export default {
             message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
-          { validator: this.validateOldPassword, trigger: 'blur' }
+          { validator: this.validateOldPassword, trigger: "blur" },
         ],
         repeatPassword: [
           {
@@ -285,7 +285,7 @@ export default {
             required: false,
             message: "Por favor sube una imagen de perfil",
             trigger: "change",
-          }, // No es obligatorio al principio
+          },
         ],
       },
     };
@@ -296,37 +296,53 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-carer-modal", (params) => {
-        this.load_services(); // carga  la lista de tareas
+        this.load_services();
         if (params) {
-          // Recupera los datos para ser editados
           this.editCarer(params);
         } else {
-          // Limpia el formulario para un nuevo registro
           this.resetForm();
         }
         this.dialogVisible = true;
       });
     },
+    /**
+     * Comprueba si es necesario activar o no las reglas de las contraseñas
+     * Si hay alguna contraseña escrita, activa las reglas todos los inputs
+     * si no hay ninguna contraseña, los desactiva
+     */
+    checkPasswordRules() {
+      const value =
+        !!this.ruleForm.password ||
+        !!this.ruleForm.oldPassword ||
+        !!this.ruleForm.repeatPassword;
+      this.rules.oldPassword[0].required = value;
+      this.rules.repeatPassword[0].required = value;
+      this.rules.password[0].required = value;
+    },
 
     // validación para contraseña
     async validateOldPassword(rule, value, callback) {
-      if (!this.isEditMode) {
-        return callback();
-      }
-      try {
-        const response = await UserApi.verifyPassword(this.ruleForm.user_id, value);
-        if (response.data.success) {
-          callback();
-        } else {
-          callback(new Error('Contraseña antigua incorrecta'));
-          this.$message.error('Contraseña antigua incorrecta'); // Mostrar mensaje de error
+      if (value) {
+        if (!this.isEditMode) {
+          return callback();
         }
-      } catch (error) {
-        callback(new Error('Error al verificar contraseña'));
-        this.$message.error('Error al verificar contraseñaaaaa'); // Mostrar mensaje de error
+        try {
+          const response = await UserApi.verifyPassword(
+            this.ruleForm.user_id,
+            value
+          );
+          if (response.data.success) {
+            callback();
+          } else {
+            callback(new Error("Contraseña antigua incorrecta"));
+          }
+        } catch (error) {
+          callback(new Error("Error al verificar contraseña"));
+        }
       }
     },
     async submitForm(formName) {
+      this.checkPasswordRules();
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
@@ -352,11 +368,15 @@ export default {
             } else {
               response = await CarerApi.addCarer(formData);
               notifySuccess("Perfil creado con éxito");
+              // Retrasar la redirección con setTimeout
+              setTimeout(() => {
+                this.$router.push("/carers-users");
+              }, 1500);
             }
 
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
+            this.$bus.$emit("edit-carer");
             this.dialogVisible = false;
-            this.$router.push("/carers-users"); // Redirigir después de la operación exitosa
           } catch (error) {
             notifyError("Hemos tenido un error. Inténtelo de nuevo");
             console.error("Fallo en la operación:", error);
@@ -415,7 +435,6 @@ export default {
       this.ruleForm.repeatPassword = ""; // Clear repeat password field
 
       this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
-      // Construct the image URL here:
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);
       } else {
@@ -481,41 +500,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-p {
-  color: rgb(94, 92, 92);
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-left: 80px;
-  font-size: 14px;
-}
-
-p:hover {
-  text-decoration: underline;
-  color: black;
-}
-
-.remove-message {
-  margin-left: 60px;
-  color: #721c24;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.remove-message button {
-  background-color: #d0cece;
-  border: none;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.remove-message button:hover {
-  background-color: #801563;
-  color: aliceblue;
-}
-</style>

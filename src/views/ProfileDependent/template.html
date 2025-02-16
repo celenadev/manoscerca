@@ -1,7 +1,7 @@
 <div class="container-profile">
     <div class="row-fila-one">
         <div class="image-container">
-            <img src="../../../public/imagenes/ayuda_abuelo.jpg" class="image">
+            <img :src="imageUrl" class="image" />
         </div>
         <div class="info-dependent">
             <div class="information-dependent">
@@ -12,7 +12,8 @@
             <div class="information-dependent">
                 <h2>Tareas a realizar</h2>
                 <ul>
-                    <li v-for="(task, index) in dependent.tasks" :key="index"> {{ task.description }}
+                    <li v-for="task in dependent.tasks" :key="task.id_tasks_dependents">
+                        {{ task.description }}
                     </li>
                 </ul>
             </div>

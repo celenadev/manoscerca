@@ -55,22 +55,59 @@
       <!-- FIN SELECT-->
       <el-form-item label="Tipo de jornada" prop="work_day">
         <el-select v-model="ruleForm.work_day" placeholder="Jornada">
-          <el-option label="Jornada completa" value="Jornada completa"></el-option>
-          <el-option label="Jornada parcial" value="Jornada parcial"></el-option>
+          <el-option
+            label="Jornada completa"
+            value="Jornada completa"
+          ></el-option>
+          <el-option
+            label="Jornada parcial"
+            value="Jornada parcial"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Describa su oferta" prop="description">
         <el-input type="textarea" v-model="ruleForm.description"></el-input>
       </el-form-item>
+      <!-- IMG -->
+      <el-form-item label="Imagen de Perfil" prop="image">
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          :on-change="handleChangeAvatar"
+          :on-error="handleAvatarError"
+          :before-upload="beforeAvatarUpload"
+          :on-remove="handleRemove"
+          :auto-upload="false"
+          :limit="1"
+        >
+          <el-button size="small" type="primary">Seleccionar imagen</el-button>
+          <div slot="tip" class="el-upload__tip">
+            Solo archivos .jpg, .jpeg, .png
+          </div>
+        </el-upload>
+        <div v-if="imageUrl" class="image-preview">
+          <img :src="imageUrl" alt="Vista previa de la imagen" />
+        </div>
+        <div v-else-if="ruleForm.image" class="image-preview">
+          <img
+            :src="createUrl(ruleForm.image)"
+            alt="Imagen de perfil existente"
+          />
+        </div>
+      </el-form-item>
+
+      <!-- IMG -->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <!-- Eliminar el perfil -->
       <div v-if="isEditMode">
-        <p @click="confirmDelete">Eliminar Perfil</p>
-        <div v-if="showDeleteMessage" class="delete-message">
+        <p class="p-borrar" @click="confirmRemove">Eliminar Perfil</p>
+        <div v-if="showDeleteMessage" class="remove-message">
           ¿Está seguro que desea eliminar su perfil?
-          <button @click="deleteProfile(ruleForm.id)">Sí</button>
-          <button @click="cancelDelete">No</button>
+          <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">
+            Sí
+          </button>
+          <button @click="cancelRemove">No</button>
         </div>
       </div>
       <!-- Eliminar el perfil -->
@@ -86,14 +123,17 @@
     </span>
   </el-dialog>
 </template>
+
 <script>
 import DependentApi from "@/api/DependentApi";
 import ServiceApi from "@/api/ServiceApi";
+import UserApi from "@/api/UserApi";
 import {
   notifySuccess,
   notifyError,
   notifyInfo,
 } from "../../src/Languaje/notifications";
+
 export default {
   name: "dependent-modal",
   data() {
@@ -101,6 +141,12 @@ export default {
       dialogVisible: false,
       isEditMode: false,
       showDeleteMessage: false, // para eliminar el perfil
+      file: null,
+      imageUrl: "",
+      defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
+      originalImage: "",
+      originalPassword: "", // Nueva propiedad para almacenar la contraseña original
+
       ruleForm: {
         name: "",
         city: "",
@@ -112,7 +158,9 @@ export default {
         tasks: [],
         work_day: "",
         description: "",
+        image: "",
       },
+      uploadUrl: "",
       options: [], // array que almacena  la lista de tareas
       rules: {
         name: [
@@ -150,7 +198,7 @@ export default {
         ],
         password: [
           {
-            required: true,
+            required: false,
             message: "Por favor ingresa tu contraseña",
             trigger: "blur",
           },
@@ -162,14 +210,15 @@ export default {
         ],
         oldPassword: [
           {
-            required: true,
-            message: "Por favor ingresa tu antigua contraseña",
+            required: false,
+            message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
+          { validator: this.validateOldPassword, trigger: "blur" },
         ],
         repeatPassword: [
           {
-            required: true,
+            required: false,
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
@@ -206,6 +255,14 @@ export default {
             trigger: "blur",
           },
         ],
+        image: [
+          // Reglas para la imagen
+          {
+            required: false,
+            message: "Por favor sube una imagen de perfil",
+            trigger: "change",
+          },
+        ],
       },
     };
   },
@@ -217,32 +274,89 @@ export default {
       this.$bus.$on("open-dependent-modal", (params) => {
         this.load_services();
         if (params) {
-          // Recupera los datos para ser editados
           this.editDependent(params);
         } else {
-          // Limpia el formulario para un nuevo registro
           this.resetForm();
         }
         this.dialogVisible = true;
       });
     },
+
+    // Comprueba si es necesario activar o no las reglas de las contraseñas
+    // Si hay alguna contraseña escrita, activa las reglas todos los inputs
+    // si no hay ninguna contraseña, los desactiva
+    checkPasswordRules() {
+      const value =
+        !!this.ruleForm.password ||
+        !!this.ruleForm.oldPassword ||
+        !!this.ruleForm.repeatPassword;
+      this.rules.oldPassword[0].required = value;
+      this.rules.repeatPassword[0].required = value;
+      this.rules.password[0].required = value;
+    },
+
+    // validación para contraseña
+    async validateOldPassword(rule, value, callback) {
+      if (value) {
+        if (!this.isEditMode) {
+          return callback();
+        }
+        try {
+          const response = await UserApi.verifyPassword(
+            this.ruleForm.user_id,
+            value
+          );
+          if (response.data.success) {
+            callback();
+          } else {
+            callback(new Error("Contraseña antigua incorrecta"));          }
+        } catch (error) {
+          callback(new Error("Error al verificar contraseña"));
+        }
+      }
+    },
+
     async submitForm(formName) {
+      this.checkPasswordRules();
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await DependentApi.addDependent(this.ruleForm);
-            console.log("Usuario dependiente añadido:", response.data);
+            let formData = new FormData();
+
+            if (this.file && this.file.raw) {
+              formData.append("image", this.file.raw);
+              this.ruleForm.image = this.file.name;
+            } else if (
+              !this.ruleForm.image ||
+              this.ruleForm.image === this.defaultImage
+            ) {
+              this.ruleForm.image = this.defaultImage;
+            }
+
+            formData.append("data", JSON.stringify(this.ruleForm));
+
+            let response;
+
+            if (this.isEditMode) {
+              response = await DependentApi.editDependent(
+                this.ruleForm.id,
+                formData
+              );
+              notifySuccess("Perfil actualizado con éxito");
+            } else {
+              response = await DependentApi.addDependent(formData);
+              notifySuccess("Perfil creado con éxito.Redirigiendo...");
+              // Retrasar la redirección con setTimeout
+              setTimeout(() => {
+                this.$router.push("/dependents-users");
+              }, 1500);
+            }
+            console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
+            this.$bus.$emit("edit-dependent")// recarga los datos editados automaticamente
             this.dialogVisible = false;
-            notifySuccess(
-              "Bienvenido  a nuestro sistema, Perfil creado con éxito"
-            );
-              // Redirigir a la página /carers-users
-            this.$router.push('/carers-users');
           } catch (error) {
-            notifyError(
-              "Hemos tenido un error al crear su perfil. Inténtelo de nuevo"
-            );
-            console.error("Fallo al crear familiar:", error);
+            notifyError("Hemos tenido un error. Inténtelo de nuevo");
+            console.error("Fallo en la operación:", error);
           }
         } else {
           console.log("Error en el formulario");
@@ -250,9 +364,40 @@ export default {
         }
       });
     },
+
+    handleChangeAvatar(file) {
+      this.file = file;
+      this.imageUrl = URL.createObjectURL(file.raw);
+      this.rotation = 0;
+    },
+    handleAvatarError() {
+      notifyError("Error al subir la imagen de perfil");
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG && !isPNG) {
+        this.$message.error("La imagen debe ser JPG o PNG!");
+      }
+      if (!isLt2M) {
+        this.$message.error("La imagen debe ser menor a 2MB!");
+      }
+      return isJPG && isPNG && isLt2M;
+    },
+
+    handleRemove() {
+      this.file = null;
+      this.imageUrl = "";
+      this.rotation = 0;
+      this.ruleForm.image = this.originalImage;
+    },
+
     editDependent(params) {
       this.isEditMode = true;
       this.ruleForm.id = params.id || "";
+      this.ruleForm.user_id = params.user_id || "";
       this.ruleForm.name = params.name || "";
       this.ruleForm.city = params.city || "";
       this.ruleForm.address = params.address || "";
@@ -260,8 +405,25 @@ export default {
       this.ruleForm.password = params.password || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.description = params.description || "";
-      this.ruleForm.tasks = params.tasks || "";
+      this.ruleForm.tasks =
+        params.tasks.map((task) => Number(task.id_services)) || [];
+      this.originalPassword = params.password || ""; // Store the original password
+      this.ruleForm.oldPassword = ""; // Clear old password field
+      this.ruleForm.password = ""; // Clear new password field
+      this.ruleForm.repeatPassword = ""; // Clear repeat password field
+      this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
+      if (params.image) {
+        this.imageUrl = this.createUrl(params.image);
+      } else {
+        this.imageUrl = this.defaultImage;
+      }
+      this.originalImage = this.ruleForm.image;
     },
+
+    createUrl(image) {
+      return `http://localhost:4000/uploads/${image}`;
+    },
+
     resetForm() {
       this.isEditMode = false;
       this.ruleForm = {
@@ -273,17 +435,23 @@ export default {
         tasks: [],
         work_day: "",
         description: "",
+        oldPassword: "",
+        repeatPassword: "",
+        image: "",
       };
     },
-    confirmDelete() {
+    confirmRemove() {
       this.showDeleteMessage = true;
     },
-    // Función que se ejecuta para borrar un perfil de usuario familia
-    async deleteProfile(id) {
+    // Función que se ejecuta para borrar un perfil de usuario.
+    async removeProfile(id, user_id) {
       try {
         const response = await DependentApi.deleteById(id);
-        if (response.status === 200) {
-          notifySuccess("Perfil Familiar eliminado exitosamente");
+        const responseUser = await UserApi.deleteById(user_id);
+        if (response.status === 200 && responseUser.status === 200) {
+          notifySuccess(
+            "Su perfil como usuario familia ha sido eliminado con éxito"
+          );
           this.resetForm();
           this.dialogVisible = false;
           this.$router.push("/");
@@ -294,9 +462,9 @@ export default {
         this.showdeleteMessage = false;
       }
     },
-    cancelDelete() {
-      this.showDeleteMessage = false;
-      notifyInfo("Ha  dicho cancelar");
+    cancelRemove() {
+      this.showRemoveMessage = false;
+      notifyInfo("Ha dicho cancelar");
     },
     // Carga la lista de los servicios o tareas en el modal
     async load_services() {
@@ -310,40 +478,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-p {
-  color: rgb(94, 92, 92);
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-left: 80px;
-  font-size: 14px;
-}
-
-p:hover {
-  text-decoration: underline;
-  color: black;
-}
-
-.delete-message {
-  margin-left: 60px;
-  color: #721c24;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.delete-message button {
-  background-color: #d0cece;
-  border: none;
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-.delete-message button:hover {
-  background-color: #801563;
-  color: aliceblue;
-}
-</style>
