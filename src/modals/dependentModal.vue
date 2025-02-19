@@ -102,7 +102,7 @@
       <!-- Eliminar el perfil -->
       <div v-if="isEditMode">
         <p class="p-borrar" @click="confirmRemove">Eliminar Perfil</p>
-        <div v-if="showDeleteMessage" class="remove-message">
+        <div v-if="showRemoveMessage" class="remove-message">
           ¿Está seguro que desea eliminar su perfil?
           <button @click="removeProfile(ruleForm.id, ruleForm.user_id)">
             Sí
@@ -140,7 +140,7 @@ export default {
     return {
       dialogVisible: false,
       isEditMode: false,
-      showDeleteMessage: false, // para eliminar el perfil
+      showRemoveMessage: false, // para eliminar el perfil
       file: null,
       imageUrl: "",
       defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
@@ -441,7 +441,7 @@ export default {
       };
     },
     confirmRemove() {
-      this.showDeleteMessage = true;
+      this.showRemoveMessage = true;
     },
     // Función que se ejecuta para borrar un perfil de usuario.
     async removeProfile(id, user_id) {
@@ -459,7 +459,7 @@ export default {
       } catch (error) {
         notifyError("Hubo un problema al eliminar el perfil familiar");
       } finally {
-        this.showdeleteMessage = false;
+        this.showRemoveMessage = false;
       }
     },
     cancelRemove() {

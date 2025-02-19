@@ -29,22 +29,20 @@
                 <h2>Presentación</h2>
                 <p> {{ carer.presentation }} </p>
             </div>
-            <div>
+            <div class="buttons-cards">
                 <RouterLink to="/contact-form">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
                     <el-button type="primary" class="btn-second">Salir</el-button>
                 </RouterLink>
-            </div>
-            <!-- Botón para abrir el modal en modo de edición -->
-            <div>
+                    <!-- Botón para abrir el modal en modo de edición -->
                 <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>
-        <time class="time">{{ currentDate }}</time>
     </div>
-    <div class="row-fila-two">
-        <div>Similares</div>
-    </div>
+    <h2 class="title-h2">Nuestros clientes opinan sobre los servicios recibidos por los cuidadores </h2>
+    <!-- Componente  de comentarios-->
+    <Comment :comments="comments" @add-comment="addNewComment"/>
+    <time class="time">{{ currentDate }}</time>
 </div>

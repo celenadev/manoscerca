@@ -1,20 +1,34 @@
 
 import DependentApi from '@/api/DependentApi';
+import commentApi from '@/api/commentApi';
+import Comment from '@/components/Comment';
+import {
+  notifySuccess,
+ } from "@/Languaje/notifications";
 
 export default {
   name: 'ProfileDependent',
+  components: {
+    Comment
+  },
   data() {
     return {
       dependent: {
         tasks: []
       },
-      currentDate: new Date()
+      currentDate: new Date(),
+      comments: [], //almacena los comentarios
     };
   },
   created() {
     this.loadDependent();
     //  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
     this.$bus.$on("edit-dependent", () => this.loadDependent())
+  },
+  mounted() {
+    this.loadDependents();
+    this.loadComments(); // Línea para cargar los comentarios
+    this.$bus.$on("edit-dependents", () => this.loadDependents())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
   },
   computed: {
     imageUrl() {
@@ -51,6 +65,29 @@ export default {
         console.error('Error al obtener el usuario familia', error);
       }
     },
+    // añadir un nuevo comentario
+        async addNewComment(comment) {
+          try {
+            let data = {
+              ...comment,
+              id_dependents: this.$route.params.id
+            }
+            await commentApi.addComment(data);
+            notifySuccess("Su comentario a sido creado con éxito");
+            this.loadComments(); // Recarga los comentarios después de añadir uno nuevo
+          } catch (error) {
+            console.error('Error al añadir el comentario', error);
+          }
+        },
+        // Método para cargar los comentarios del usuario
+        async loadComments() {
+          try {
+            const response = await commentApi.getComments(this.$route.params.id);
+            this.comments = response.body.comments || []; // Accede directamente al array o asigna un array vacío
+          } catch (error) {
+            console.log('Error al obtener los comentarios', error);
+          }
+        },
     openEditModal() {
       this.$bus.$emit('open-dependent-modal', this.dependent);
     },

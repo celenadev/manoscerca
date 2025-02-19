@@ -1,25 +1,34 @@
 import CarerApi from '@/api/CarerApi';
+import commentApi from '@/api/commentApi';
+import Comment from '@/components/Comment';
+import {
+  notifySuccess,
+ } from "@/Languaje/notifications";
 
 export default {
   name: 'ProfileCarer',
+  components: {
+    Comment
+  },
   data() {
     return {
       carer: {
         tasks: []
       },
-      currentDate: new Date()
+      currentDate: new Date(),
+      comments: [], //almacena los comentarios
     };
   },
   mounted() {
     this.loadCarer();
-    //  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
-    this.$bus.$on("edit-carer", () => this.loadCarer())
+    this.loadComments(); // Línea para cargar los comentarios
+    this.$bus.$on("edit-carer", () => this.loadCarer())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
   },
   computed: {
     imageUrl() {
-        return `http://localhost:4000/uploads/${this.carer.image}`;
+      return `http://localhost:4000/uploads/${this.carer.image}`;
     }
-},
+  },
   methods: {
     async loadCarer() {
       try {
@@ -44,9 +53,35 @@ export default {
             }
           }
         } else {
-          console.error('No se encontraron datos para este ID');}
+          console.error('No se encontraron datos para este ID');
+        }
       } catch (error) {
         console.error('Error al obtener el cuidador', error);
+      }
+    },
+
+    // añadir un nuevo comentario
+    async addNewComment(comment) {
+      try {
+        let data = {
+          ...comment,
+          id_carers: this.$route.params.id
+        }
+
+        await commentApi.addComment(data);
+        notifySuccess("Su comentario a sido creado con éxito");
+        this.loadComments(); // Recarga los comentarios después de añadir uno nuevo
+      } catch (error) {
+        console.error('Error al añadir el comentario', error);
+      }
+    },
+    // Método para cargar los comentarios del usuario
+    async loadComments() {
+      try {
+        const response = await commentApi.getComments(this.$route.params.id);
+        this.comments = response.body.comments || []; // Accede directamente al array o asigna un array vacío
+      } catch (error) {
+        console.log('Error al obtener los comentarios', error);
       }
     },
     openEditModal() {
@@ -54,6 +89,6 @@ export default {
     },
     updateCarer(updatedCarer) {
       this.carer = updatedCarer;
-    }
+    },
   }
 };

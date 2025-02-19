@@ -1,12 +1,13 @@
 <header class="container-header">
-    <link rel="icon"  type="image/png"  href="../../../public/logo.ico">
+    <link rel="icon" type="image/png" href="../../../public/logo.ico">
     <div class="header-content">
         <div class="logo-section">
-            <RouterLink to="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <RouterLink to="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <img src="../../../public/imagenes/logo-mc.png" alt="Logo" title="Logo de manosCerca.es">
             </RouterLink>
         </div>
-         <!-- Si  no es  un móvil -->
+        <!-- Si  no es  un móvil -->
         <div class="dropdown-section" v-if="!isMobile">
             <div class="dropdown-section">
                 <el-dropdown trigger="click" class="space-link">
@@ -14,8 +15,10 @@
                         ¿Como funciona?<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <RouterLink to="/vista-guia-para-familias" class="dropdown-item nav-link">Para Familias</RouterLink>
-                        <RouterLink to="/vista-guia-para-cuidadores" class="dropdown-item nav-link">Para Cuidadores</RouterLink>
+                        <RouterLink to="/dependent-guide" class="dropdown-item nav-link">Para Familias
+                        </RouterLink>
+                        <RouterLink to="/carer-guide" class="dropdown-item nav-link">Para Cuidadores
+                        </RouterLink>
                     </el-dropdown-menu>
                 </el-dropdown>
                 <el-dropdown trigger="click" class="space-link">

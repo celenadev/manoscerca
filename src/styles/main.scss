@@ -6,67 +6,71 @@ $mc-darkraspberry: #871e6c;
 $mc-bypurple: #b9439b;
 $mc-bymorado: #5a379b;
 $mc-fandango: #ac3b8f;
-$mc-purple-text:#8529be;
-$mc-gray:#e2e5e9;
+$mc-purple-text: #8529be;
+$mc-gray: #e2e5e9;
 $mc-form-purple: #b9439b;
 $mc-bd-color: #e70bc3;
 $mc-bynegro: black;
-$mc-btnSecond:#839192;
+$mc-btnSecond: #839192;
 
 :root {
-    --mc-byzantine: #{$mc-byzantine};
-    --mc-bypurple: #{$mc-bypurple};
-    --mc-fandango: #{$mc-fandango};
-    --mc-bymorado: #{$mc-bymorado};
-    --mc-fandango: #{$mc-fandango};
-    --mc-byzantine: #{$mc-byzantine};
-    --mc-gray: #{$mc-gray};
-    --mc-bgColor: #{$mc-bgColor};
-    --mc-whitecolor: #{$mc-whitecolor};
-    --mc-purple-text: #{$mc-purple-text};
-    --mc-form-purple: #{$mc-form-purple};
-    --mc-bd-color: #{$mc-bd-color};
-    --mc-bynegro: #{$mc-bynegro};
-    --mc-btnSecond: #{$mc-btnSecond};
+  --mc-byzantine: #{$mc-byzantine};
+  --mc-bypurple: #{$mc-bypurple};
+  --mc-fandango: #{$mc-fandango};
+  --mc-bymorado: #{$mc-bymorado};
+  --mc-fandango: #{$mc-fandango};
+  --mc-byzantine: #{$mc-byzantine};
+  --mc-gray: #{$mc-gray};
+  --mc-bgColor: #{$mc-bgColor};
+  --mc-whitecolor: #{$mc-whitecolor};
+  --mc-purple-text: #{$mc-purple-text};
+  --mc-form-purple: #{$mc-form-purple};
+  --mc-bd-color: #{$mc-bd-color};
+  --mc-bynegro: #{$mc-bynegro};
+  --mc-btnSecond: #{$mc-btnSecond};
 }
+
 // Titulos principales
 .title-h1 {
-    font-family: 'Georgia', serif;
-    font-size: 2.5em;
-    color: #333;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 20px 0;
-    padding: 10px;
-    border-bottom: 2px solid #ccc;
-  }
-  .title-h1::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 3px;
-    background: #333;
-    margin: 10px auto 0;
-  }
+  font-family: 'Georgia', serif;
+  font-size: 2.5em;
+  color: #333;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 20px 0;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+}
 
-  .title-h2 {
-    font-family: 'Arial', sans-serif;
-    font-size: 2.1em;
-    color: #555;
-    text-align: center;
-    margin: 15px 0;
-    padding: 5px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  .title-h3{
-    font-family: 'Verdana', sans-serif;
-    font-size: 1.75em;
-    color: #666;
-    text-align: center;
-    margin: 10px 0;
-    padding: 5px 0;
-  }
+.title-h1::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #333;
+  margin: 10px auto 0;
+}
+
+.title-h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 2.1em;
+  color: #555;
+  text-align: center;
+  margin: 15px 0;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.title-h3 {
+  font-family: 'Verdana', sans-serif;
+  font-size: 1.75em;
+  color: #666;
+  text-align: center;
+  margin: 10px 0;
+  padding: 5px 0;
+}
+
 // Fin de titulos principales
 
 
@@ -80,44 +84,50 @@ $mc-btnSecond:#839192;
   margin-top: 10px;
   margin-left: 10px;
 }
+
 .btn-second:hover {
   background-color: $mc-bynegro !important;
-  border-color: $mc-gray!important;
+  border-color: $mc-gray !important;
   color: $mc-whitecolor;
 }
 
 .btn-purple {
-    background-color: $mc-bypurple !important;
-    color: $mc-whitecolor !important;
-    font-weight: bold;
-    border-width: 2px;
-    font-size: 17px;
-    margin-top: 10px;
-    margin-left: 10px;
+  background-color: $mc-bypurple !important;
+  color: $mc-whitecolor !important;
+  font-weight: bold;
+  border-width: 2px;
+  font-size: 17px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
+
 .btn-purple:hover {
-    background-color: $mc-byzantine !important;
-    border-color: $mc-gray!important;
-    color: $mc-whitecolor;
+  background-color: $mc-byzantine !important;
+  border-color: $mc-gray !important;
+  color: $mc-whitecolor;
 }
+
 .btn-re-purple {
-    border-color: $mc-bypurple !important;
-    color: $mc-fandango !important;
-    font-size: 17px;
-    border-width: 2px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 10px;
+  border-color: $mc-bypurple !important;
+  color: $mc-fandango !important;
+  font-size: 17px;
+  border-width: 2px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 10px;
 }
+
 .el-button--primary {
-    background-color: $mc-whitecolor;
-    color: $mc-fandango;
-    border-color: $mc-whitecolor;
+  background-color: $mc-whitecolor;
+  color: $mc-fandango;
+  border-color: $mc-whitecolor;
 }
+
 .btn-re-purple:hover {
-    background-color: $mc-byzantine !important;
-    color: $mc-whitecolor !important;
+  background-color: $mc-byzantine !important;
+  color: $mc-whitecolor !important;
 }
+
 //Fin botones Header
 // Inicio botones modals
 .el-button--cancel {
@@ -150,11 +160,12 @@ $mc-btnSecond:#839192;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   color: aliceblue;
 }
+
 // Fin de botones de modals
 
 // Color  cajas errores
-  .mensajeError {
-    color: red;
+.mensajeError {
+  color: red;
 }
 
 // Formulario para contacto con manoscerca.es
@@ -167,51 +178,56 @@ $mc-btnSecond:#839192;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   .form-signin1 {
-      background-size: cover;
-      background-position: center;
-      padding: 20px;
-      border-radius: 10px;
-      width: 600px;
-      margin: auto;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    margin: auto;
   }
 
   .form-floating {
-      margin-bottom: 15px;
+    margin-bottom: 15px;
   }
+
   .form-control {
     border: 1px solid mc-whitecolor;
-      border-radius: 4px;
-      padding: 10px 15px;
-      transition: border-color 0.3s ease-in-out;
+    border-radius: 4px;
+    padding: 10px 15px;
+    transition: border-color 0.3s ease-in-out;
   }
+
   .form-control:focus {
     border-color: $mc-byzantine;
   }
-  a{
-    color:$mc-byzantine;
+
+  a {
+    color: $mc-byzantine;
   }
+
   textarea {
-      min-height: 150px;
+    min-height: 150px;
   }
 }
+
 // Fin formulario para contacto
 
 // Filter
-.filter{
+.filter {
   background-color: #f0f0f0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 20px;
-  margin:10px;
+  margin: 10px;
 }
-.filter-input{
+
+.filter-input {
   margin-bottom: 20px;
   max-width: 280px;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
-}
-// // Fin de filter
+}// Fin de filter
 
 // Paginación
 .block {
@@ -220,32 +236,28 @@ $mc-btnSecond:#839192;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .demonstration {
   display: block;
   margin-bottom: 10px;
   font-size: 16px;
   color: #333;
 }
-
 .el-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 0;
 }
-
 .el-pagination .el-pager li {
   margin: 0 5px;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  font-size:large;
+  font-size: large;
 }
 .el-pagination .el-pager li:hover {
   background-color: #d9d9d9;
 }
-
 .el-pagination .el-pagination__prev,
 .el-pagination .el-pagination__next {
   color: #409EFF;
@@ -256,8 +268,7 @@ $mc-btnSecond:#839192;
 .el-pagination .el-pagination__prev:hover,
 .el-pagination .el-pagination__next:hover {
   background-color: #d9d9d9;
-}
-// Fin de pagination
+}// Fin de pagination
 
 // Datos no encontrados al filtrar
 .no-data-message {
@@ -275,17 +286,14 @@ $mc-btnSecond:#839192;
   padding: 10px;
   text-align: center;
 }
-
 .upload-demo .el-upload__text {
   font-size: 14px;
-}
-// fin de subir archivos
-
+}// fin de subir archivos
 
 //Previzualización de la img de perfil
 .image-preview {
   margin-top: 10px;
-  text-align:left;
+  text-align: left;
 }
 
 .image-preview img {
@@ -293,8 +301,7 @@ $mc-btnSecond:#839192;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-}
-//Fin de previzualización de la img de perfil
+}//Fin de previzualización de la img de perfil
 
 // Estilos para el botón de eliminar el perfil de usuarios
 .p-borrar {
@@ -305,12 +312,10 @@ $mc-btnSecond:#839192;
   margin-left: 80px;
   font-size: 14px;
 }
-
 .p-borrar:hover {
   text-decoration: underline;
   color: black;
 }
-
 .remove-message {
   margin-left: 60px;
   color: #721c24;
@@ -319,7 +324,6 @@ $mc-btnSecond:#839192;
   border-radius: 5px;
   font-size: 16px;
 }
-
 .remove-message button {
   background-color: #d0cece;
   border: none;
@@ -328,9 +332,22 @@ $mc-btnSecond:#839192;
   border-radius: 3px;
   cursor: pointer;
 }
-
 .remove-message button:hover {
   background-color: #801563;
   color: aliceblue;
 }
+
 // Estilos para el botón de eliminar el perfil de usuarios
+.buttons-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttons-cards > :nth-child(1),
+.buttons-cards > :nth-child(2) {
+  margin-right: 10px;
+}
+.buttons-cards > :nth-child(3) {
+  margin-left: auto;
+}// Fin botones de cards
+

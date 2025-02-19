@@ -373,7 +373,6 @@ export default {
                 this.$router.push("/carers-users");
               }, 1500);
             }
-
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
             this.$bus.$emit("edit-carer");
             this.dialogVisible = false;
@@ -433,7 +432,6 @@ export default {
       this.ruleForm.oldPassword = ""; // Clear old password field
       this.ruleForm.password = ""; // Clear new password field
       this.ruleForm.repeatPassword = ""; // Clear repeat password field
-
       this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);

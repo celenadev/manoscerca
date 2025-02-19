@@ -25,20 +25,20 @@
                 <h2>Descripción de la oferta</h2>
                 <p>{{ dependent.description }}</p>
             </div>
-            <div>
+            <div class="buttons-cards">
                 <RouterLink to="/contact-form">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
                     <el-button type="primary" class="btn-second">Salir</el-button>
                 </RouterLink>
-            </div>
-            <div>
                 <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>
     </div>
-    <div class="row-fila-two">
-        <div>Similares</div>
-    </div>
+    <!-- carrousel de comentarios -->
+    <h2 class="title-h2">Nuestros cuidadores opinan sobre los servicios ofrecidos por las familias </h2>
+   <!-- Componente  de comentarios-->
+   <Comment :comments="comments" @add-comment="addNewComment"/>
+   <time class="time">{{ currentDate }}</time>
 </div>
