@@ -37,7 +37,7 @@
                     <el-button type="primary" class="btn-second">Salir</el-button>
                 </RouterLink>
                     <!-- Botón para abrir el modal en modo de edición -->
-                <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
+                <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
             </div>
         </div>
     </div>

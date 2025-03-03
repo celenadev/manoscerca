@@ -12,6 +12,7 @@ import ViewsCompleteRole from '../views/ViewsCompleteRole/index.vue'
 import DependentsUsers from '../views/DependentsUsers/index.vue'
 import ProfileDependent from '../views/ProfileDependent/index.vue'
 import PasswordReset from '../views/PasswordReset/index.vue'
+
 const routes = [
   {
     path: '/',
@@ -37,11 +38,13 @@ const routes = [
     path: '/carers-users',
     name: 'carers-users',
     component: CarersUsers,
+    beforeEnter: auth,
   },
   {
     path: '/dependents-users',
     name: 'dependents-users',
     component: DependentsUsers,
+    beforeEnter: auth,
   },
   {
     path: '/profile-carer/:id',
@@ -84,5 +87,28 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+import {
+  notifyInfo,
+} from "../../src/Languaje/notifications";
+/**
+ * verifica si el usuario está autenticado antes de permitirle acceder a ciertas rutas.
+ * Si el usuario no está autenticado, se le notifica y se le redirige a la página de inicio de sesión
+ * @param {*} to to: El destino de la navegación.
+ * @param {*} from La ruta desde la que se navega.
+ * @param {*} next Una función que se llama para continuar la navegación.
+ * @returns continue la navegación
+ */
+function auth(to, from, next ) {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+      notifyInfo("Inicie sesión en nuestro sistema");
+      return router.push('/vista-login');
+  }
+
+  return next();
+}
+
 
 export default router

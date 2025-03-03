@@ -17,17 +17,26 @@ export default {
       },
       currentDate: new Date(),
       comments: [], //almacena los comentarios
+      carerUserId: null, // Agrega esta propiedad
+      authenticatedUserId: null, // ID del usuario autenticado
     };
   },
   mounted() {
     this.loadCarer();
     this.loadComments(); // Línea para cargar los comentarios
     this.$bus.$on("edit-carer", () => this.loadCarer())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
+    this.authenticatedUserId = localStorage.getItem('userId'); // Obtener el userId del localStorage
   },
   computed: {
     imageUrl() {
       return `http://localhost:4000/uploads/${this.carer.image}`;
-    }
+    },
+    showEditButton() {
+      console.log(".............................");
+      console.log("...id de cuidador");
+      console.log(this.authenticatedUserId);
+      return this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString(); // Usa carerUserId
+    },
   },
   methods: {
     async loadCarer() {
@@ -42,6 +51,8 @@ export default {
             ...carerData,
             tasks: [] // Inicializa tasks como un array vacío
           };
+          this.carerUserId = carerData.user_id; // Obtiene el user_id del cuidador
+
           // Procesa las tareas si existen
           if (carerData.serviciosArray && carerData.service_idsArray) {
             for (let i = 0; i < carerData.serviciosArray.length; i++) {
