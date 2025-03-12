@@ -1,4 +1,6 @@
 import request from "axios";
+const token = localStorage.getItem('token') || undefined;
+request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
 
 const url = "http://localhost:4000/api/carers";
 class CarerApi {

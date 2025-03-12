@@ -25,11 +25,13 @@ export default {
       }
       try {
         const response = await UserApi.login(this.email, this.password);
-
         if (response.success) {
           localStorage.setItem('token', response.user.token);
           localStorage.setItem('expiresIn', response.user.expiresIn);
-          localStorage.setItem('userId', response.user.id); // Guarda el userId aquí para mostrar el boton editar en el profile
+          localStorage.setItem('userId', response.user.id);
+          localStorage.setItem('type', response.user.type);
+          localStorage.setItem('id', response.user.typeId);
+          this.$bus.$emit("login")
           this.$router.push('/');
         } else {
           this.loginError = response.message || 'Error al iniciar sesión. Revise sus credenciales';
@@ -39,9 +41,8 @@ export default {
         this.loginError = 'Error al iniciar sesión';
       }
     },
-
     validate() {
-      this.login(); // Llama a login después de la validación
+      this.login();
     },
   },
 };

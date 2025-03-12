@@ -309,7 +309,8 @@ export default {
           if (response.data.success) {
             callback();
           } else {
-            callback(new Error("Contraseña antigua incorrecta"));          }
+            callback(new Error("Contraseña antigua incorrecta"));
+          }
         } catch (error) {
           callback(new Error("Error al verificar contraseña"));
         }
@@ -332,11 +333,8 @@ export default {
             ) {
               this.ruleForm.image = this.defaultImage;
             }
-
             formData.append("data", JSON.stringify(this.ruleForm));
-
             let response;
-
             if (this.isEditMode) {
               response = await DependentApi.editDependent(
                 this.ruleForm.id,
@@ -346,13 +344,14 @@ export default {
             } else {
               response = await DependentApi.addDependent(formData);
               notifySuccess("Perfil creado con éxito.Redirigiendo...");
+
               // Retrasar la redirección con setTimeout
               setTimeout(() => {
                 this.$router.push("/dependents-users");
               }, 1500);
             }
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
-            this.$bus.$emit("edit-dependent")// recarga los datos editados automaticamente
+            this.$bus.$emit("edit-dependent"); // recarga los datos editados automaticamente
             this.dialogVisible = false;
           } catch (error) {
             notifyError("Hemos tenido un error. Inténtelo de nuevo");
@@ -466,10 +465,25 @@ export default {
       this.showRemoveMessage = false;
       notifyInfo("Ha dicho cancelar");
     },
-    // Carga la lista de los servicios o tareas en el modal
-    async load_services() {
+    // Carga la lista de los servicios o tareas en el m odal
+    // async load_services() {
+    //   try {
+    //     const response = await ServiceApi.getAll();
+    //     this.options = response.body;
+    //   } catch (error) {
+    //     console.error("Error al cargar la lista de servicios:", error);
+    //   }
+    // },
+    async load_services(isNewRegister) {
       try {
-        const response = await ServiceApi.getAll();
+        let response;
+        if (isNewRegister) {
+          // Utilizar la API pública para nuevos registros
+          response = await ServiceApi.getAllPublic();
+        } else {
+          // Utilizar la API autenticada para usuarios con sesión
+          response = await ServiceApi.getAll();
+        }
         this.options = response.body;
       } catch (error) {
         console.error("Error al cargar la lista de servicios:", error);

@@ -10,11 +10,25 @@ class UserApi {
    * @returns  Una promesa que resuelve la respuesta de la API.
    */
   async verifyPassword(user_id, oldPassword) {
+    const token = localStorage.getItem('token'); // Obtén el token
+
+    if (!token) {
+      console.error('Token no encontrado. El usuario no está autenticado.');
+      throw new Error('Token no encontrado'); // Lanza un error si no hay token
+    }
+
     try {
-      return await request.post(`${url}/verify-password`, {
-        user_id,
-        oldPassword,
-      });
+      return await request.post(`${url}/verify-password`,
+        {
+          user_id,
+          oldPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+          },
+        }
+      );
     } catch (error) {
       console.error("Error desde api al verificar la contraseña", error);
       throw error;

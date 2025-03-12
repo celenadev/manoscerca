@@ -296,7 +296,9 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-carer-modal", (params) => {
-        this.load_services();
+        // Determinar si es un nuevo registro
+        const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
+        this.load_services(isNewRegister);
         if (params) {
           this.editCarer(params);
         } else {
@@ -371,7 +373,7 @@ export default {
               // Retrasar la redirección con setTimeout
               setTimeout(() => {
                 this.$router.push("/carers-users");
-              }, 1500);
+              }, 1800);
             }
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
             this.$bus.$emit("edit-carer");
@@ -487,9 +489,16 @@ export default {
       notifyInfo("Ha dicho cancelar");
     },
     // Carga la lista de los servicios o tareas en el modal
-    async load_services() {
+    async load_services(isNewRegister) {
       try {
-        const response = await ServiceApi.getAll();
+        let response;
+        if (isNewRegister) {
+          // Utilizar la API pública para nuevos registros
+          response = await ServiceApi.getAllPublic();
+        } else {
+          // Utilizar la API autenticada para usuarios con sesión
+          response = await ServiceApi.getAll();
+        }
         this.options = response.body;
       } catch (error) {
         console.error("Error al cargar la lista de servicios:", error);

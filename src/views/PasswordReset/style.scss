@@ -1,0 +1,8 @@
+  /* Media query para pantallas con ancho menor a 720px */
+  @media (max-width: 720px) {
+    .container-form {
+      width: 96%; /* O un valor fijo más pequeño */
+      padding: 10px;
+      margin: 20px auto;
+    }
+  }

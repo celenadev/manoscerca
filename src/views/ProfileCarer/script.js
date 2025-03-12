@@ -3,7 +3,7 @@ import commentApi from '@/api/commentApi';
 import Comment from '@/components/Comment';
 import {
   notifySuccess,
- } from "@/Languaje/notifications";
+} from "@/Languaje/notifications";
 
 export default {
   name: 'ProfileCarer',
@@ -16,24 +16,22 @@ export default {
         tasks: []
       },
       currentDate: new Date(),
-      comments: [], //almacena los comentarios
-      carerUserId: null, // Agrega esta propiedad
-      authenticatedUserId: null, // ID del usuario autenticado
+      comments: [],
+      carerUserId: null,
+      authenticatedUserId: null,
     };
   },
   mounted() {
     this.loadCarer();
-    this.loadComments(); // Línea para cargar los comentarios
-    this.$bus.$on("edit-carer", () => this.loadCarer())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
-    this.authenticatedUserId = localStorage.getItem('userId'); // Obtener el userId del localStorage
+    this.loadComments();
+    this.$bus.$on("edit-carer", () => this.loadCarer())
+    this.authenticatedUserId = localStorage.getItem('userId');
   },
   computed: {
     imageUrl() {
       return `http://localhost:4000/uploads/${this.carer.image}`;
     },
     showEditButton() {
-      console.log(".............................");
-      console.log("...id de cuidador");
       console.log(this.authenticatedUserId);
       return this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString(); // Usa carerUserId
     },
@@ -41,17 +39,18 @@ export default {
   methods: {
     async loadCarer() {
       try {
+
         const response = await CarerApi.getByIdProfile(this.$route.params.id);
         const data = response.body;
 
-        if (data && data.length > 0) { // Verifica si hay datos
-          const carerData = data[0]; // Toma el primer elemento (ya que GROUP BY debería devolver solo uno)
+        if (data && data.length > 0) {
+          const carerData = data[0];
 
           this.carer = {
             ...carerData,
-            tasks: [] // Inicializa tasks como un array vacío
+            tasks: []
           };
-          this.carerUserId = carerData.user_id; // Obtiene el user_id del cuidador
+          this.carerUserId = carerData.user_id;
 
           // Procesa las tareas si existen
           if (carerData.serviciosArray && carerData.service_idsArray) {
@@ -81,7 +80,7 @@ export default {
 
         await commentApi.addComment(data);
         notifySuccess("Su comentario a sido creado con éxito");
-        this.loadComments(); // Recarga los comentarios después de añadir uno nuevo
+        this.loadComments();
       } catch (error) {
         console.error('Error al añadir el comentario', error);
       }
@@ -90,7 +89,7 @@ export default {
     async loadComments() {
       try {
         const response = await commentApi.getComments(this.$route.params.id);
-        this.comments = response.body.comments || []; // Accede directamente al array o asigna un array vacío
+        this.comments = response.body.comments || [];
       } catch (error) {
         console.log('Error al obtener los comentarios', error);
       }
@@ -101,5 +100,16 @@ export default {
     updateCarer(updatedCarer) {
       this.carer = updatedCarer;
     },
+
+    //cerrar Sesión de usuario logueado
+    logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresIn');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('type');
+      localStorage.removeItem('id');
+      this.$bus.$emit("logout")
+      this.$router.push('/vista-login');
+    }
   }
 };

@@ -101,12 +101,10 @@ import {
  */
 function auth(to, from, next ) {
   const token = localStorage.getItem('token');
-
   if (!token) {
       notifyInfo("Inicie sesión en nuestro sistema");
       return router.push('/vista-login');
   }
-
   return next();
 }
 

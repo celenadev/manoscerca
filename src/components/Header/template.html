@@ -37,6 +37,11 @@
                 </RouterLink>
             </div>
         </div>
+        <div v-if="isLoggedIn" class="avatar-container">
+            <RouterLink :to="`/profile-carer/${carerId}`">
+                <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
+            </RouterLink>
+        </div>
         <HamburgerMenu v-if="isMobile" />
     </div>
     <!-- Muestra menú hamburguesa en  tamaños móviles -->

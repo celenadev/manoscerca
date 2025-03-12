@@ -69,10 +69,7 @@ $mc-btnSecond: #839192;
   text-align: center;
   margin: 10px 0;
   padding: 5px 0;
-}
-
-// Fin de titulos principales
-
+}// Fin de titulos principales
 
 //Botones Header
 .btn-second {
@@ -98,7 +95,6 @@ $mc-btnSecond: #839192;
   border-width: 2px;
   font-size: 17px;
   margin-top: 10px;
-  margin-left: 10px;
 }
 
 .btn-purple:hover {
@@ -114,7 +110,6 @@ $mc-btnSecond: #839192;
   border-width: 2px;
   font-weight: bold;
   margin-top: 10px;
-  margin-left: 10px;
 }
 
 .el-button--primary {
@@ -351,3 +346,14 @@ $mc-btnSecond: #839192;
   margin-left: auto;
 }// Fin botones de cards
 
+
+// cerrar Sesion
+.cerrarSesion{
+ margin: 10px;
+ border: none;
+}
+.cerrarSesion:hover{
+  margin: 10px;
+  background-color: #f9f9f9;
+  color: black;
+ }

@@ -36,13 +36,15 @@
                 <RouterLink to="/">
                     <el-button type="primary" class="btn-second">Salir</el-button>
                 </RouterLink>
-                    <!-- Botón para abrir el modal en modo de edición -->
-                <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
+                <!-- Botón para abrir el modal en modo de edición -->
+                <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar
+                    Perfil</el-button>
             </div>
         </div>
     </div>
     <h2 class="title-h2">Nuestros clientes opinan sobre los servicios recibidos por los cuidadores </h2>
     <!-- Componente  de comentarios-->
-    <Comment :comments="comments" @add-comment="addNewComment"/>
+    <Comment :comments="comments" @add-comment="addNewComment" />
     <time class="time">{{ currentDate }}</time>
+    <el-button class="cerrarSesion" @click="logout">Cerrar Sesión</el-button>
 </div>
