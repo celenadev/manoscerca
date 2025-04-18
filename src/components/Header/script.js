@@ -28,6 +28,13 @@ export default {
   methods: {
     checkScreenSize() {
       this.isMobile = window.innerWidth <= 768;
+    },
+    goToProfile()
+    {
+      if(this.$route.path !== `/profile-carer/${this.carerId}`) {
+        this.$router.push(`/profile-carer/${this.carerId}`);
+        window.location.reload();
+      }
     }
   }
 }

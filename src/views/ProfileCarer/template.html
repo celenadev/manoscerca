@@ -1,21 +1,26 @@
 <div class="container-profile">
     <div class="row-fila-one">
+        <RouterLink to="/carers-users">
+            <el-button type="primary" class="btn-second" >
+                <i class="el-icon-arrow-left"></i> Volver
+            </el-button>
+        </RouterLink>
         <div class="image-container">
-            <img :src="imageUrl" class="image">
+            <img :src="imageUrl" class="image" />
         </div>
         <div class="info-user">
             <div class="info-info">
                 <h1>{{ carer.name }}</h1>
-                <p> {{ carer.city }}, {{ carer.address }}</p>
+                <p>{{ carer.city }}, {{ carer.address }}</p>
                 <p>Email: {{ carer.email }}</p>
             </div>
             <div class="info-info">
                 <h2>Formación</h2>
-                <p> {{ carer.formation }}</p>
+                <p>{{ carer.formation }}</p>
             </div>
             <div class="info-info">
                 <h2>Experiencia</h2>
-                <p> {{ carer.year }} años </p>
+                <p>{{ carer.year }} años</p>
             </div>
             <div class="info-info">
                 <h2>Servicios de cuidados de {{ carer.name }}</h2>
@@ -27,24 +32,26 @@
             </div>
             <div class="info-info">
                 <h2>Presentación</h2>
-                <p> {{ carer.presentation }} </p>
+                <p>{{ carer.presentation }}</p>
             </div>
             <div class="buttons-cards">
                 <RouterLink to="/contact-form">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
-                    <el-button type="primary" class="btn-second">Salir</el-button>
+                    <el-button type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>
                 <!-- Botón para abrir el modal en modo de edición -->
                 <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar
-                    Perfil</el-button>
+                    Perfil
+                </el-button>
             </div>
         </div>
     </div>
-    <h2 class="title-h2">Nuestros clientes opinan sobre los servicios recibidos por los cuidadores </h2>
+    <h2 class="title-h2">
+        Nuestros clientes opinan sobre los servicios recibidos por los cuidadores
+    </h2>
     <!-- Componente  de comentarios-->
-    <Comment :comments="comments" @add-comment="addNewComment" />
+    <Comment :comments="comments" @add-comment="addNewComment" :isOwnProfile="isOwnProfile" />
     <time class="time">{{ currentDate }}</time>
-    <el-button class="cerrarSesion" @click="logout">Cerrar Sesión</el-button>
 </div>

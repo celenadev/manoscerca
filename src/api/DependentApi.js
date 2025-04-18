@@ -1,4 +1,8 @@
 import request from "axios";
+const getToken = () => {
+  const token = localStorage.getItem('token') || undefined;
+  request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
+}
 
 const url = "http://localhost:4000/api/dependents";
 class DependentApi {
@@ -10,7 +14,6 @@ class DependentApi {
  */
   async addDependent(newDependent) {
     try {
-      debugger
       return await request.post(`${url}/add`, newDependent, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -28,6 +31,7 @@ class DependentApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
 async editDependent(id, dependentData) {
+  getToken();
   try {
     return await request.put(`${url}/edit/${id}`, dependentData, {
       headers: {
@@ -44,6 +48,7 @@ async editDependent(id, dependentData) {
  * @returns Toda la información de los perfiles de dependientes
  */
   async getAll() {
+    getToken();
     try {
       const response = await request.get(`${url}/getAll`);
       return response.data;
@@ -61,6 +66,7 @@ async editDependent(id, dependentData) {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
+    getToken();
     try {
       const dataToSend = {
         page: page,
@@ -81,6 +87,7 @@ async editDependent(id, dependentData) {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
   */
   async getById(id) {
+    getToken();
     try {
       const response = await request.get(`${url}/getById/${id}`);
       return response.data;
@@ -96,6 +103,7 @@ async editDependent(id, dependentData) {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getByIdProfile(id) {
+    getToken();
     try {
       const response = await request.get(`${url}/getByIdProfile/${id}`);
       return response.data;
@@ -111,6 +119,7 @@ async editDependent(id, dependentData) {
   * @returns  Una promesa que resuelve los datos de la respuesta de la API.
   */
   async deleteById(id) {
+    getToken();
     try {
       const response = await request.delete(`${url}/deleteById/${id}`);
       return response.data;

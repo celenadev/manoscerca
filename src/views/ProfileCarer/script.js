@@ -19,6 +19,7 @@ export default {
       comments: [],
       carerUserId: null,
       authenticatedUserId: null,
+      UserName: localStorage.getItem('name')  || 'Usuario Anónimo',
     };
   },
   mounted() {
@@ -32,14 +33,17 @@ export default {
       return `http://localhost:4000/uploads/${this.carer.image}`;
     },
     showEditButton() {
+
       console.log(this.authenticatedUserId);
       return this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString(); // Usa carerUserId
     },
+    isOwnProfile() {
+      return this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString();
+    }
   },
   methods: {
     async loadCarer() {
       try {
-
         const response = await CarerApi.getByIdProfile(this.$route.params.id);
         const data = response.body;
 
@@ -69,13 +73,13 @@ export default {
         console.error('Error al obtener el cuidador', error);
       }
     },
-
     // añadir un nuevo comentario
     async addNewComment(comment) {
       try {
         let data = {
           ...comment,
-          id_carers: this.$route.params.id
+          id_carers: this.$route.params.id,
+          name: this.UserName
         }
 
         await commentApi.addComment(data);
@@ -86,10 +90,28 @@ export default {
       }
     },
     // Método para cargar los comentarios del usuario
+    // async loadComments() {
+    //   try {
+    //     const response = await commentApi.getComments(this.$route.params.id);
+    //     this.comments = response.body.comments || [];
+    //   } catch (error) {
+    //     console.log('Error al obtener los comentarios', error);
+    //   }
+    // },
     async loadComments() {
       try {
         const response = await commentApi.getComments(this.$route.params.id);
-        this.comments = response.body.comments || [];
+        const commentsData = response.body.comments || [];
+        // Verifica si el usuario logueado es el dueño del perfil
+        if (this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString()) {
+          if (commentsData.length > 0) {
+            this.comments = commentsData;
+          } else {
+            this.comments = [{ message: "No hay comentarios en tu perfil." }];
+          }
+        } else {
+          this.comments = commentsData;
+        }
       } catch (error) {
         console.log('Error al obtener los comentarios', error);
       }

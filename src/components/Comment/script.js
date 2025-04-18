@@ -5,13 +5,17 @@ export default {
         comments: {
             type: Array,
             default: [],
-        }
+        },
+        isOwnProfile: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
             showForm: false,
-            comentario: ''
-        }
+            comentario: '',
+        };
     },
     methods: {
         async submitComment() {
@@ -21,7 +25,7 @@ export default {
             }
             const newComment = {
                 description: this.comentario,
-                date: new Date().toISOString().split('T')[0] // Formato de fecha YYYY-MM-DD
+                date: new Date().toISOString().split('T')[0], // Formato de fecha YYYY-MM-DD
             };
             try {
                 await this.$emit('add-comment', newComment);
@@ -30,6 +34,6 @@ export default {
             } catch (error) {
                 console.error('Error al enviar el comentario:', error);
             }
-        }
-    }
-}
+        },
+    },
+};

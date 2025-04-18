@@ -347,13 +347,36 @@ $mc-btnSecond: #839192;
 }// Fin botones de cards
 
 
-// cerrar Sesion
-.cerrarSesion{
- margin: 10px;
- border: none;
+
+// Accesibilidad
+/* Estilos globales para las clases de contraste, escala de grises, etc. */
+body.contrast-high {
+  filter: contrast(175%);
 }
-.cerrarSesion:hover{
-  margin: 10px;
-  background-color: #f9f9f9;
-  color: black;
- }
+
+body.grayscale {
+  filter: grayscale(100%);
+}
+
+body.underline-links a {
+  text-decoration: underline;
+}
+
+body.readable-font {
+  font-family: sans-serif; /* O una fuente legible específica */
+}
+
+body.daltonism-protanopia {
+  filter: sepia(50%) saturate(200%) hue-rotate(30deg); /* Ejemplo de filtro */
+}
+
+body.daltonism-deuteranopia {
+  filter: sepia(50%) saturate(200%) hue-rotate(-60deg); /* Ejemplo de filtro */
+}
+
+body.daltonism-tritanopia {
+  filter: sepia(50%) saturate(200%) hue-rotate(180deg); /* Ejemplo de filtro */
+}
+
+
+// Fin de accesibilidad

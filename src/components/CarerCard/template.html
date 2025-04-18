@@ -1,7 +1,9 @@
 <el-card v-if="carer.id" class="card-custom" :body-style="{ padding: '0px' }">
-    <div class="image-container">
-        <img :src="imageUrl" class="image">
-    </div>
+    <router-link :to="{ name: 'profile-carer', params: { id: carer.id } }" class="image-link">
+        <div class="image-container">
+          <img :src="imageUrl" class="image" />
+        </div>
+      </router-link>
     <div class="info-container">
         <span class="info-label">Nombre: {{ carer.name }}</span><br>
         <span class="info-label">Apellidos: {{ carer.city }}</span><br>

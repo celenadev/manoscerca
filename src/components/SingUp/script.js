@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             email: '',
-            mensaje: 'He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarnos mutuamente. Gracias y espero tu respuesta',
+            mensaje: 'He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarnos mutuamente. Gracias y espero tu respuesta.',
             enviado: false
         };
     },

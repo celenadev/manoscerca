@@ -27,10 +27,12 @@ export default {
         const response = await UserApi.login(this.email, this.password);
         if (response.success) {
           localStorage.setItem('token', response.user.token);
-          localStorage.setItem('expiresIn', response.user.expiresIn);
+          console.log(response.user.expiresIn);
           localStorage.setItem('userId', response.user.id);
           localStorage.setItem('type', response.user.type);
           localStorage.setItem('id', response.user.typeId);
+          localStorage.setItem('name', response.user.name);
+          localStorage.setItem('city', response.user.city);
           this.$bus.$emit("login")
           this.$router.push('/');
         } else {

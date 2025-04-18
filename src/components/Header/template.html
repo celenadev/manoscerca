@@ -29,22 +29,22 @@
                         <RouterLink to="#" class="dropdown-item nav-link">Inglés</RouterLink>
                     </el-dropdown-menu>
                 </el-dropdown>
-                <RouterLink to="/vista-login">
+                <RouterLink v-if="!isLoggedIn" to="/vista-login">
                     <el-button type="primary" class="btn-purple">Acceder</el-button>
                 </RouterLink>
-                <RouterLink to="/views-complete-role">
+                <RouterLink v-if="!isLoggedIn" to="/views-complete-role">
                     <el-button type="primary" class="btn-re-purple" plain>Registrarse</el-button>
                 </RouterLink>
             </div>
         </div>
-        <div v-if="isLoggedIn" class="avatar-container">
-            <RouterLink :to="`/profile-carer/${carerId}`">
-                <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
-            </RouterLink>
+        <div v-if="isLoggedIn" @click="goToProfile" class="avatar-container">
+            <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
+            <span class="el-dropdown-link"> Mi Perfil </span>
         </div>
+
         <HamburgerMenu v-if="isMobile" />
     </div>
-    <!-- Muestra menú hamburguesa en  tamaños móviles -->
+    <!-- Muestra menú hamburguesa en tamaños móviles -->
     <div class="breadcrumb-section">
         <Breadcrumb />
     </div>

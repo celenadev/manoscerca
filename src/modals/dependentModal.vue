@@ -272,7 +272,9 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-dependent-modal", (params) => {
-        this.load_services();
+        // Determinar si es un nuevo registro
+        const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
+        this.load_services(isNewRegister);
         if (params) {
           this.editDependent(params);
         } else {
@@ -281,7 +283,6 @@ export default {
         this.dialogVisible = true;
       });
     },
-
     // Comprueba si es necesario activar o no las reglas de las contraseñas
     // Si hay alguna contraseña escrita, activa las reglas todos los inputs
     // si no hay ninguna contraseña, los desactiva

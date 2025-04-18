@@ -9,16 +9,18 @@
                     <a href="#"><img src="../../../public/icono/gmail.png" alt="Instagram"></a>
                     <a href="#"><img src="../../../public/icono/twitter.png" alt="Instagram"></a>
                 </div>
-                    <p>Atención a domicilio y cuidado de  tus mayores</p>
-                    <p>Córdoba-España 14004 </p>
-                    <p>info@manosCerca.com</p>
+                <p>Atención a domicilio y cuidado de tus mayores</p>
+                <p>Córdoba-España 14004 </p>
+                <p>info@manosCerca.com</p>
             </div>
         </div>
         <div>
             <h3>Manos Cerca</h3>
             <ul>
-                <li><router-link to="our-company" class="nav-link" exact-active-class="active-link">¿Quienes Somos?</router-link></li>
-                <li><router-link to="help-and-questions" class="nav-link" exact-active-class="active-link">Ayuda y preguntas frecuentes</router-link></li>
+                <li><router-link to="our-company" class="nav-link" exact-active-class="active-link">¿Quienes
+                        Somos?</router-link></li>
+                <li><router-link to="help-and-questions" class="nav-link" exact-active-class="active-link">Ayuda y
+                        preguntas frecuentes</router-link></li>
                 <li><a href="#">Sobre manosCerca</a></li>
             </ul>
         </div>
@@ -30,15 +32,21 @@
             </ul>
         </div>
         <div class="contact-column">
-                <h3>Contáctanos</h3>
-                <a  href=""><img src="../../../public/icono/burbuja-de-dialogo.gif" width="70px" alt="Instagram"></a>
-                <p class="phone">+34 123 456 789 </p>
-                <h3>Envíenos un mensaje</h3>
-                <a  href="#"><img src="../../../public/icono/enviar-correo.png" width="70px" alt="Instagram"></a>
+            <h3>Contáctanos</h3>
+            <router-link to="help-and-questions">
+                <img src="../../../public/icono/burbuja-de-dialogo.gif" width="70px" alt="Instagram">
+            </router-link>
+            <p class="phone">+34 123 456 789 </p>
+            <h3>Envíenos un mensaje</h3>
+            <router-link to="help-and-questions">
+                <img src="../../../public/icono/enviar-correo.png" width="70px" alt="Instagram">
+            </router-link>
         </div>
     </div>
     <div class="text-center">
         © 2024 manosCerca:
-        <a class="decnone text-reset fw-bold" href="#">Términos y condiciones</a>
+        <router-link class="decnone text-reset fw-bold" to="terms-and-conditions">
+            Términos y condiciones
+        </router-link>
     </div>
 </section>

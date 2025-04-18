@@ -11,12 +11,10 @@ class UserApi {
    */
   async verifyPassword(user_id, oldPassword) {
     const token = localStorage.getItem('token'); // Obtén el token
-
     if (!token) {
       console.error('Token no encontrado. El usuario no está autenticado.');
       throw new Error('Token no encontrado'); // Lanza un error si no hay token
     }
-
     try {
       return await request.post(`${url}/verify-password`,
         {
@@ -46,7 +44,7 @@ class UserApi {
         `${url}/login`,
         { email, password },
         { withCredentials: true }
-      ); // ¡Crucial!
+      );
       return response.data;
     } catch (error) {
       console.error("Error en UserApi:", error);
@@ -85,6 +83,11 @@ class UserApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async deleteById(id) {
+    const token = localStorage.getItem('token'); // Obtén el token
+    if (!token) {
+      console.error('Token no encontrado. El usuario no está autenticado.');
+      throw new Error('Token no encontrado'); // Lanza un error si no hay token
+    }
     try {
       const response = await request.delete(`${url}/deleteById/${id}`);
       return response.data;

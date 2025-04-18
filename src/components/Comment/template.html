@@ -1,19 +1,26 @@
 <div class="container">
-    <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="comment in comments" :key="comment.id_comment">
-            <div class="medium">
-                <p>{{ comment.description }}</p>
-                <p class="comment-date">{{ comment.date }}</p>
-                <p>⭐⭐⭐⭐⭐ 😊✅</p>
-                <el-button type="info" plain>editar</el-button>
-            </div>
-        </el-carousel-item>
-    </el-carousel>
-    <div class="new">
+    <div v-if="comments.length === 1 && comments[0].message">
+        <p class="no-comments-message">
+            {{ comments[0].message }}
+        </p>
+    </div>
+    <div v-else>
+        <el-carousel :interval="4000" type="card" height="200px">
+            <el-carousel-item v-for="comment in comments" :key="comment.id_comment">
+                <div class="medium">
+                    <p>{{ comment.description }}</p>
+                    <p class="comment-author">- {{ comment.name }}</p>
+                    <p class="comment-date">{{ comment.date }}</p>
+                    <p>⭐⭐⭐⭐⭐ 😊✅</p>
+                    <!-- <el-button type="info" plain>editar</el-button> -->
+                </div>
+            </el-carousel-item>
+        </el-carousel>
+    </div>
+    <div v-if="!isOwnProfile" class="new">
         <p @click="showForm = true">Añade tu comentario</p>
         <div v-if="showForm" class="form">
-            <textarea v-model="comentario" id="comentario" class="form-control" placeholder="Escribe tu comentario aquí"
-                name="comentario"></textarea>
+            <textarea v-model="comentario" id="comentario" class="form-control" placeholder="Escribe tu comentario aquí" name="comentario"></textarea>
             <el-button @click="submitComment" class="btn-purple">Enviar</el-button>
         </div>
     </div>

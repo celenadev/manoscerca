@@ -1,5 +1,10 @@
 <div class="container-profile">
     <div class="row-fila-one">
+        <RouterLink to="/dependents-users">
+            <el-button type="primary" class="btn-second" >
+                <i class="el-icon-arrow-left"></i> Volver
+            </el-button>
+        </RouterLink>
         <div class="image-container">
             <img :src="imageUrl" class="image" />
         </div>
@@ -30,15 +35,20 @@
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
-                    <el-button type="primary" class="btn-second">Salir</el-button>
+                    <el-button type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>
-                <el-button type="primary" class="btn-purple" @click="openEditModal">Editar Perfil</el-button>
+                <!-- Botón para abrir el modal en modo de edición -->
+                <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar
+                    Perfil</el-button>
             </div>
         </div>
     </div>
     <!-- carrousel de comentarios -->
-    <h2 class="title-h2">Nuestros cuidadores opinan sobre los servicios ofrecidos por las familias </h2>
-   <!-- Componente  de comentarios-->
-   <Comment :comments="comments" @add-comment="addNewComment"/>
-   <time class="time">{{ currentDate }}</time>
+    <h2 class="title-h2">
+        Nuestros cuidadores opinan sobre los servicios ofrecidos por las familias
+    </h2>
+    <!-- Componente  de comentarios-->
+    <!-- <Comment :comments="comments" @add-comment="addNewComment" /> -->
+    <Comment :comments="comments" @add-comment="addNewComment" :isOwnProfile="isOwnProfile" />
+    <time class="time">{{ currentDate }}</time>
 </div>

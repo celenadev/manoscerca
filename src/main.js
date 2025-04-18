@@ -5,6 +5,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import router from './router'
 import vuelidate from 'vuelidate'
+
 // Importando element
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -27,6 +28,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 // Importa el archivo principal de estilos
 import './styles/main.scss'
+
 
 // Crear el bus de eventos global
 const EventBus = new Vue()

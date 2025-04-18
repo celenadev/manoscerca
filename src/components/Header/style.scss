@@ -49,6 +49,7 @@
 /* Estilos para el contenedor del avatar */
 .avatar-container {
     display: flex;
+    flex-direction:row-reverse;
     align-items: center;
     margin-right: 50px;
 }
@@ -58,8 +59,10 @@
     margin: 0;
     /* Elimina márgenes innecesarios */
     color: #801563;
+    margin-left: 10px;
 }
 
 .el-avatar:hover {
     color: white;
 }
+

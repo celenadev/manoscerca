@@ -1,6 +1,8 @@
 import request from "axios";
-const token = localStorage.getItem('token') || undefined;
-request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
+const getToken = () => {
+  const token = localStorage.getItem('token') || undefined;
+  request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
+}
 
 const url = "http://localhost:4000/api/carers";
 class CarerApi {
@@ -28,6 +30,7 @@ class CarerApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async editCarer(id, carerData) {
+    getToken();
     try {
       return await request.put(`${url}/edit/${id}`, carerData, {
         headers: {
@@ -45,6 +48,7 @@ class CarerApi {
    * @returns Toda la información de los perfiles de cuidadores
    */
   async getAll() {
+    getToken();
     try {
       const response = await request.get(`${url}/getAll`);
       return response.data;
@@ -61,6 +65,7 @@ class CarerApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
+    getToken();
     try {
       const dataToSend = {
         page: page,
@@ -81,6 +86,7 @@ class CarerApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getById(id) {
+    getToken();
     try {
       const response = await request.get(`${url}/getById/${id}`);
       return response.data;
@@ -95,6 +101,7 @@ class CarerApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getByIdProfile(id) {
+    getToken();
     try {
       const response = await request.get(`${url}/getByIdProfile/${id}`);
       return response.data;
@@ -110,6 +117,7 @@ class CarerApi {
    * @returns  Una promesa que resuelve los datos de la respuesta de la API.
    */
   async deleteById(id) {
+    getToken();
     try {
       const response = await request.delete(`${url}/deleteById/${id}`);
       return response.data;
@@ -119,6 +127,5 @@ class CarerApi {
     }
   }
 
-  
 }
 export default new CarerApi();
