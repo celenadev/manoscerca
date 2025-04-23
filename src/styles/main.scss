@@ -12,8 +12,27 @@ $mc-form-purple: #b9439b;
 $mc-bd-color: #e70bc3;
 $mc-bynegro: black;
 $mc-btnSecond: #839192;
+$mc-msg-error: #f3350a;
+$mc-form-registration:rgb(245, 255, 157);
+// Fuentes
+$mc-font-sizeXXL:2.5em;
+$mc-font-sizeXL:2.2em;
+$mc-font-sizeL:2,1em;
+$mc-font-sizeM:20px;
+$mc-font-sizeS:16px;
+$mc-font-sizeXS:14px;
+$mc-font-sizeXXS:12px;
 
 :root {
+  --font-sizeXXL: #{2.5em};
+  --font-sizeXL: #{2.1em};
+  --font-sizeL: #{2,0em};
+  --font-sizeM: #{20px};
+  --font-sizeS: #{16px};
+  --font-sizeXS: #{14px};
+  --font-sizeXXS: #{12px};
+  --mc-msg-error: #{$mc-msg-error};
+  --mc-form-registration: #{mc-form-registration};
   --mc-byzantine: #{$mc-byzantine};
   --mc-bypurple: #{$mc-bypurple};
   --mc-fandango: #{$mc-fandango};
@@ -33,7 +52,7 @@ $mc-btnSecond: #839192;
 // Titulos principales
 .title-h1 {
   font-family: 'Georgia', serif;
-  font-size: 2.5em;
+  font-size: var(--font-sizeXXL);
   color: #333;
   text-align: center;
   text-transform: uppercase;
@@ -54,7 +73,7 @@ $mc-btnSecond: #839192;
 
 .title-h2 {
   font-family: 'Arial', sans-serif;
-  font-size: 2.1em;
+  font-size: var(--font-sizeXL);
   color: #555;
   text-align: center;
   margin: 15px 0;
@@ -63,13 +82,17 @@ $mc-btnSecond: #839192;
 }
 
 .title-h3 {
-  font-family: 'Verdana', sans-serif;
-  font-size: 1.75em;
-  color: #666;
+  font-family: 'Arial', sans-serif;
+  font-size: var(--font-sizeM);
+  color: #555;
   text-align: center;
   margin: 10px 0;
   padding: 5px 0;
-}// Fin de titulos principales
+}
+.body-text{
+  font-size: var(--font-sizeM);
+}
+// Fin de titulos principales
 
 //Botones Header
 .btn-second {
@@ -77,7 +100,7 @@ $mc-btnSecond: #839192;
   color: $mc-whitecolor !important;
   font-weight: bold;
   border-width: 2px;
-  font-size: 15px;
+  font-size: var(--font-sizeXS);
   margin-top: 10px;
   margin-left: 10px;
 }
@@ -93,7 +116,7 @@ $mc-btnSecond: #839192;
   color: $mc-whitecolor !important;
   font-weight: bold;
   border-width: 2px;
-  font-size: 17px;
+ font-size: var(--font-sizeS);
   margin-top: 10px;
 }
 
@@ -106,7 +129,7 @@ $mc-btnSecond: #839192;
 .btn-re-purple {
   border-color: $mc-bypurple !important;
   color: $mc-fandango !important;
-  font-size: 17px;
+ font-size: var(--font-sizeS);
   border-width: 2px;
   font-weight: bold;
   margin-top: 10px;
@@ -131,7 +154,7 @@ $mc-btnSecond: #839192;
   border: 1px solid #dcdcdc;
   border-radius: 4px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: var(--font-sizeS);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -146,7 +169,7 @@ $mc-btnSecond: #839192;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: var(--font-sizeS);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
@@ -160,12 +183,12 @@ $mc-btnSecond: #839192;
 
 // Color  cajas errores
 .mensajeError {
-  color: red;
+  color: $mc-msg-error;
 }
 
 // Formulario para contacto con manoscerca.es
 .container-form {
-  background-color: rgb(245, 255, 157);
+  background-color: $mc-form-registration;
   width: 1000px;
   margin: 50px auto;
   padding: 30px;
@@ -206,8 +229,6 @@ $mc-btnSecond: #839192;
 }
 
 // Fin formulario para contacto
-
-// Filter
 .filter {
   background-color: #f0f0f0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -221,27 +242,23 @@ $mc-btnSecond: #839192;
   max-width: 280px;
   border-radius: 5px;
   padding: 10px;
-  font-size: 16px;
+  font-size: var(--font-sizeS);
 }// Fin de filter
 
 // Paginación
 .block {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color:var(--mc-whitecolor);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.demonstration {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: #333;
-}
+
 .el-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 0;
+  color: var(--mc-byzantine);
 }
 .el-pagination .el-pager li {
   margin: 0 5px;
@@ -251,18 +268,13 @@ $mc-btnSecond: #839192;
   font-size: large;
 }
 .el-pagination .el-pager li:hover {
-  background-color: #d9d9d9;
+  background-color:var(--mc-whitecolor);
 }
 .el-pagination .el-pagination__prev,
 .el-pagination .el-pagination__next {
-  color: #409EFF;
+  color: var(--mc-byzantine) !important;
   padding: 5px 10px;
   border-radius: 5px;
-}
-
-.el-pagination .el-pagination__prev:hover,
-.el-pagination .el-pagination__next:hover {
-  background-color: #d9d9d9;
 }// Fin de pagination
 
 // Datos no encontrados al filtrar
@@ -270,7 +282,7 @@ $mc-btnSecond: #839192;
   text-align: center;
   margin-top: 20px;
   color: #ca6b6b;
-  font-size: 16px;
+  font-size: var(--font-sizeS);
   font-weight: bold;
 }
 
@@ -282,7 +294,7 @@ $mc-btnSecond: #839192;
   text-align: center;
 }
 .upload-demo .el-upload__text {
-  font-size: 14px;
+    font-size: var(--font-sizeXS);
 }// fin de subir archivos
 
 //Previzualización de la img de perfil
@@ -305,7 +317,7 @@ $mc-btnSecond: #839192;
   font-weight: bold;
   cursor: pointer;
   margin-left: 80px;
-  font-size: 14px;
+    font-size: var(--font-sizeXS);
 }
 .p-borrar:hover {
   text-decoration: underline;
@@ -317,7 +329,7 @@ $mc-btnSecond: #839192;
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
-  font-size: 16px;
+    font-size: var(--font-sizeS);
 }
 .remove-message button {
   background-color: #d0cece;

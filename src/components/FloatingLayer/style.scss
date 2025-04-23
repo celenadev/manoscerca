@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: fixed;
 }
 
 .barra-accesibilidad-flotante button {
@@ -18,8 +19,7 @@
     padding: 8px;
     margin-bottom: 5px;
     cursor: pointer;
-    font-size: 1.4em;
-    /* Tamaño de los iconos */
+  font-size: var(--font-sizeXXL);
     color: #333;
     display: flex;
     align-items: center;
@@ -44,7 +44,7 @@
 .opciones-accesibilidad button {
     margin-right: 0;
     margin-bottom: 8px;
-    font-size: 1.2em;
+    font-size: var(--font-sizeXL);
 }
 
 .daltonism-options {
@@ -57,7 +57,7 @@
     margin-right: 5px;
     border: 1px solid #ddd;
     border-radius: 3px;
-    font-size: 1em;
+ font-size: var(--font-sizeL);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,4 +97,22 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+body.modo-noche {
+    background-color: #333;
+    color: #f0f0f0;
+
+    a {
+        color: #add8e6;
+    }
+}
+
+body.modo-oscuro {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+
+    a {
+        color: #9cdcfe;
+    }
 }

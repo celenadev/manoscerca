@@ -8,6 +8,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
 
+
 }
 
 .row-fila-one, .row-fila-two {
@@ -40,14 +41,14 @@
 .information-dependent h1, .information-dependent h2 {
   margin: 0 0 10px;
   color: #333;
-  font-size: 24px;
+  font-size: var(--font-sizeL);
   font-weight: bold;
 }
 
 .information-dependent p, .information-dependent ul {
   margin: 0;
   color: #666;
-  font-size: 16px;
+  font-size: var(--font-sizeS);
   line-height: 1.5;
   // word-wrap: break-word;
 }
@@ -59,12 +60,4 @@
 
 .information-dependent ul li {
   margin-bottom: 5px;
-}
-
-.row-fila-two {
-  justify-content: center;
-  align-items: center;
-  background-color: #35f124;
-  padding: 20px;
-  border-radius: 10px;
 }

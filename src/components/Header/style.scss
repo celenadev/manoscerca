@@ -23,7 +23,7 @@
 }
 
 .el-dropdown-link {
-    font-size: 17px;
+   font-size: var(--font-sizeS);
     font-weight: bold;
     color: var(--mc-byzantine);
     cursor: pointer;
@@ -31,7 +31,7 @@
 
 .dropdown-item {
     padding: 10px 20px;
-    font-size: 1em;
+ font-size: var(--font-sizeL);
     color: var(--mc-byzantine);
     display: block;
     text-decoration: none;

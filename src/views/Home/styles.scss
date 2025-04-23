@@ -63,12 +63,12 @@
 }
 .title {
   color: #080808;
-  font-size: 28px;
+  font-size: var(--font-sizeM);
   text-align: center;
 }
 .text {
   color: #080808;
-  font-size: 20px;
+  font-size: var(--font-sizeM);
   text-align: center;
 }
 // Fin
@@ -81,7 +81,7 @@
     border-radius: 10px;
 }
 .informatica {
-  background-color:f9f9f9;
+  background-color:#f9f9f9;
   color: #464545;
   margin: 20px auto;
   padding: 20px;
@@ -89,7 +89,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 90%;
   text-align: left;
-  font-size: 1.1em;
+  font-size: var(--font-sizeM);
 }
 
 .informatica ul {
@@ -120,12 +120,7 @@
 .informatica p {
   margin-bottom: 10px;
   color: #34495e;
-  font-size: 1.1em;
-}
-
-.texto {
-  font-weight: bold;
-  text-transform: uppercase;
+  font-size: var(--font-sizeM);
 }
 
 // inicio sevicios a ofrecer
@@ -148,7 +143,7 @@
 }
 
 .service-description {
-  font-size: 16px;
+  font-size: var(--font-sizeS);
   color: #333;
   margin-top: 10px;
   line-height: 1.6;
@@ -159,7 +154,6 @@
   font-weight: bold;
   max-width: 100%;
 }
-
 // Fin
 @keyframes slidein {
   from {
@@ -171,26 +165,24 @@
     width: 100%;
   }
 }
-
-
 @media (max-width: 799px) {
   .el-row {
-    display: block !important; /* Fuerza a que los elementos se apilen verticalmente */
+    display: block !important;
   }
 
   .el-col {
-    width: 100% !important; /* Ocupa todo el ancho disponible */
-    margin-bottom: 20px !important; /* Espacio entre las imágenes */
+    width: 100% !important;
+    margin-bottom: 20px !important
   }
 
   .image {
-    width: 100% !important; /* La imagen también ocupa todo el ancho */
-    height: auto !important; /* Mantiene la proporción de aspecto de la imagen */
-    display: block !important; /* Evita espacios en blanco debajo de la imagen */
-    margin: 0 auto !important; /* Centra la imagen horizontalmente */
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
   }
 
   .grid-content-our-services {
-    text-align: center; /* Centra el texto y el botón */
+    text-align: center;
   }
 }

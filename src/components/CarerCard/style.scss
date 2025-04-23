@@ -1,6 +1,6 @@
 .time {
-  font-size: 13px;
-  color: #c91414;
+  font-size: var(--font-sizeXXS);
+  color: var(--mc-msg-error);
 }
 
 .bottom {
@@ -14,58 +14,57 @@
 }
 
 .image {
-  width: 200px; /* Ajusta el tamaño de la imagen */
-  height: 200px; /* Asegúrate de que la altura sea igual al ancho para que sea un círculo */
-  border-radius: 50%; /* Hace que la imagen sea redonda */
-  margin: 10px; /* Añade un margen alrededor de la imagen */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 10px;
   display: block;
 }
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px; /* Ajusta el padding según tus necesidades */
+  padding: 10px;
 }
 
 .card-custom {
-  padding: 20px; /* Ajusta el padding según tus necesidades */
-  margin: 10px; /* Ajusta el margen según tus necesidades */
+  padding: 20px;
+  margin: 10px;
 }
 
 .info-container {
   padding: 14px;
-  background-color: #f9f9f9; /* Fondo suave */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .info-label {
   display: block;
-  font-family: 'Arial', sans-serif; /* Fuente moderna */
-  font-size: 16px; /* Tamaño de fuente */
-  color: #333; /* Color de texto */
-  margin-bottom: 8px; /* Espaciado entre líneas */
+  font-family: 'Arial', sans-serif;
+  font-size: var(--font-sizeS);
+  color: #333;
+  margin-bottom: 8px;
 }
-
 .time {
   display: block;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: var(--font-sizeXS);
   color: #888;
 }
 
 
 /* Media query para pantallas menores a 800px */
-@media (min-width: 799px) { /* 799px para que sea hasta 800px inclusive */
+@media (min-width: 799px) {
   .card-custom {
-    width: 100% !important; /* Ocupa el 100% del ancho */
-    margin: 10px 0 !important; /* Ajusta los márgenes (arriba/abajo 10px, izquierda/derecha 0) */
-    padding: 20px !important;  /* Conserva el padding si lo deseas */
-    box-sizing: border-box !important; /* Incluye padding y border en el ancho */
+    width: 100% !important;
+    margin: 10px 0 !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
   }
 
   .image {
-    width: 150px; /* Ajusta el tamaño de la imagen para móviles */
+    width: 150px;
     height: 150px;
   }
 }

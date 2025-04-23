@@ -1,6 +1,6 @@
 
 .burger-icon {
-  font-size: 30px;
+  font-size: var(--font-sizeM);
   cursor: pointer;
 }
 
@@ -18,7 +18,7 @@
 
 .dropdown-item {
   padding: 10px 20px;
-  font-size: 1em;
+  font-size: var(--font-sizeS);
   color: var(--mc-byzantine);
   display: block;
   text-decoration: none;

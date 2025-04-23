@@ -16,7 +16,7 @@ $mc-background-color: #f0f0f0;
   width: 100%;
 }
 .large-text {
-  font-size: 20px;
+    font-size: var(--font-sizeM);
 }
 
   /* Media query para pantallas con ancho menor a 720px */

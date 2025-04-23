@@ -6,6 +6,23 @@ import VueRouter from 'vue-router'
 import router from './router'
 import vuelidate from 'vuelidate'
 
+
+// Importa la librería principal de Font Awesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+// Importa el COMPONENTE FontAwesomeIcon
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+// Importa los iconos INDIVIDUALES que vas a utilizar
+import { faUniversalAccess, faPlusCircle, faMinusCircle, faAdjust, faTintSlash, faUnderline, faFont, faEye, faTimesCircle, faMoon } from '@fortawesome/free-solid-svg-icons';
+
+// Añade los iconos a la librería
+library.add(faUniversalAccess, faPlusCircle, faMinusCircle, faAdjust, faTintSlash, faUnderline, faFont, faEye, faTimesCircle, faMoon);
+
+// Registra el componente de Font Awesome GLOBALMENTE
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+
 // Importando element
 import axios from 'axios'
 import VueAxios from 'vue-axios'

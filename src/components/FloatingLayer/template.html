@@ -1,53 +1,55 @@
 <section class="barra-accesibilidad-flotante">
     <button @click="toggleOpciones" aria-label="Mostrar opciones de accesibilidad">
-        <i class="fas fa-universal-access" aria-hidden="true"></i> <span class="sr-only">{{ desplegarTexto }} / {{
-            cerrarTexto }}</span>
+        <font-awesome-icon icon="universal-access" aria-hidden="true" />
+        <span class="sr-only">{{ desplegarCerrarTexto }}</span>
     </button>
-
     <div v-if="mostrarOpciones" class="opciones-accesibilidad">
-        <button @click="cambiarFontSize('aumentar')" aria-label="Aumentar tamaño de fuente">
-            <i class="fas fa-plus-circle" aria-hidden="true"></i> <span class="sr-only">Aumentar texto</span>
+        <button :class="{ 'activo': modoNoche }" @click="toggleModoNoche" :aria-label="opcionesTexto.modoNocheTexto">
+            <font-awesome-icon icon="moon" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.modoNocheTexto }}</span>
         </button>
-        <button @click="cambiarFontSize('disminuir')" aria-label="Disminuir tamaño de fuente">
-            <i class="fas fa-minus-circle" aria-hidden="true"></i> <span class="sr-only">Reducir texto</span>
+        <!-- <button :class="{ 'activo': modoOscuro }" @click="toggleModoOscuro" :aria-label="opcionesTexto.modoOscuroTexto">
+            <font-awesome-icon icon="adjust" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.modoOscuroTexto }}</span>
+        </button> -->
+        <button @click="cambiarFontSize('aumentar')" :aria-label="opcionesTexto.aumentarTexto">
+            <font-awesome-icon icon="plus-circle" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.aumentarTexto }}</span>
         </button>
-        <button :class="{ 'activo': contrast !== 'normal' }" @click="alternarContraste" aria-label="Alternar contraste">
-            <i class="fas fa-adjust" aria-hidden="true"></i> <span class="sr-only">Alternar contraste</span>
+        <button @click="cambiarFontSize('disminuir')" :aria-label="opcionesTexto.reducirTexto">
+            <font-awesome-icon icon="minus-circle" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.reducirTexto }}</span>
         </button>
-        <button :class="{ 'activo': grayscale }" @click="toggleGrayscale" aria-label="Alternar escala de grises">
-            <i class="fas fa-tint-slash" aria-hidden="true"></i> <span class="sr-only">Alternar escala de grises</span>
+        <button :class="{ 'activo': contrast !== 'normal' }" @click="alternarContraste"
+            :aria-label="opcionesTexto.alternarContrasteTexto">
+            <font-awesome-icon icon="adjust" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.alternarContrasteTexto }}</span>
         </button>
-        <button :class="{ 'activo': underlineLinks }" @click="toggleUnderlineLinks"
-            aria-label="Alternar subrayado de enlaces">
-            <i class="fas fa-underline" aria-hidden="true"></i> <span class="sr-only">Alternar subrayado de
-                enlaces</span>
+        <button :class="{ 'activo': grayscale }" @click="toggleGrayscale"
+            :aria-label="opcionesTexto.alternarGrayscaleTexto">
+            <font-awesome-icon icon="tint-slash" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.alternarGrayscaleTexto }}</span>
         </button>
-        <button :class="{ 'activo': readableFont }" @click="toggleReadableFont" aria-label="Alternar fuente legible">
-            <i class="fas fa-font" aria-hidden="true"></i> <span class="sr-only">Alternar fuente legible</span>
+        <button :class="{ 'activo': readableFont }" @click="toggleReadableFont"
+            :aria-label="opcionesTexto.alternarFuenteLegibleTexto">
+            <font-awesome-icon icon="font" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.alternarFuenteLegibleTexto }}</span>
         </button>
         <button :class="{ 'activo': daltonism !== 'normal' }" @click="alternarDaltonismo"
-            aria-label="Alternar modo para daltonismo">
-            <i class="fas fa-eye" aria-hidden="true"></i> <span class="sr-only">Alternar modo para daltonismo</span>
+            :aria-label="opcionesTexto.alternarDaltonismoTexto">
+            <font-awesome-icon icon="eye" aria-hidden="true" />
+            <span class="sr-only">{{ opcionesTexto.alternarDaltonismoTexto }}</span>
         </button>
         <div v-if="daltonism !== 'normal'" class="daltonism-options">
-            <button :class="{ 'activo': daltonism === 'protanopia' }" @click="setDaltonism('protanopia')"
-                aria-label="Modo Protanopia (rojo-verde)">
-                <span class="sr-only">Protanopia</span>
-                <div class="color-sample protanopia"></div>
+            <button v-for="option in daltonismOptions" :key="option.value"
+                :class="{ 'activo': daltonism === option.value }" @click="setDaltonism(option.value)"
+                :aria-label="`${opcionesTexto['modo' + option.label.replace(/ \(.*\)/, '') + 'Texto']} (${option.label.split('(')[1].slice(0, -1)})`">
+                <span class="sr-only">{{ opcionesTexto['modo' + option.label.replace(/ \(.*\)/, '') + 'Texto'] }}</span>
+                <div :class="['color-sample', option.colorClass]"></div>
             </button>
-            <button :class="{ 'activo': daltonism === 'deuteranopia' }" @click="setDaltonism('deuteranopia')"
-                aria-label="Modo Deuteranopia (rojo-verde)">
-                <span class="sr-only">Deuteranopia</span>
-                <div class="color-sample deuteranopia"></div>
-            </button>
-            <button :class="{ 'activo': daltonism === 'tritanopia' }" @click="setDaltonism('tritanopia')"
-                aria-label="Modo Tritanopia (azul-amarillo)">
-                <span class="sr-only">Tritanopia</span>
-                <div class="color-sample tritanopia"></div>
-            </button>
-            <button @click="setDaltonism('normal')" aria-label="Desactivar modo para daltonismo">
-                <i class="fas fa-times-circle" aria-hidden="true"></i> <span class="sr-only">Desactivar
-                    daltonismo</span>
+            <button @click="setDaltonism('normal')" :aria-label="opcionesTexto.desactivarDaltonismoTexto">
+                <font-awesome-icon icon="times-circle" aria-hidden="true" />
+                <span class="sr-only">{{ opcionesTexto.desactivarDaltonismoTexto }}</span>
             </button>
         </div>
     </div>

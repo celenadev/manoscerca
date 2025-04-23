@@ -1,32 +1,10 @@
+
 .el-breadcrumb {
-    background-color: #f9f9f9;
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial, sans-serif';
-    font-size: 14px;
-  }
-  
-  .el-breadcrumb-item a {
-    color: #9e04a9 !important;
-    text-decoration: none;
-  }
-  
-  .el-breadcrumb-item a:hover {
-    text-decoration: underline;
-  }
-  
-  .el-breadcrumb-item::after {
-    content: '>';
-    margin: 0 8px;
-    color: #6c757d;
-  }
-  
-//   .el-breadcrumb-item:last-child::after {
-//     content: '';
-//   }
-  
-//   .el-breadcrumb-item:last-child a {
-//     color: #6c757d !important;
-//     cursor: default;
-//   }
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(143, 142, 142, 0.1);
+  font-family: 'Arial, sans-serif';
+  font-size: var(--font-sizeS);
+  margin: 10px;
+}
+
