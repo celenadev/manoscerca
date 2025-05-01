@@ -24,25 +24,25 @@ class DependentApi {
       throw error;
     }
   }
-/**
- * Edita la información de un usuario familiar existente
- * @param {*} id   El ID del usuario familiar a editar.
- * @param {*} carerData Los nuevos datos del usuario familiar.
- * @returns Una promesa que resuelve los datos de la respuesta de la API.
- */
-async editDependent(id, dependentData) {
-  getToken();
-  try {
-    return await request.put(`${url}/edit/${id}`, dependentData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-  } catch (error) {
-    console.error("Error en API de familias (edit):", error);
-    throw error;
+  /**
+   * Edita la información de un usuario familiar existente
+   * @param {*} id   El ID del usuario familiar a editar.
+   * @param {*} carerData Los nuevos datos del usuario familiar.
+   * @returns Una promesa que resuelve los datos de la respuesta de la API.
+   */
+  async editDependent(id, dependentData) {
+    getToken();
+    try {
+      return await request.put(`${url}/edit/${id}`, dependentData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    } catch (error) {
+      console.error("Error en API de familias (edit):", error);
+      throw error;
+    }
   }
-}
   /**
  * Método para listar todos los perfiles de dependientes
  * @returns Toda la información de los perfiles de dependientes
@@ -125,6 +125,20 @@ async editDependent(id, dependentData) {
       return response.data;
     } catch (error) {
       console.error("Error al eliminar el perfil de Familia desde API:", error);
+      throw error;
+    }
+  }
+
+  // Enviar Email al usuario
+  async sentMessage(recipientId, senderEmail, message) {
+    try {
+      return await request.post(`${url}/sentMessage`, {
+        recipientId,// destinatario
+        senderEmail,// remitente
+        message // remitente
+    });
+    } catch (error) {
+      console.error("Error al enviar el mensaje de contacto:", error);
       throw error;
     }
   }

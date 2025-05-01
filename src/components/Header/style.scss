@@ -23,7 +23,7 @@
 }
 
 .el-dropdown-link {
-   font-size: var(--font-sizeS);
+    font-size: var(--font-sizeM);
     font-weight: bold;
     color: var(--mc-byzantine);
     cursor: pointer;
@@ -31,7 +31,7 @@
 
 .dropdown-item {
     padding: 10px 20px;
- font-size: var(--font-sizeL);
+    font-size: var(--font-sizeS);
     color: var(--mc-byzantine);
     display: block;
     text-decoration: none;
@@ -49,7 +49,7 @@
 /* Estilos para el contenedor del avatar */
 .avatar-container {
     display: flex;
-    flex-direction:row-reverse;
+    flex-direction: row-reverse;
     align-items: center;
     margin-right: 50px;
 }
@@ -57,7 +57,7 @@
 /* Estilos para el avatar */
 .el-avatar {
     margin: 0;
-    /* Elimina márgenes innecesarios */
+    cursor: pointer;
     color: #801563;
     margin-left: 10px;
 }
@@ -65,4 +65,3 @@
 .el-avatar:hover {
     color: white;
 }
-

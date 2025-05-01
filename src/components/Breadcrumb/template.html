@@ -1,8 +1,6 @@
-<div>
-  <el-breadcrumb>
-    <el-breadcrumb-item :to="{ path: '/' }">Inicio</el-breadcrumb-item>
-    <el-breadcrumb-item :to="{ path: '/carers-users' }">cuidadores</el-breadcrumb-item>
-    <el-breadcrumb-item :to="{ path: '/dependents-users' }">Familias</el-breadcrumb-item>
-    <el-breadcrumb-item :to="{ path: '/our-company' }">Quienes somos</el-breadcrumb-item>
-  </el-breadcrumb>
-</div>
+<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+  <el-menu-item index="/">Inicio</el-menu-item>
+  <el-menu-item index="/carers-users">Cuidadores</el-menu-item>
+  <el-menu-item index="/dependents-users">Familias</el-menu-item>
+  <el-menu-item index="/our-company">Quienes somos</el-menu-item>
+</el-menu>

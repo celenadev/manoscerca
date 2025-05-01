@@ -7,7 +7,8 @@
       }
       .card-with-overlay p{
          font-size: var(--font-sizeM);
-         color: var(--mc-whitecolor);
+         background: rgba(90, 88, 88, 0.5);
+         // color: var(--mc-whitecolor);
       }
 
       .card-image {
@@ -28,7 +29,7 @@
          flex-direction: column;
          justify-content: center;
          align-items: center;
-         background: rgba(90, 88, 88, 0.5); /* Fondo semitransdependente */
+         background: rgba(90, 88, 88, 0.5);
          text-align: center;
          padding: 20px;
       }

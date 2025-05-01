@@ -13,24 +13,24 @@ $mc-bd-color: #e70bc3;
 $mc-bynegro: black;
 $mc-btnSecond: #839192;
 $mc-msg-error: #f3350a;
-$mc-form-registration:rgb(245, 255, 157);
+$mc-form-registration: rgb(245, 255, 157);
 // Fuentes
-$mc-font-sizeXXL:2.5em;
-$mc-font-sizeXL:2.2em;
-$mc-font-sizeL:2,1em;
-$mc-font-sizeM:20px;
-$mc-font-sizeS:16px;
-$mc-font-sizeXS:14px;
-$mc-font-sizeXXS:12px;
+$mc-font-sizeXXL: 40px;
+$mc-font-sizeXL: 35px;
+$mc-font-sizeL: 33px;
+$mc-font-sizeM: 20px;
+$mc-font-sizeS: 16px;
+$mc-font-sizeXS: 14px;
+$mc-font-sizeXXS: 12px;
 
 :root {
-  --font-sizeXXL: #{2.5em};
-  --font-sizeXL: #{2.1em};
-  --font-sizeL: #{2,0em};
-  --font-sizeM: #{20px};
-  --font-sizeS: #{16px};
-  --font-sizeXS: #{14px};
-  --font-sizeXXS: #{12px};
+  --font-sizeXXL: #{$mc-font-sizeXXL};
+  --font-sizeXL: #{$mc-font-sizeXL};
+  --font-sizeL: #{$mc-font-sizeL};
+  --font-sizeM: #{$mc-font-sizeM};
+  --font-sizeS: #{$mc-font-sizeS};
+  --font-sizeXS: #{$mc-font-sizeXS};
+  --font-sizeXXS: #{$mc-font-sizeXXS};
   --mc-msg-error: #{$mc-msg-error};
   --mc-form-registration: #{mc-form-registration};
   --mc-byzantine: #{$mc-byzantine};
@@ -89,9 +89,11 @@ $mc-font-sizeXXS:12px;
   margin: 10px 0;
   padding: 5px 0;
 }
-.body-text{
+
+.body-text {
   font-size: var(--font-sizeM);
 }
+
 // Fin de titulos principales
 
 //Botones Header
@@ -116,7 +118,7 @@ $mc-font-sizeXXS:12px;
   color: $mc-whitecolor !important;
   font-weight: bold;
   border-width: 2px;
- font-size: var(--font-sizeS);
+  font-size: var(--font-sizeS);
   margin-top: 10px;
 }
 
@@ -129,7 +131,7 @@ $mc-font-sizeXXS:12px;
 .btn-re-purple {
   border-color: $mc-bypurple !important;
   color: $mc-fandango !important;
- font-size: var(--font-sizeS);
+  font-size: var(--font-sizeS);
   border-width: 2px;
   font-weight: bold;
   margin-top: 10px;
@@ -243,12 +245,14 @@ $mc-font-sizeXXS:12px;
   border-radius: 5px;
   padding: 10px;
   font-size: var(--font-sizeS);
-}// Fin de filter
+}
+
+// Fin de filter
 
 // Paginación
 .block {
   padding: 20px;
-  background-color:var(--mc-whitecolor);
+  background-color: var(--mc-whitecolor);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -260,6 +264,7 @@ $mc-font-sizeXXS:12px;
   padding: 10px 0;
   color: var(--mc-byzantine);
 }
+
 .el-pagination .el-pager li {
   margin: 0 5px;
   padding: 5px 10px;
@@ -267,15 +272,19 @@ $mc-font-sizeXXS:12px;
   cursor: pointer;
   font-size: large;
 }
+
 .el-pagination .el-pager li:hover {
-  background-color:var(--mc-whitecolor);
+  background-color: var(--mc-whitecolor);
 }
+
 .el-pagination .el-pagination__prev,
 .el-pagination .el-pagination__next {
   color: var(--mc-byzantine) !important;
   padding: 5px 10px;
   border-radius: 5px;
-}// Fin de pagination
+}
+
+// Fin de pagination
 
 // Datos no encontrados al filtrar
 .no-data-message {
@@ -293,9 +302,12 @@ $mc-font-sizeXXS:12px;
   padding: 10px;
   text-align: center;
 }
+
 .upload-demo .el-upload__text {
-    font-size: var(--font-sizeXS);
-}// fin de subir archivos
+  font-size: var(--font-sizeXS);
+}
+
+// fin de subir archivos
 
 //Previzualización de la img de perfil
 .image-preview {
@@ -308,7 +320,9 @@ $mc-font-sizeXXS:12px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-}//Fin de previzualización de la img de perfil
+}
+
+//Fin de previzualización de la img de perfil
 
 // Estilos para el botón de eliminar el perfil de usuarios
 .p-borrar {
@@ -317,20 +331,23 @@ $mc-font-sizeXXS:12px;
   font-weight: bold;
   cursor: pointer;
   margin-left: 80px;
-    font-size: var(--font-sizeXS);
+  font-size: var(--font-sizeXS);
 }
+
 .p-borrar:hover {
   text-decoration: underline;
   color: black;
 }
+
 .remove-message {
   margin-left: 60px;
   color: #721c24;
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
-    font-size: var(--font-sizeS);
+  font-size: var(--font-sizeS);
 }
+
 .remove-message button {
   background-color: #d0cece;
   border: none;
@@ -339,6 +356,7 @@ $mc-font-sizeXXS:12px;
   border-radius: 3px;
   cursor: pointer;
 }
+
 .remove-message button:hover {
   background-color: #801563;
   color: aliceblue;
@@ -350,13 +368,17 @@ $mc-font-sizeXXS:12px;
   justify-content: space-between;
   align-items: center;
 }
-.buttons-cards > :nth-child(1),
-.buttons-cards > :nth-child(2) {
+
+.buttons-cards> :nth-child(1),
+.buttons-cards> :nth-child(2) {
   margin-right: 10px;
 }
-.buttons-cards > :nth-child(3) {
+
+.buttons-cards> :nth-child(3) {
   margin-left: auto;
-}// Fin botones de cards
+}
+
+// Fin botones de cards
 
 
 
@@ -375,20 +397,84 @@ body.underline-links a {
 }
 
 body.readable-font {
-  font-family: sans-serif; /* O una fuente legible específica */
+  font-family: sans-serif;
+  /* O una fuente legible específica */
 }
 
 body.daltonism-protanopia {
-  filter: sepia(50%) saturate(200%) hue-rotate(30deg); /* Ejemplo de filtro */
+  filter: sepia(50%) saturate(200%) hue-rotate(30deg);
+  /* Ejemplo de filtro */
 }
 
 body.daltonism-deuteranopia {
-  filter: sepia(50%) saturate(200%) hue-rotate(-60deg); /* Ejemplo de filtro */
+  filter: sepia(50%) saturate(200%) hue-rotate(-60deg);
+  /* Ejemplo de filtro */
 }
 
 body.daltonism-tritanopia {
-  filter: sepia(50%) saturate(200%) hue-rotate(180deg); /* Ejemplo de filtro */
+  filter: sepia(50%) saturate(200%) hue-rotate(180deg);
+  /* Ejemplo de filtro */
 }
 
 
 // Fin de accesibilidad
+
+
+// MediaQuery
+@media (max-width: 768px) {
+  .container-form {
+    width: 100%;
+    padding: 10px;
+    margin: 20px auto;
+  }
+}
+
+/* Para pantallas aún más pequeñas, por ejemplo, hasta 480px */
+@media (max-width: 600px) {
+  .container-form {
+    width: 98%;
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .container-form h1 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+
+  .container-form h2 {
+    max-width: 70%;
+    font-size: var(--font-sizeS);
+  }
+
+  .form-floating label {
+    font-size: var(--font-sizeXS);
+  }
+
+  .form-control {
+    font-size: var(--font-sizeXS);
+  }
+
+  .mensajeError {
+    font-size: var(--font-sizeXS);
+    margin-top: 3px;
+  }
+
+  .enlace-grupo a,
+  .enlace-grupo p {
+    font-size: var(--font-sizeXXS);
+    margin-bottom: 3px;
+  }
+
+  .terms-container p {
+    font-size: var(--font-sizeXXS);
+  }
+
+  .terms-container a p {
+    font-size: var(--font-sizeXXS);
+  }
+
+  .form-signin1 button, input, textarea, hr {
+    max-width: 70%;
+  }
+}

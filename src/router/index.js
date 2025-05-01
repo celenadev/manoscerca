@@ -58,7 +58,7 @@ const routes = [
     component: ProfileDependent,
   },
   {
-    path: '/contact-form',
+    path: '/contact-form/:id',
     name: 'contact-form',
     component: ContactForm,
   },

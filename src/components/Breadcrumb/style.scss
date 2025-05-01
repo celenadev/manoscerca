@@ -1,10 +1,13 @@
 
-.el-breadcrumb {
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(143, 142, 142, 0.1);
-  font-family: 'Arial, sans-serif';
-  font-size: var(--font-sizeS);
-  margin: 10px;
+.el-menu-item.is-active {
+  border-bottom-color: purple !important;
 }
 
+.el-menu {
+  font-family: 'Arial', sans-serif !important;
+  margin: 5px;
+
+}
+.el-menu-item{
+  font-size: var(--font-sizeS);
+}

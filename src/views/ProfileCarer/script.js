@@ -89,15 +89,7 @@ export default {
         console.error('Error al añadir el comentario', error);
       }
     },
-    // Método para cargar los comentarios del usuario
-    // async loadComments() {
-    //   try {
-    //     const response = await commentApi.getComments(this.$route.params.id);
-    //     this.comments = response.body.comments || [];
-    //   } catch (error) {
-    //     console.log('Error al obtener los comentarios', error);
-    //   }
-    // },
+
     async loadComments() {
       try {
         const response = await commentApi.getComments(this.$route.params.id);

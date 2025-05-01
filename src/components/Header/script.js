@@ -11,7 +11,8 @@ export default {
     return {
       isMobile: false,
       isLoggedIn: !!localStorage.getItem('token'),
-      carerId: localStorage.getItem('id'),
+      id: localStorage.getItem('id'),
+      type: localStorage.getItem('type')
     }
   },
   mounted() {
@@ -31,10 +32,11 @@ export default {
     },
     goToProfile()
     {
-      if(this.$route.path !== `/profile-carer/${this.carerId}`) {
-        this.$router.push(`/profile-carer/${this.carerId}`);
-        window.location.reload();
-      }
+        if(this.$route.path !== `/profile-${this.type}/${this.id}`) {
+          this.$router.push(`/profile-${this.type}/${this.id}`);
+        } else {
+          window.location.reload();
+        }
     }
   }
 }

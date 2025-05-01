@@ -108,7 +108,6 @@
           />
         </div>
       </el-form-item>
-
       <!-- IMG -->
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -219,7 +218,7 @@ export default {
         ],
         password: [
           {
-            required: false,
+            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
             message: "Por favor ingresa tu contraseña",
             trigger: "blur",
           },
@@ -227,11 +226,23 @@ export default {
             min: 6,
             message: "La contraseña debe tener al menos 6 caracteres",
             trigger: "blur",
+            validator: (rule, value, callback) => {
+              if (value && value.length < 6) {
+                callback(
+                  new Error("La contraseña debe tener al menos 6 caracteres")
+                );
+              } else if (value || !this.isEditMode) {
+                // Solo valida la longitud si tiene valor o no es edición
+                callback();
+              } else {
+                callback();
+              }
+            },
           },
         ],
         oldPassword: [
           {
-            required: false,
+            required: this.isEditMode, // Solo requerido en modo edición si se quiere cambiar la contraseña
             message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
@@ -239,14 +250,19 @@ export default {
         ],
         repeatPassword: [
           {
-            required: false,
+            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
           {
             validator: (rule, value, callback) => {
-              if (value !== this.ruleForm.password) {
-                callback(new Error("Las contraseñas no coinciden"));
+              if (this.ruleForm.password || !this.isEditMode) {
+                // Solo valida si 'password' tiene valor o no es edición
+                if (value !== this.ruleForm.password) {
+                  callback(new Error("Las contraseñas no coinciden"));
+                } else {
+                  callback();
+                }
               } else {
                 callback();
               }
@@ -349,19 +365,25 @@ export default {
         if (valid) {
           try {
             let formData = new FormData();
+            let dataToSend = { ...this.ruleForm }; // Crear una copia del ruleForm
 
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
-              this.ruleForm.image = this.file.name;
+              dataToSend.image = this.file.name;
             } else if (
-              !this.ruleForm.image ||
-              this.ruleForm.image === this.defaultImage
+              !dataToSend.image ||
+              dataToSend.image === this.defaultImage
             ) {
-              this.ruleForm.image = this.defaultImage;
+              dataToSend.image = this.defaultImage;
+            }
+            // Excluir oldPassword del objeto a enviar si no se está editando
+            if (this.isEditMode && !dataToSend.password) {
+              delete dataToSend.oldPassword;
+            } else if (!this.isEditMode) {
+              delete dataToSend.oldPassword; // No enviar oldPassword en la creación
             }
 
-            formData.append("data", JSON.stringify(this.ruleForm));
-
+            formData.append("data", JSON.stringify(dataToSend));
             let response;
 
             if (this.isEditMode) {
@@ -370,12 +392,11 @@ export default {
             } else {
               response = await CarerApi.addCarer(formData);
               notifySuccess("Perfil creado con éxito");
-              // Retrasar la redirección con setTimeout
               setTimeout(() => {
                 this.$router.push("/carers-users");
               }, 1800);
             }
-            console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
+            console.log("Respuesta de la API:", response.data);
             this.$bus.$emit("edit-carer");
             this.dialogVisible = false;
           } catch (error) {
@@ -430,11 +451,11 @@ export default {
         params.tasks.map((task) => Number(task.id_services)) || [];
       this.ruleForm.work_day = params.work_day || "";
       this.ruleForm.presentation = params.presentation || "";
-      this.originalPassword = params.password || ""; // Store the original password
-      this.ruleForm.oldPassword = ""; // Clear old password field
-      this.ruleForm.password = ""; // Clear new password field
-      this.ruleForm.repeatPassword = ""; // Clear repeat password field
-      this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
+      this.originalPassword = params.password || "";
+      this.ruleForm.oldPassword = "";
+      this.ruleForm.password = "";
+      this.ruleForm.repeatPassword = "";
+      this.ruleForm.image = params.image || this.defaultImage;
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);
       } else {

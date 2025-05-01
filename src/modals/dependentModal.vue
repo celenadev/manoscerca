@@ -196,9 +196,9 @@ export default {
             trigger: ["blur", "change"],
           },
         ],
-        password: [
+       password: [
           {
-            required: false,
+            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
             message: "Por favor ingresa tu contraseña",
             trigger: "blur",
           },
@@ -206,11 +206,23 @@ export default {
             min: 6,
             message: "La contraseña debe tener al menos 6 caracteres",
             trigger: "blur",
+            validator: (rule, value, callback) => {
+              if (value && value.length < 6) {
+                callback(
+                  new Error("La contraseña debe tener al menos 6 caracteres")
+                );
+              } else if (value || !this.isEditMode) {
+                // Solo valida la longitud si tiene valor o no es edición
+                callback();
+              } else {
+                callback();
+              }
+            },
           },
         ],
         oldPassword: [
           {
-            required: false,
+            required: this.isEditMode, // Solo requerido en modo edición si se quiere cambiar la contraseña
             message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
@@ -218,14 +230,19 @@ export default {
         ],
         repeatPassword: [
           {
-            required: false,
+            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
           {
             validator: (rule, value, callback) => {
-              if (value !== this.ruleForm.password) {
-                callback(new Error("Las contraseñas no coinciden"));
+              if (this.ruleForm.password || !this.isEditMode) {
+                // Solo valida si 'password' tiene valor o no es edición
+                if (value !== this.ruleForm.password) {
+                  callback(new Error("Las contraseñas no coinciden"));
+                } else {
+                  callback();
+                }
               } else {
                 callback();
               }
@@ -324,18 +341,26 @@ export default {
         if (valid) {
           try {
             let formData = new FormData();
+            let dataToSend = { ...this.ruleForm };
 
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
               this.ruleForm.image = this.file.name;
             } else if (
-              !this.ruleForm.image ||
-              this.ruleForm.image === this.defaultImage
+              !dataToSend.image ||
+              dataToSend.image === this.defaultImage
             ) {
-              this.ruleForm.image = this.defaultImage;
+              dataToSend.image = this.defaultImage;
             }
-            formData.append("data", JSON.stringify(this.ruleForm));
+            // Excluir oldPassword del objeto a enviar si no se está editando
+            if (this.isEditMode && !dataToSend.password) {
+              delete dataToSend.oldPassword;
+            } else if (!this.isEditMode) {
+              delete dataToSend.oldPassword; // No enviar oldPassword en la creación
+            }
+            formData.append("data", JSON.stringify(dataToSend));
             let response;
+
             if (this.isEditMode) {
               response = await DependentApi.editDependent(
                 this.ruleForm.id,

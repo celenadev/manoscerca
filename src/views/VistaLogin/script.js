@@ -33,6 +33,7 @@ export default {
           localStorage.setItem('id', response.user.typeId);
           localStorage.setItem('name', response.user.name);
           localStorage.setItem('city', response.user.city);
+          localStorage.setItem('email', response.user.email);
           this.$bus.$emit("login")
           this.$router.push('/');
         } else {

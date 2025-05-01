@@ -1,17 +1,20 @@
 <main class="container-form">
-    <form class="form-signin1" v-on:submit.prevent="validate">
+    <form class="form-signin1" v-on:submit.prevent="sentMessage">
         <h2 class="title-h2">Envíame un Mensaje</h2>
         <div class="form-floating">
-            <input v-model="email" id="email" type="email" class="form-control" placeholder="name@example.com" name="email" />
-            <label for="email">Email</label>
-            <div v-if="enviado && !$v.email.required" class="mensajeError">Debe escribir un email</div>
-            <div v-if="enviado && !$v.email.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"</div>
+            <input v-model="senderEmail" id="email" type="email" class="form-control" placeholder="name@example.com"
+                name="email" />
+            <label for="email">Tu Email</label>
+            <div v-if="sent && !$v.senderEmail.required" class="mensajeError">Debe escribir un email</div>
+            <div v-if="sent && !$v.senderEmail.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"
+            </div>
         </div>
         <div class="form-floating">
-            <textarea v-model="mensaje" id="mensaje" class="form-control" placeholder="Escribe tu mensaje aquí" name="mensaje"></textarea>
-            <label for="mensaje">Mensaje</label>
-            <div v-if="enviado && !$v.mensaje.required" class="mensajeError">Debe escribir un mensaje</div>
+            <textarea v-model="message" id="message" class="form-control" placeholder="Escribe tu mensaje aquí"
+                name="message"></textarea>
+            <label for="message">Mensaje</label>
+            <div v-if="sent && !$v.message.required" class="mensajeError">Debe escribir un mensaje</div>
         </div>
-        <button class="btn w-100 py-2 btn-purple" type="submit">Siguiente</button>
+        <button class="btn w-100 py-2 btn-purple" type="submit">Enviar Mensaje</button>
     </form>
 </main>

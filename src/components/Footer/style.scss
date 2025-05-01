@@ -1,7 +1,6 @@
 $mc-byzantine: #801563;
 
 .footer-clean {
-    // padding: 10px;
     padding-top: 40px;
     background-color: #cfcfcf;
     color: #fdfeff;
@@ -21,7 +20,7 @@ $mc-byzantine: #801563;
 
     .container-footer h3 {
         margin-bottom: 10px;
-        font-size: var(--font-sizeL);
+        font-size: var(--font-sizeM);
         color: #3d3c3c;
     }
 
@@ -71,7 +70,7 @@ $mc-byzantine: #801563;
 
     .social-container p {
         font-weight: bold;
-        font-size: 1.0em;
+        font-size: var(--font-sizeXS);
         color: #801563;
         text-align: center;
     }

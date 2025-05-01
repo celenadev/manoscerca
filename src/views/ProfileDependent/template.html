@@ -31,9 +31,12 @@
                 <p>{{ dependent.description }}</p>
             </div>
             <div class="buttons-cards">
-                <RouterLink to="/contact-form">
+                <RouterLink :to="{ name: 'contact-form', params: { id: dependent.id } }">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
+                <!-- <router-link :to="{ name: 'profile-dependent', params: { id: dependent.id } }">
+                    <el-button class="btn btn-purple">Ver Perfil</el-button>
+                </router-link> -->
                 <RouterLink to="/">
                     <el-button  v-if="showEditButton" type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>

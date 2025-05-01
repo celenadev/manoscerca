@@ -31,6 +31,7 @@ class ServiceApi {
                 localStorage.removeItem('token');
                 localStorage.removeItem('expiresIn');
                 localStorage.removeItem('userId');
+                this.isModalAOpen = false;
                 router.push('/vista-login');
             } else {
                 console.error("Error", error);
