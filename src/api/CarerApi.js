@@ -6,11 +6,11 @@ const getToken = () => {
 
 const url = "http://localhost:4000/api/carers";
 class CarerApi {
-/**
- * Añade un nuevo cuidador.
- * @param {*} newCarer  Los datos del nuevo cuidador.
- * @returns  Una promesa que resuelve los datos de la respuesta de la API.
- */
+  /**
+   * Añade un nuevo cuidador.
+   * @param {*} newCarer  Los datos del nuevo cuidador.
+   * @returns  Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async addCarer(newCarer) {
     try {
       return await request.post(`${url}/add`, newCarer, {
@@ -23,12 +23,12 @@ class CarerApi {
       throw error;
     }
   }
-/**
- * Edita la información de un cuidador existente
- * @param {*} id   El ID del cuidador a editar.
- * @param {*} carerData Los nuevos datos del cuidador.
- * @returns Una promesa que resuelve los datos de la respuesta de la API.
- */
+  /**
+   * Edita la información de un cuidador existente
+   * @param {*} id   El ID del cuidador a editar.
+   * @param {*} carerData Los nuevos datos del cuidador.
+   * @returns Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async editCarer(id, carerData) {
     getToken();
     try {
@@ -57,13 +57,13 @@ class CarerApi {
       throw error;
     }
   }
-/**
- * Obtiene una lista paginada de cuidadores con filtros opcionales.
- * @param {*} page El número de la página a obtener.
- * @param {*} limit l número de elementos por página
- * @param {*} filters Los filtros a aplicar en la búsqueda.
- * @returns Una promesa que resuelve los datos de la respuesta de la API.
- */
+  /**
+   * Obtiene una lista paginada de cuidadores con filtros opcionales.
+   * @param {*} page El número de la página a obtener.
+   * @param {*} limit l número de elementos por página
+   * @param {*} filters Los filtros a aplicar en la búsqueda.
+   * @returns Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
     getToken();
     try {
@@ -80,11 +80,11 @@ class CarerApi {
     }
   }
 
-/**
- *  Obtiene el perfil de un cuidador por su ID.
- * @param {*} id El ID del cuidador.
- * @returns Una promesa que resuelve los datos de la respuesta de la API.
- */
+  /**
+   *  Obtiene el perfil de un cuidador por su ID.
+   * @param {*} id El ID del cuidador.
+   * @returns Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async getById(id) {
     getToken();
     try {
@@ -95,11 +95,11 @@ class CarerApi {
       throw error;
     }
   }
-/**
- * Obtiene el perfil de un cuidador por su ID.
- * @param {*} id El ID del cuidador.
- * @returns Una promesa que resuelve los datos de la respuesta de la API.
- */
+  /**
+   * Obtiene el perfil de un cuidador por su ID.
+   * @param {*} id El ID del cuidador.
+   * @returns Una promesa que resuelve los datos de la respuesta de la API.
+   */
   async getByIdProfile(id) {
     getToken();
     try {
@@ -127,5 +127,23 @@ class CarerApi {
     }
   }
 
+  /**
+   * @param {*} recipientId El ID del destinatario del mensaje
+   * @param {*} senderEmail  La dirección de correo electrónico del remitente del mensaje
+   * @param {*} message  El contenido del mensaje que se quiere enviar
+   * @returns  Respuesta
+   */
+  async sentMessage(recipientId, senderEmail, message) {
+    try {
+      return await request.post(`${url}/sentMessage`, {
+        recipientId,
+        senderEmail,
+        message
+      });
+    } catch (error) {
+      console.error("Error al enviar el mensaje de contacto:", error);
+      throw error;
+    }
+  }
 }
 export default new CarerApi();

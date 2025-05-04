@@ -289,7 +289,6 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-dependent-modal", (params) => {
-        // Determinar si es un nuevo registro
         const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
         this.load_services(isNewRegister);
         if (params) {

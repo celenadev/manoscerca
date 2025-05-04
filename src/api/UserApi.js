@@ -13,7 +13,7 @@ class UserApi {
     const token = localStorage.getItem('token'); // Obtén el token
     if (!token) {
       console.error('Token no encontrado. El usuario no está autenticado.');
-      throw new Error('Token no encontrado'); // Lanza un error si no hay token
+      throw new Error('Token no encontrado');
     }
     try {
       return await request.post(`${url}/verify-password`,
@@ -40,11 +40,14 @@ class UserApi {
    */
   async login(email, password) {
     try {
+      debugger
+      console.log("Al llegar aqui falla con el perfil de familias");
       const response = await request.post(
         `${url}/login`,
         { email, password },
         { withCredentials: true }
       );
+      console.log("Está llegando aquiiiiiiiiiiii");
       return response.data;
     } catch (error) {
       console.error("Error en UserApi:", error);

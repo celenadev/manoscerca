@@ -9,7 +9,7 @@ export default {
     methods: {
         selectRole(role) {
             this.selectedRole = role;
-            this.errorMessage = ''; // Limpiar el mensaje de error al seleccionar una opción
+            this.errorMessage = '';
         },
         openDialog() {
             if (this.selectedRole) {

@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     async login() {
+      debugger
       this.enviado = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -27,7 +28,6 @@ export default {
         const response = await UserApi.login(this.email, this.password);
         if (response.success) {
           localStorage.setItem('token', response.user.token);
-          console.log(response.user.expiresIn);
           localStorage.setItem('userId', response.user.id);
           localStorage.setItem('type', response.user.type);
           localStorage.setItem('id', response.user.typeId);

@@ -35,7 +35,6 @@ export default {
       return `http://localhost:4000/uploads/${this.dependent.image}`;
     },
     showEditButton() {
-      console.log(this.authenticatedUserId);
       return this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString(); // Usa dependentUserId
     },
     isOwnProfile() {
@@ -94,7 +93,6 @@ export default {
       try {
         const response = await commentApi.getComments(this.$route.params.id);
         const commentsData = response.body.comments || [];
-        // Verifica si el usuario logueado es el dueño del perfil
         if (this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString()) {
           if (commentsData.length > 0) {
             this.comments = commentsData;

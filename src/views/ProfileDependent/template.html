@@ -1,7 +1,7 @@
 <div class="container-profile">
     <div class="row-fila-one">
         <RouterLink to="/dependents-users">
-            <el-button type="primary" class="btn-second" >
+            <el-button type="primary" class="btn-second">
                 <i class="el-icon-arrow-left"></i> Volver
             </el-button>
         </RouterLink>
@@ -34,11 +34,9 @@
                 <RouterLink :to="{ name: 'contact-form', params: { id: dependent.id } }">
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
-                <!-- <router-link :to="{ name: 'profile-dependent', params: { id: dependent.id } }">
-                    <el-button class="btn btn-purple">Ver Perfil</el-button>
-                </router-link> -->
                 <RouterLink to="/">
-                    <el-button  v-if="showEditButton" type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
+                    <el-button v-if="showEditButton" type="primary" class="btn-second" @click="logout">Cerrar
+                        Sesión</el-button>
                 </RouterLink>
                 <!-- Botón para abrir el modal en modo de edición -->
                 <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar

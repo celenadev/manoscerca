@@ -129,14 +129,19 @@ class DependentApi {
     }
   }
 
-  // Enviar Email al usuario
+  /**
+  * @param {*} recipientId El ID del destinatario del mensaje
+  * @param {*} senderEmail  La dirección de correo electrónico del remitente del mensaje
+  * @param {*} message  El contenido del mensaje que se quiere enviar
+  * @returns  Respuesta
+  */
   async sentMessage(recipientId, senderEmail, message) {
     try {
       return await request.post(`${url}/sentMessage`, {
-        recipientId,// destinatario
-        senderEmail,// remitente
-        message // remitente
-    });
+        recipientId,
+        senderEmail,
+        message
+      });
     } catch (error) {
       console.error("Error al enviar el mensaje de contacto:", error);
       throw error;

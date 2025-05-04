@@ -35,7 +35,7 @@ export default {
                     `Tu mensaje ha sido enviado con éxito a ${this.recipientName}. Te responderá a la brevedad. ¡Gracias por contactarnos!`
                 );
                 this.senderEmail = "";
-                this.message = `He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante...`;
+                this.message = "";
                 this.sent = false;
                 this.$v.$reset();
             } catch (error) {

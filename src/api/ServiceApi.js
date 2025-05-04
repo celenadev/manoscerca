@@ -15,8 +15,8 @@
 // }
 // export default new ServiceApi();
 import request from "axios";
-import router from '@/router'; // Asegúrate de que la ruta al router sea correcta
-import { notifyError } from '@/Languaje/notifications'; // Asegúrate de que la ruta a las notificaciones sea correcta
+import router from '@/router';
+import { notifyError } from '@/Languaje/notifications';
 
 const url = "http://localhost:4000/api/services";
 
