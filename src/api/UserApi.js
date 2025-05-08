@@ -40,14 +40,11 @@ class UserApi {
    */
   async login(email, password) {
     try {
-      debugger
-      console.log("Al llegar aqui falla con el perfil de familias");
       const response = await request.post(
         `${url}/login`,
         { email, password },
         { withCredentials: true }
       );
-      console.log("Está llegando aquiiiiiiiiiiii");
       return response.data;
     } catch (error) {
       console.error("Error en UserApi:", error);
@@ -61,7 +58,7 @@ class UserApi {
         );
         return {
           success: false,
-          message: error.response.data.message || "Error en el login",
+          message: error.response.data.message || "Error en el login. Revise sus credenciales",
         };
       } else if (error.request) {
         // No se recibió respuesta del servidor

@@ -27,7 +27,7 @@ export default {
   mounted() {
     this.loadDependent();
     this.loadComments(); // Línea para cargar los comentarios
-    this.$bus.$on("edit-dependents", () => this.loadDependents())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
+    this.$bus.$on("edit-dependents", () => this.loadDependent())//  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
     this.authenticatedUserId = localStorage.getItem('userId');
   },
   computed: {

@@ -105,12 +105,19 @@ import {
  * @param {*} next Una función que se llama para continuar la navegación.
  * @returns continue la navegación
  */
-function auth(to, from, next ) {
+function auth(to, from, next) {
   const token = localStorage.getItem('token');
-  if (!token) {
-      notifyInfo("Inicie sesión en nuestro sistema");
-      return router.push('/vista-login');
+  // Si NO hay token y NO estamos ya en la página de login, redirige al login
+  if (!token && to.path !== '/vista-login') {
+    notifyInfo("Inicie sesión en nuestro sistema");
+    return next('/vista-login');
   }
+  // Si HAY token y estamos intentando ir a la página de login, redirige a la home
+  if (token && to.path === '/vista-login') {
+    return next('/');
+  }
+
+  // En cualquier otro caso, permite la navegación
   return next();
 }
 

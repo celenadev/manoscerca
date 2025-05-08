@@ -100,14 +100,14 @@
       </div>
       <div class="form-floating">
         <textarea
-          v-model="mensaje"
-          id="mensaje"
+          v-model="message"
+          id="message"
           class="form-control"
-          placeholder="Escribe tu mensaje aquí"
-          name="mensaje"
+          placeholder="Escribe tu message aquí"
+          name="message"
         ></textarea>
-        <label for="mensaje">Mensaje</label>
-        <div v-if="enviado && !$v.mensaje.required" class="mensajeError">
+        <label for="message">Mensaje</label>
+        <div v-if="enviado && !$v.message.required" class="mensajeError">
           Debe escribir un mensaje
         </div>
       </div>

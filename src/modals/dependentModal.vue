@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" width="80%">
+  <el-dialog :visible.sync="modalVisible" width="80%">
     <template slot="title">
       <h2 v-if="isEditMode">Modificar Perfil</h2>
       <h2 v-else>Formulario De Registro Para Familias</h2>
@@ -111,7 +111,7 @@
         </div>
       </div>
       <!-- Eliminar el perfil -->
-      <el-button class="el-button--cancel" @click="dialogVisible = false"
+      <el-button class="el-button--cancel" @click="modalVisible = false"
         >Cancelar</el-button
       >
       <el-button
@@ -138,7 +138,7 @@ export default {
   name: "dependent-modal",
   data() {
     return {
-      dialogVisible: false,
+      modalVisible: false,
       isEditMode: false,
       showRemoveMessage: false, // para eliminar el perfil
       file: null,
@@ -195,8 +195,20 @@ export default {
             message: "Por favor ingresa un email válido",
             trigger: ["blur", "change"],
           },
+          {
+            validator: (rule, value, callback) => {
+              if (value && /[A-Z]/.test(value)) {
+                callback(
+                  new Error("El email no debe contener letras mayúsculas")
+                );
+              } else {
+                callback();
+              }
+            },
+            trigger: ["blur", "change"],
+          },
         ],
-       password: [
+        password: [
           {
             required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
             message: "Por favor ingresa tu contraseña",
@@ -296,7 +308,12 @@ export default {
         } else {
           this.resetForm();
         }
-        this.dialogVisible = true;
+        this.modalVisible = true;
+      });
+      //this.$bus.emit('close-modal');
+      this.$bus.$on("close-modal", () => {
+        this.resetForm();
+        this.modalVisible = false;
       });
     },
     // Comprueba si es necesario activar o no las reglas de las contraseñas
@@ -376,8 +393,8 @@ export default {
               }, 1500);
             }
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
-            this.$bus.$emit("edit-dependent"); // recarga los datos editados automaticamente
-            this.dialogVisible = false;
+            this.$bus.$emit("edit-dependents"); // recarga los datos editados automaticamente
+            this.modalVisible = false;
           } catch (error) {
             notifyError("Hemos tenido un error. Inténtelo de nuevo");
             console.error("Fallo en la operación:", error);
@@ -477,7 +494,7 @@ export default {
             "Su perfil como usuario familia ha sido eliminado con éxito"
           );
           this.resetForm();
-          this.dialogVisible = false;
+          this.modalVisible = false;
           this.$router.push("/");
         }
       } catch (error) {

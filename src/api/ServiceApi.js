@@ -1,19 +1,3 @@
-// import request from "axios";
-
-// const url = "http://localhost:4000/api/services";
-// class ServiceApi {
-//     // Consulta a la bd la lista  de los servicios para cargarlos en el modal
-//     async getAll() {
-//       try {
-//         const response = await request.get(`${url}/getAll`);
-//         return response.data;
-//       } catch (error) {
-//         console.error("Error", error);
-//         throw error;
-//       }
-//     }
-// }
-// export default new ServiceApi();
 import request from "axios";
 import router from '@/router';
 import { notifyError } from '@/Languaje/notifications';
@@ -27,6 +11,7 @@ class ServiceApi {
             return response.data;
         } catch (error) {
             if (error.response && error.response.status === 401) {
+                this.$bus.emit('close-modal');
                 notifyError('Su sesión ha expirado. Por favor, inicie sesión nuevamente...');
                 localStorage.removeItem('token');
                 localStorage.removeItem('expiresIn');
