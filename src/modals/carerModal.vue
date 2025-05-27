@@ -324,7 +324,6 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-carer-modal", (params) => {
-        // Determinar si es un nuevo registro
         const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
         this.load_services(isNewRegister);
         if (params) {
@@ -338,7 +337,6 @@ export default {
         this.resetForm();
         this.modalVisible = false;
       });
-
     },
     /**
      * Comprueba si es necesario activar o no las reglas de las contraseñas
@@ -399,10 +397,8 @@ export default {
             } else if (!this.isEditMode) {
               delete dataToSend.oldPassword; // No enviar oldPassword en la creación
             }
-
             formData.append("data", JSON.stringify(dataToSend));
             let response;
-
             if (this.isEditMode) {
               response = await CarerApi.editCarer(this.ruleForm.id, formData);
               notifySuccess("Perfil actualizado con éxito");
@@ -410,8 +406,8 @@ export default {
               response = await CarerApi.addCarer(formData);
               notifySuccess("Perfil creado con éxito");
               setTimeout(() => {
-                this.$router.push("/carers-users");
-              }, 1800);
+                this.$router.push("/carers-users").catch(() => {});
+              }, 1500);
             }
             console.log("Respuesta de la API:", response.data);
             this.$bus.$emit("edit-carers");

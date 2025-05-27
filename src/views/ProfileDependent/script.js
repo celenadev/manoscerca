@@ -34,8 +34,23 @@ export default {
     imageUrl() {
       return `http://localhost:4000/uploads/${this.dependent.image}`;
     },
-    showEditButton() {
-      return this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString(); // Usa dependentUserId
+    // showEditButton() {
+    //   return this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString(); // Usa dependentUserId
+    // },
+     showEditButton() {
+      const authenticatedUserType = localStorage.getItem('type');
+      const authenticatedUserIdFromLS = localStorage.getItem('userId');
+      // Condición 1: Si el usuario autenticado es un superadmin
+      const isSuperadmin = authenticatedUserType === 'superadmin';
+      // Condición 2: Si el usuario autenticado es el mismo dependent que el perfil que se está viendo
+      // Usamos el ID directamente del localStorage para la comparación
+      const isDependentOwner = authenticatedUserIdFromLS && this.dependentUserId && authenticatedUserIdFromLS === this.dependentUserId.toString();
+      // El botón se mostrará si es un superadmin O si es el dependent propietario del perfil
+      return isSuperadmin || isDependentOwner;
+    },
+      showLogoutButton() {
+      const authenticatedUserType = localStorage.getItem('type');
+      return authenticatedUserType === 'dependent';
     },
     isOwnProfile() {
       return this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString();
@@ -119,6 +134,9 @@ export default {
       localStorage.removeItem('userId');
       localStorage.removeItem('type');
       localStorage.removeItem('id');
+      localStorage.removeItem('city');
+      localStorage.removeItem('email');
+      localStorage.removeItem('name');
       this.$bus.$emit("logout")
       this.$router.push('/vista-login');
     }

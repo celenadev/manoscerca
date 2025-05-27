@@ -32,10 +32,20 @@ export default {
     goToProfile() {
       const id = localStorage.getItem('id');
       const type = localStorage.getItem('type');
-      if (this.$route.path !== `/profile-${type}/${id}`) {
-        this.$router.push(`/profile-${type}/${id}`);
+      const idAdmin = localStorage.getItem('userId');
+
+      let targetPath; // Definimos la ruta de destino aquí
+
+      if (type === 'superadmin') {
+        targetPath = `/profile-admin/${idAdmin}`;
       } else {
-        window.location.reload()
+        targetPath = `/profile-${type}/${id}`;
+      }
+      if (this.$route.path !== targetPath) {
+        this.$router.push(targetPath); // Redirecciona a la ruta calculada
+      } else {
+        // Si ya estás en la ruta correcta, recarga la página
+        window.location.reload();
       }
     }
   }

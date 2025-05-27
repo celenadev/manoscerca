@@ -24,7 +24,6 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-
       this.isLoading = true;
       this.loginError = '';
 
@@ -32,6 +31,7 @@ export default {
         const response = await UserApi.login(this.email, this.password);
         this.isLoading = false;
         if (response.success) {
+          debugger
           localStorage.setItem('token', response.user.token);
           localStorage.setItem('userId', response.user.id);
           localStorage.setItem('type', response.user.type);
@@ -39,13 +39,19 @@ export default {
           localStorage.setItem('name', response.user.name);
           localStorage.setItem('city', response.user.city);
           localStorage.setItem('email', response.user.email);
+          localStorage.setItem('role', response.user.role);
           this.$bus.$emit("login");
+        if (response.user.type === 'superadmin') {
+
+          this.$router.push('/profile-admin');
+        } else {
           this.$router.push('/');
-          this.$message({
-            message: `¡Bienvenido/a, ${response.user.name}!`,
-            type: 'success',
-            duration: 3000
-          });
+        }
+        this.$message({
+          message: `¡Bienvenido/a, ${response.user.name}!`,
+          type: 'success',
+          duration: 4000
+        });
         } else {
           this.loginError = response.message || 'Error al iniciar sesión.';
           this.$message({

@@ -140,12 +140,12 @@ export default {
     return {
       modalVisible: false,
       isEditMode: false,
-      showRemoveMessage: false, // para eliminar el perfil
+      showRemoveMessage: false,
       file: null,
       imageUrl: "",
       defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
       originalImage: "",
-      originalPassword: "", // Nueva propiedad para almacenar la contraseña original
+      originalPassword: "",
 
       ruleForm: {
         name: "",
@@ -161,7 +161,7 @@ export default {
         image: "",
       },
       uploadUrl: "",
-      options: [], // array que almacena  la lista de tareas
+      options: [],
       rules: {
         name: [
           {
@@ -310,7 +310,6 @@ export default {
         }
         this.modalVisible = true;
       });
-      //this.$bus.emit('close-modal');
       this.$bus.$on("close-modal", () => {
         this.resetForm();
         this.modalVisible = false;
@@ -386,10 +385,8 @@ export default {
             } else {
               response = await DependentApi.addDependent(formData);
               notifySuccess("Perfil creado con éxito.Redirigiendo...");
-
-              // Retrasar la redirección con setTimeout
               setTimeout(() => {
-                this.$router.push("/dependents-users");
+                this.$router.push("/dependents-users").catch(() => {});
               }, 1500);
             }
             console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)

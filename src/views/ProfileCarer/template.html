@@ -11,8 +11,7 @@
         <div class="info-user">
             <div class="info-info">
                 <h1>{{ carer.name }}</h1>
-                <p>{{ carer.city }}, {{ carer.address }}</p>
-                <p>Email: {{ carer.email }}</p>
+                <p>{{ carer.city }}</p>
             </div>
             <div class="info-info">
                 <h2>Formación</h2>
@@ -39,7 +38,7 @@
                     <el-button type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
-                    <el-button v-if="showEditButton" type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
+                    <el-button v-if="showLogoutButton" type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>
                 <!-- Botón para abrir el modal en modo de edición -->
                 <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar
