@@ -16,7 +16,7 @@ export default {
   mounted() {
     this.checkScreenSize();
     this.isLoggedIn = !!localStorage.getItem('token');
-    window.addEventListener('resize', this.checkScreenSize );
+    window.addEventListener('resize', this.checkScreenSize);
     this.$bus.$on('login', () => this.isLoggedIn = true);
     this.$bus.$on('logout', () => this.isLoggedIn = false);
   },
@@ -29,15 +29,14 @@ export default {
     checkScreenSize() {
       this.isMobile = window.innerWidth <= 768;
     },
-    goToProfile()
-    {
+    goToProfile() {
       const id = localStorage.getItem('id');
       const type = localStorage.getItem('type');
-        if(this.$route.path !== `/profile-${type}/${id}`) {
-          this.$router.push(`/profile-${type}/${id}`);
-        } else {
-          window.location.reload();
-        }
+      if (this.$route.path !== `/profile-${type}/${id}`) {
+        this.$router.push(`/profile-${type}/${id}`);
+      } else {
+        window.location.reload()
+      }
     }
   }
 }
