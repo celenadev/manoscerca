@@ -31,7 +31,6 @@ export default {
         const response = await UserApi.login(this.email, this.password);
         this.isLoading = false;
         if (response.success) {
-          debugger
           localStorage.setItem('token', response.user.token);
           localStorage.setItem('userId', response.user.id);
           localStorage.setItem('type', response.user.type);

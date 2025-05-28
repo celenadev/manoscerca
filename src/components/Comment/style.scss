@@ -1,5 +1,5 @@
 // Fila dos carrousel de  comentarios
-.el-carousel__item   {
+.el-carousel__item {
     color: #000000;
     font-size: var(--font-sizeXS);
     padding: 10px;
@@ -17,12 +17,14 @@
     padding: 1 0px;
     margin-bottom: 20px;
 }
+
 .comment-date {
     font-size: var(--font-sizeXXS);
     color: #686869;
     font-weight: bold;
     font-style: italic;
 }
+
 .comment-author {
     font-size: var(--font-sizeXXS);
     font-style: italic;
@@ -32,14 +34,6 @@
 }
 
 // Fin fila carrousel de  comentarios
-
-.new {
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .new p {
     cursor: pointer;
     color: #801563;
@@ -70,4 +64,14 @@
     text-align: center;
     padding: 20px;
     font-size: var(--font-sizeM);
-  }
+}
+
+.delete-comment-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.delete-comment-button:hover {
+    background-color: #0f7401;
+}

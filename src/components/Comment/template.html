@@ -1,26 +1,36 @@
 <div class="container">
     <div v-if="comments.length === 1 && comments[0].message">
-        <p class="no-comments-message">
-            {{ comments[0].message }}
-        </p>
+        <p class="no-comments-message">{{ comments[0].message }}</p>
     </div>
     <div v-else>
-        <el-carousel :interval="4000" type="card" height="200px">
+        <el-carousel v-if="comments.length" :interval="4000" type="card" height="200px">
             <el-carousel-item v-for="comment in comments" :key="comment.id_comment">
                 <div class="medium">
                     <p>{{ comment.description }}</p>
                     <p class="comment-author">- {{ comment.name }}</p>
                     <p class="comment-date">{{ comment.date }}</p>
-                    <p>⭐⭐⭐⭐⭐ 😊✅</p>
-                    <!-- <el-button type="info" plain>editar</el-button> -->
+                    <el-rate v-model="comment.rating" disabled show-score text-color="#44624e"
+                        score-template="{value} estrellas" class="comment-rating"></el-rate>
+                    <!-- Botón para eliminar el comentario -->
+                    <el-button v-if="canDeleteComment(comment)" @click="handleDeleteComment(comment)"
+                        class="delete-comment-button" type="danger" icon="el-icon-delete" circle>
+                    </el-button>
                 </div>
             </el-carousel-item>
         </el-carousel>
+        <p v-else> Aún no hay comentarios</p>
     </div>
-    <div v-if="!isOwnProfile" class="new">
+    <!-- <div v-if="!isOwnProfile  " class="new">
+        <p @click="showForm = true">Añade tu comentario</p> -->
+    <div v-if="canAddComment" class="new">
         <p @click="showForm = true">Añade tu comentario</p>
         <div v-if="showForm" class="form">
-            <textarea v-model="comentario" id="comentario" class="form-control" placeholder="Escribe tu comentario aquí" name="comentario"></textarea>
+            <textarea v-model="comentario" id="comentario" class="form-control" placeholder="Escribe tu comentario aquí"
+                name="comentario"></textarea>
+            <div class="rating-input">
+                <span class="rating-label">Tu valoración:</span>
+                <el-rate v-model="newCommentRating" :colors="['#99A9BF', '#F7BA2A', '#FF9900']"></el-rate>
+            </div>
             <el-button @click="submitComment" class="btn-purple">Enviar</el-button>
         </div>
     </div>

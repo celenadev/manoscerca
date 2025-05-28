@@ -13,6 +13,7 @@ class CarerApi {
    */
   async addCarer(newCarer) {
     try {
+      debugger
       return await request.post(`${url}/add`, newCarer, {
         headers: {
           'Content-Type': 'multipart/form-data'

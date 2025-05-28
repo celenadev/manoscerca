@@ -13,7 +13,7 @@ import DependentsUsers from '../views/DependentsUsers/index.vue'
 import ProfileDependent from '../views/ProfileDependent/index.vue'
 import PasswordReset from '../views/PasswordReset/index.vue'
 import TermsAndConditions from '../views/TermsAndConditions/index.vue'
-import ProfileAdmin from '../views/ProfileAdmin/index.vue'
+
 
 const routes = [
   {
@@ -57,11 +57,6 @@ const routes = [
     path: '/profile-dependent/:id',
     name: 'profile-dependent',
     component: ProfileDependent,
-  },
-  {
-    path: '/profile-admin/:id',
-    name: 'AdminProfile',
-    component: ProfileAdmin,
   },
   {
     path: '/contact-form/:id',

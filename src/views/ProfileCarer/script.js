@@ -41,20 +41,23 @@ export default {
       );
     },
     showEditButton() {
-      const authenticatedUserType = localStorage.getItem('type');
-      const authenticatedUserIdFromLS = localStorage.getItem('userId');
+      const authenticatedUserType = localStorage.getItem("type");
+      const authenticatedUserIdFromLS = localStorage.getItem("userId");
       // Condición 1: Si el usuario autenticado es un superadmin
-      const isSuperadmin = authenticatedUserType === 'superadmin';
+      const isSuperadmin = authenticatedUserType === "superadmin";
       // Condición 2: Si el usuario autenticado es el mismo carer que el perfil que se está viendo
       // Usamos el ID directamente del localStorage para la comparación
-      const isCarerOwner = authenticatedUserIdFromLS && this.carerUserId && authenticatedUserIdFromLS === this.carerUserId.toString();
+      const isCarerOwner =
+        authenticatedUserIdFromLS &&
+        this.carerUserId &&
+        authenticatedUserIdFromLS === this.carerUserId.toString();
       // El botón se mostrará si es un superadmin O si es el carer propietario del perfil
       return isSuperadmin || isCarerOwner;
     },
     showLogoutButton() {
-      const authenticatedUserType = localStorage.getItem('type');
-      return authenticatedUserType === 'carer';
-    }
+      const authenticatedUserType = localStorage.getItem("type");
+      return authenticatedUserType === "carer";
+    },
   },
 
   methods: {
@@ -97,6 +100,7 @@ export default {
         let data = {
           ...comment,
           id_carers: this.$route.params.id,
+          receiver: this.$route.params.id,
           name: this.UserName,
         };
 
@@ -138,14 +142,7 @@ export default {
 
     //cerrar Sesión de usuario logueado
     logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("expiresIn");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("type");
-      localStorage.removeItem("id");
-      localStorage.removeItem("city");
-      localStorage.removeItem("email");
-      localStorage.removeItem("name");
+      localStorage.clear();
       this.$bus.$emit("logout");
       this.$router.push("/vista-login");
     },
