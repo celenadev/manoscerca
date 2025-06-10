@@ -30,11 +30,11 @@
                 <p>{{ dependent.description }}</p>
             </div>
             <div class="buttons-cards">
-                <RouterLink :to="{ name: 'contact-form', params: { id: dependent.id } }">
-                    <el-button type="primary" class="btn-purple">Contactar</el-button>
+                <RouterLink v-if="showContactButton" :to="{ name: 'contact-form', params: { id: dependent.id } }">
+                    <el-button  type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
-                    <el-button v-if="showLogoutButton" type="primary" class="btn-second" @click="logout">Cerrar
+                    <el-button v-if="showLogoutButton && showEditButton" type="primary" class="btn-second" @click="logout">Cerrar
                         Sesión</el-button>
                 </RouterLink>
                 <!-- Botón para abrir el modal en modo de edición -->

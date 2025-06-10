@@ -1,4 +1,5 @@
 //Variables
+// Definición de variables
 $mc-whitecolor: white;
 $mc-bgColor: purple;
 $mc-byzantine: #801563;
@@ -12,8 +13,23 @@ $mc-form-purple: #b9439b;
 $mc-bd-color: #e70bc3;
 $mc-bynegro: black;
 $mc-btnSecond: #839192;
+$mc-colorcontenCard: #f9f9f9;
+$mc-dark-green: #078a9b;
+$mc-footer-lists: #2b64a2;
+$mc-green: #0f7401;
 $mc-msg-error: #f3350a;
 $mc-form-registration: rgb(245, 255, 157);
+$mc-h1-title: #333;
+// Variables de accesibilidad
+$mc-accessibility-bg: rgba(240, 240, 240, 0.8);
+$mc-accessibility-border: #ccc;
+$mc-accessibility-button-text: #333;
+$mc-accessibility-active-color: #007bff;
+$mc-contrast-border: #eee;
+$mc-daltonism-border: #ddd;
+$mc-protanopia-color: #008080;
+$mc-deuteranopia-color: #008080;
+$mc-tritanopia-color: #a9a9a9;
 // Fuentes
 $mc-font-sizeXXL: 40px;
 $mc-font-sizeXL: 35px;
@@ -23,7 +39,9 @@ $mc-font-sizeS: 16px;
 $mc-font-sizeXS: 14px;
 $mc-font-sizeXXS: 12px;
 
+// Definición de variables en `:root`
 :root {
+  // Tamaños de fuente
   --font-sizeXXL: #{$mc-font-sizeXXL};
   --font-sizeXL: #{$mc-font-sizeXL};
   --font-sizeL: #{$mc-font-sizeL};
@@ -31,28 +49,49 @@ $mc-font-sizeXXS: 12px;
   --font-sizeS: #{$mc-font-sizeS};
   --font-sizeXS: #{$mc-font-sizeXS};
   --font-sizeXXS: #{$mc-font-sizeXXS};
-  --mc-msg-error: #{$mc-msg-error};
-  --mc-form-registration: #{mc-form-registration};
+
+  // Colores generales
+  --mc-whitecolor: #{$mc-whitecolor};
+  --mc-bgColor: #{$mc-bgColor};
+  --mc-gray: #{$mc-gray};
+  --mc-bynegro: #{$mc-bynegro};
+  --mc-h1-title: #{$mc-h1-title};
+
+  // Colores secundarios
   --mc-byzantine: #{$mc-byzantine};
+  --mc-darkraspberry: #{$mc-darkraspberry};
   --mc-bypurple: #{$mc-bypurple};
-  --mc-fandango: #{$mc-fandango};
   --mc-bymorado: #{$mc-bymorado};
   --mc-fandango: #{$mc-fandango};
-  --mc-gray: #{$mc-gray};
-  --mc-bgColor: #{$mc-bgColor};
-  --mc-whitecolor: #{$mc-whitecolor};
   --mc-purple-text: #{$mc-purple-text};
+
+  // Colores específicos
   --mc-form-purple: #{$mc-form-purple};
   --mc-bd-color: #{$mc-bd-color};
-  --mc-bynegro: #{$mc-bynegro};
   --mc-btnSecond: #{$mc-btnSecond};
-}
+  --mc-colorcontenCard: #{$mc-colorcontenCard};
+  --mc-dark-green: #{$mc-dark-green};
+  --mc-footer-lists: #{$mc-footer-lists};
+  --mc-green: #{$mc-green};
+  --mc-msg-error: #{$mc-msg-error};
+  --mc-form-registration: #{$mc-form-registration};
 
+  // Variables de accesibilidad
+  --mc-accessibility-bg: #{$mc-accessibility-bg};
+  --mc-accessibility-border: #{$mc-accessibility-border};
+  --mc-accessibility-button-text: #{$mc-accessibility-button-text};
+  --mc-accessibility-active-color: #{$mc-accessibility-active-color};
+  --mc-contrast-border: #{$mc-contrast-border};
+  --mc-daltonism-border: #{$mc-daltonism-border};
+  --mc-protanopia-color: #{$mc-protanopia-color};
+  --mc-deuteranopia-color: #{$mc-deuteranopia-color};
+  --mc-tritanopia-color: #{$mc-tritanopia-color};
+}
 // Titulos principales
 .title-h1 {
   font-family: 'Georgia', serif;
   font-size: var(--font-sizeXXL);
-  color: #333;
+  color:var(--mc-h1-title);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -66,7 +105,7 @@ $mc-font-sizeXXS: 12px;
   display: block;
   width: 50px;
   height: 3px;
-  background: #333;
+  background:var(--mc-h1-title);
   margin: 10px auto 0;
 }
 
@@ -146,7 +185,6 @@ $mc-font-sizeXXS: 12px;
   background-color: $mc-byzantine !important;
   color: $mc-whitecolor !important;
 }
-
 //Fin botones Header
 // Inicio botones modals
 .el-button--cancel {
@@ -160,13 +198,13 @@ $mc-font-sizeXXS: 12px;
 }
 
 .el-button--cancel:hover {
-  background-color: #e6e6e6;
+  background-color: var(--mc-gray);
   color: #000;
 }
 
 .el-button--confirm {
   background-color: $mc-bypurple !important;
-  color: #fff;
+  color: var(--mc-whitecolor);
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
@@ -187,7 +225,7 @@ $mc-font-sizeXXS: 12px;
   color: $mc-msg-error;
 }
 
-// Formulario para contacto con manoscerca.es
+// Formulario para contacto con manosCerca
 .container-form {
   background-color: $mc-form-registration;
   width: 1000px;
@@ -357,7 +395,7 @@ $mc-font-sizeXXS: 12px;
 }
 
 .remove-message button:hover {
-  background-color: #801563;
+  background-color: var(--mc-byzantine);
   color: aliceblue;
 }
 
@@ -376,10 +414,7 @@ $mc-font-sizeXXS: 12px;
 .buttons-cards> :nth-child(3) {
   margin-left: auto;
 }
-
 // Fin botones de cards
-
-
 
 // Accesibilidad
 /* Estilos globales para las clases de contraste, escala de grises, etc. */
@@ -397,27 +432,20 @@ body.underline-links a {
 
 body.readable-font {
   font-family: sans-serif;
-  /* O una fuente legible específica */
 }
 
 body.daltonism-protanopia {
   filter: sepia(50%) saturate(200%) hue-rotate(30deg);
-  /* Ejemplo de filtro */
 }
 
 body.daltonism-deuteranopia {
   filter: sepia(50%) saturate(200%) hue-rotate(-60deg);
-  /* Ejemplo de filtro */
 }
 
 body.daltonism-tritanopia {
   filter: sepia(50%) saturate(200%) hue-rotate(180deg);
-  /* Ejemplo de filtro */
 }
-
-
 // Fin de accesibilidad
-
 
 // MediaQuery
 @media (max-width: 768px) {
@@ -427,7 +455,6 @@ body.daltonism-tritanopia {
     margin: 20px auto;
   }
 }
-
 /* Para pantallas aún más pequeñas, por ejemplo, hasta 480px */
 @media (max-width: 600px) {
   .container-form {
@@ -473,7 +500,10 @@ body.daltonism-tritanopia {
     font-size: var(--font-sizeXXS);
   }
 
-  .form-signin1 button, input, textarea, hr {
+  .form-signin1 button,
+  input,
+  textarea,
+  hr {
     max-width: 70%;
   }
 }

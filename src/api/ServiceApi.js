@@ -1,23 +1,21 @@
 import request from "axios";
-import router from '@/router';
-import { notifyError } from '@/Languaje/notifications';
+import tokenExpired from "./token"
 
-const url = "http://localhost:4000/api/services";
+const url = process.env.VUE_APP_BACK_URL+"api/services";
 
+const getToken = () => {
+    const token = localStorage.getItem('token') || undefined;
+    request.defaults.headers.common['Authorization'] = token;
+}
 class ServiceApi {
     async getAll() {
         try {
+            getToken();
             const response = await request.get(`${url}/getAll`);
             return response.data;
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                this.$bus.emit('close-modal');
-                notifyError('Su sesión ha expirado. Por favor, inicie sesión nuevamente...');
-                localStorage.removeItem('token');
-                localStorage.removeItem('expiresIn');
-                localStorage.removeItem('userId');
-                this.isModalAOpen = false;
-                router.push('/vista-login');
+                tokenExpired();
             } else {
                 console.error("Error", error);
                 throw error;

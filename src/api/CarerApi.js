@@ -1,10 +1,12 @@
 import request from "axios";
+import tokenExpired from "./token"
+
 const getToken = () => {
   const token = localStorage.getItem('token') || undefined;
   request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
 }
 
-const url = "http://localhost:4000/api/carers";
+const url = process.env.VUE_APP_BACK_URL+"api/carers";
 class CarerApi {
   /**
    * Añade un nuevo cuidador.
@@ -13,7 +15,6 @@ class CarerApi {
    */
   async addCarer(newCarer) {
     try {
-      debugger
       return await request.post(`${url}/add`, newCarer, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -31,16 +32,20 @@ class CarerApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async editCarer(id, carerData) {
-    getToken();
     try {
+      getToken();
       return await request.put(`${url}/edit/${id}`, carerData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
     } catch (error) {
-      console.error("Error en API de cuidadores (edit):", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error en API de cuidadores (edit):", error);
+        throw error;
+      }
     }
   }
 
@@ -49,13 +54,17 @@ class CarerApi {
    * @returns Toda la información de los perfiles de cuidadores
    */
   async getAll() {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getAll`);
       return response.data;
     } catch (error) {
-      console.error("Error al listar los cuidadores", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al listar los cuidadores", error);
+        throw error;
+      }
     }
   }
   /**
@@ -66,8 +75,8 @@ class CarerApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
-    getToken();
     try {
+      getToken();
       const dataToSend = {
         page: page,
         limit: limit,
@@ -76,8 +85,12 @@ class CarerApi {
       const response = await request.post(`${url}/getPaginated`, dataToSend)
       return response.data;
     } catch (error) {
-      console.error("Error al listar los perfiles de los cuidadores", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al listar los perfiles de los cuidadores", error);
+        throw error;
+      }
     }
   }
 
@@ -87,13 +100,17 @@ class CarerApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async getById(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getById/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error", error);
+        throw error;
+      }
     }
   }
   /**
@@ -102,13 +119,17 @@ class CarerApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async getByIdProfile(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getByIdProfile/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error", error);
+        throw error;
+      }
     }
   }
 
@@ -118,13 +139,17 @@ class CarerApi {
    * @returns  Una promesa que resuelve los datos de la respuesta de la API.
    */
   async deleteById(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.delete(`${url}/deleteById/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error al eliminar el perfil cuidador desde API:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al eliminar el perfil cuidador desde API:", error);
+        throw error;
+      }
     }
   }
 
@@ -134,16 +159,22 @@ class CarerApi {
    * @param {*} message  El contenido del mensaje que se quiere enviar
    * @returns  Respuesta
    */
-  async sentMessage(recipientId, senderEmail, message) {
+  async sentMessage(recipientId, senderEmail, message, name) {
     try {
+      getToken();
       return await request.post(`${url}/sentMessage`, {
         recipientId,
         senderEmail,
+        name,
         message
       });
     } catch (error) {
-      console.error("Error al enviar el mensaje de contacto:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al enviar el mensaje de contacto:", error);
+        throw error;
+      }
     }
   }
 }

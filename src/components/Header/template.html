@@ -1,10 +1,10 @@
 <header class="container-header">
-     <link rel="icon" type="image/png" href="../../../public/logo.ico">
     <div class="header-content">
+        <link rel="icon" type="image/png" href="../../../public/favicon-16x16.png">
         <div class="logo-section">
             <RouterLink to="/"
                 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <img src="../../../public/imagenes/logo-mc.png" alt="Logo" title="Logo de manosCerca.es">
+                <img src="../../../public/imagenes/logo-mc.png" alt="Logo" title="Logo de manosCerca">
             </RouterLink>
         </div>
         <div class="dropdown-section" v-if="!isMobile">
@@ -38,7 +38,6 @@
                 <RouterLink v-if="isLoggedIn && isSuperadmin" to="/">
                     <el-button type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>
-
             </div>
         </div>
         <div v-if="isLoggedIn && !isSuperadmin" @click="goToProfile" class="avatar-container">

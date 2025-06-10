@@ -4,22 +4,6 @@
         <span class="sr-only">{{ desplegarCerrarTexto }}</span>
     </button>
     <div v-if="mostrarOpciones" class="opciones-accesibilidad">
-        <button :class="{ 'activo': modoNoche }" @click="toggleModoNoche" :aria-label="opcionesTexto.modoNocheTexto">
-            <font-awesome-icon icon="moon" aria-hidden="true" />
-            <span class="sr-only">{{ opcionesTexto.modoNocheTexto }}</span>
-        </button>
-        <!-- <button :class="{ 'activo': modoOscuro }" @click="toggleModoOscuro" :aria-label="opcionesTexto.modoOscuroTexto">
-            <font-awesome-icon icon="adjust" aria-hidden="true" />
-            <span class="sr-only">{{ opcionesTexto.modoOscuroTexto }}</span>
-        </button> -->
-        <button @click="cambiarFontSize('aumentar')" :aria-label="opcionesTexto.aumentarTexto">
-            <font-awesome-icon icon="plus-circle" aria-hidden="true" />
-            <span class="sr-only">{{ opcionesTexto.aumentarTexto }}</span>
-        </button>
-        <button @click="cambiarFontSize('disminuir')" :aria-label="opcionesTexto.reducirTexto">
-            <font-awesome-icon icon="minus-circle" aria-hidden="true" />
-            <span class="sr-only">{{ opcionesTexto.reducirTexto }}</span>
-        </button>
         <button :class="{ 'activo': contrast !== 'normal' }" @click="alternarContraste"
             :aria-label="opcionesTexto.alternarContrasteTexto">
             <font-awesome-icon icon="adjust" aria-hidden="true" />

@@ -41,7 +41,7 @@ export default {
                 {
                     id: 4,
                     img: require('/public/imagenes/servicios/servicio5.jpg'),
-                    text: 'Proporcionamos cuidados e iguiene personal atendiendo las necesidades específicas de cada persona.'
+                    text: 'Proporcionamos cuidados e higiene personal, atendiendo las necesidades específicas de cada persona.'
                 },
                 {
                     id: 5,

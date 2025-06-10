@@ -1,14 +1,11 @@
-$mc-byzantine: #801563;
-
 .footer-clean {
     padding-top: 40px;
-    background-color: #cfcfcf;
-    color: #fdfeff;
+    background-color: var(--mc-gray);
 
     .container-footer {
         display: flex;
         justify-content: space-evenly;
-        background-color: #ffff;
+        background-color: var(--mc-whitecolor);
         padding: 5px;
     }
 
@@ -35,13 +32,13 @@ $mc-byzantine: #801563;
 
     .container-footer ul li a {
         text-decoration: none;
-        color: black;
+        color: var(--mc-bynegro);
         transition: color 0.3s;
         font-size: var(--font-sizeM);
     }
 
     .container-footer ul li a:hover {
-        color: #133a64;
+        color: var(--mc-footer-lists);
         font-size: var(--font-sizeM);
     }
 
@@ -71,12 +68,12 @@ $mc-byzantine: #801563;
     .social-container p {
         font-weight: bold;
         font-size: var(--font-sizeXS);
-        color: #801563;
+        color: var(--mc-byzantine);
         text-align: center;
     }
 
     .text-center {
-        color: #801563;
+        color: var(--mc-byzantine);
         font-size: var(--font-sizeM);
         padding: 10px;
     }

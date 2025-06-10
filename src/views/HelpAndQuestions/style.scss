@@ -1,8 +1,9 @@
 .custom-title {
-    color:black;
-      font-size: var(--font-sizeM);
+    color: black;
+    font-size: var(--font-sizeM);
     padding: 15px;
 }
+
 ::v-deep .el-collapse-item__header {
     color: rgb(0, 13, 0);
     font-size: var(--font-sizeM);
@@ -16,9 +17,72 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .container-form {
     textarea {
         min-height: 150px;
     }
 }
 
+@media screen and (max-width: 412px) {
+    .container-header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .title-h1,
+    .title-h2 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .container-form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-signin1 {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .btn-purple {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 412px) {
+    .el-collapse-item {
+        font-size: 12px;
+    }
+
+    .custom-title {
+        font-size: 14px !important;
+        line-height: 1.5;
+        padding: 40px;
+    }
+
+    .custom-collapse-container {
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .container-form {
+        width: 100%;
+        padding: 10px;
+    }
+}

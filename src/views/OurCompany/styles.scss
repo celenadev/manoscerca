@@ -1,76 +1,79 @@
 .container-nosotros {
-      max-width: 100%;
+   max-width: 100%;
 
-      .card-with-overlay {
-         position: relative;
-         color: var(--mc-whitecolor);
-      }
-      .card-with-overlay p{
-         font-size: var(--font-sizeM);
-         background: rgba(90, 88, 88, 0.5);
-         // color: var(--mc-whitecolor);
-      }
-
-      .card-image {
-         position: relative;
-         height: 490px;
-         background-image: url('../../../public/imagenes/abuelos.jpg');
-         background-size: cover;
-         background-position: center;
-      }
-
-      .overlay {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         display: flex;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
-         background: rgba(90, 88, 88, 0.5);
-         text-align: center;
-         padding: 20px;
-      }
-
-      // mapa
-      .grid-content iframe {
-         width: 100%;
-         height: 350px;
-         border: none;
-         border-radius: 10px;
-         max-width: 100%;
-      }
-      .datos-empresa{
-         display: flex;
-         max-width: 100%;
-         flex-direction: column;
-         justify-content: center;
-         align-items: center;
-         text-align: center;
-         padding: 10px;
-         height: 350px;
-      }
-      .datos-empresa h2{
-         font-size: var(--font-sizeM);
-         color: var(--mc-fandango);
-         font-family: 'Arial', sans-serif;
-         font-weight: bold;
-         text-transform: uppercase;
-         letter-spacing: 2px;
-         margin-bottom: 20px;
-         border-bottom: 2px solid #801563;
-         padding-bottom: 10px;
-
-      }
-      .datos-empresa p {
-         font-size: var(--font-sizeM);
-         color: var(--mc-bgColor);
-         margin: 5px 0;
-         font-weight: bold;
-         margin-bottom: 20px;
+   .card-with-overlay {
+      position: relative;
+      color: var(--mc-whitecolor);
    }
+
+   .card-with-overlay p {
+      font-size: var(--font-sizeM);
+      background: rgba(90, 88, 88, 0.5);
+   }
+
+   .card-image {
+      position: relative;
+      height: 490px;
+      background-image: url('../../../public/imagenes/abuelos.jpg');
+      background-size: cover;
+      background-position: center;
+   }
+
+   .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(90, 88, 88, 0.5);
+      text-align: center;
+      padding: 20px;
+   }
+
+   .grid-content iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 10px;
+      max-width: 100%;
+   }
+
+   .datos-empresa {
+      display: flex;
+      max-width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+      height: 350px;
+   }
+
+   .datos-empresa h2 {
+      font-size: var(--font-sizeM);
+      color: var(--mc-fandango);
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--mc-byzantine);
+      padding-bottom: 10px;
+
+   }
+
+   .datos-empresa p {
+      font-size: var(--font-sizeM);
+      color: var(--mc-bgColor);
+      margin: 5px 0;
+      font-weight: bold;
+      margin-bottom: 20px;
+   }
+
    .nuestra-historia {
       padding: 20px;
       text-align: center;
@@ -81,14 +84,17 @@
       border-radius: 4px;
       min-height: 36px;
    }
+
    .el-row {
       padding: 10px;
    }
+
    .el-col {
       border-radius: 4px;
    }
+
    .row-bg {
       padding: 10px 0;
-      background-color:var(--mc-whitecolor);
+      background-color: var(--mc-whitecolor);
    }
 }

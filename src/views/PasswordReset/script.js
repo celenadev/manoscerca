@@ -18,9 +18,9 @@ export default {
             if (this.$v.$invalid) {
                 return;
             }
-            this.mostrarAlerta();
+            this.showAlert();
         },
-        mostrarAlerta() {
+        showAlert() {
             notifyInfo("Te hemos enviado un correo electrónico. Por favor, verifica el estado de tu cuenta si no recibes el correo en unos minutos.");
         }
     }

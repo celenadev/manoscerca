@@ -8,7 +8,7 @@ export default {
     data() {
         return {
             email: '',
-            message: 'He revisado las preguntas frecuentes pero no he encontrado respuesta a mi situación. Me gustaría saber si pueden orientarme sobre',
+            message: 'He revisado las preguntas frecuentes pero no he encontrado respuesta a mi situación. Me gustaría saber si pueden orientarme sobre.....',
             name:'',
             enviado: false
         };
@@ -24,7 +24,6 @@ export default {
             if (this.$v.$invalid) {
                 return;
             }
-
             try {
                 const response = await ContactManosCercaApi.sentContact({
                     email: this.email,
@@ -33,22 +32,20 @@ export default {
                 });
 
                 if (response.status >= 200 && response.status < 300) {
-                    this.mostrarAlerta();
+                    this.showAlert();
                     this.email = '';
                     this.message = '';
                     this.name = '';
                     this.enviado = false;
                 } else {
                     console.error('Error al enviar el mensaje:', response.data);
-                    // Manejar error en la interfaz de usuario
                 }
 
             } catch (error) {
                 console.error('Error de conexión con el servidor:', error);
-                // Manejar error en la interfaz de usuario
             }
         },
-        mostrarAlerta() {
+        showAlert() {
             notifyInfo(" Estamos trabajando en su consulta ¡Gracias por contactarnos!");
         }
     }

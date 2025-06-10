@@ -1,0 +1,44 @@
+@media screen and (max-width: 412px) {
+    .container-form {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .form-signin1 {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: var(--font-sizeM);
+    }
+
+    .form-floating {
+        margin-bottom: 12px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .btn-purple {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .enlace-grupo {
+        text-align: center;
+        font-size: var(--font-sizeM);
+        margin-top: 10px;
+    }
+
+    .terms-container {
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}

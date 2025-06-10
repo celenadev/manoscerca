@@ -18,6 +18,7 @@ export default {
       carerUserId: null,
       authenticatedUserId: null,
       UserName: localStorage.getItem("name") || "Usuario Anónimo",
+      type : localStorage.getItem("type")
     };
   },
   mounted() {
@@ -28,11 +29,8 @@ export default {
   },
   computed: {
     imageUrl() {
-      return `http://localhost:4000/uploads/${this.carer.image}`;
+      return `${process.env.VUE_APP_BACK_URL}uploads/${this.carer.image}`;
     },
-    // showEditButton() {
-    //   return this.authenticatedUserId && this.carerUserId && this.authenticatedUserId === this.carerUserId.toString(); // Usa carerUserId
-    // },
     isOwnProfile() {
       return (
         this.authenticatedUserId &&
@@ -41,23 +39,19 @@ export default {
       );
     },
     showEditButton() {
-      const authenticatedUserType = localStorage.getItem("type");
-      const authenticatedUserIdFromLS = localStorage.getItem("userId");
-      // Condición 1: Si el usuario autenticado es un superadmin
-      const isSuperadmin = authenticatedUserType === "superadmin";
-      // Condición 2: Si el usuario autenticado es el mismo carer que el perfil que se está viendo
-      // Usamos el ID directamente del localStorage para la comparación
+      const isSuperadmin = this.type === "superadmin";
       const isCarerOwner =
-        authenticatedUserIdFromLS &&
+        this.authenticatedUserId &&
         this.carerUserId &&
-        authenticatedUserIdFromLS === this.carerUserId.toString();
-      // El botón se mostrará si es un superadmin O si es el carer propietario del perfil
+        this.authenticatedUserId === this.carerUserId.toString();
       return isSuperadmin || isCarerOwner;
     },
     showLogoutButton() {
-      const authenticatedUserType = localStorage.getItem("type");
-      return authenticatedUserType === "carer";
+      return this.type === "carer";
     },
+    showContactButton() {
+      return this.type !== "carer";
+    }
   },
 
   methods: {
@@ -111,7 +105,6 @@ export default {
         console.error("Error al añadir el comentario", error);
       }
     },
-
     async loadComments() {
       try {
         const response = await commentApi.getComments(this.$route.params.id);

@@ -1,20 +1,15 @@
 <el-card v-if="carer.id" class="card-custom" :body-style="{ padding: '0px' }">
     <router-link :to="{ name: 'profile-carer', params: { id: carer.id } }" class="image-link">
         <div class="image-container">
-          <img :src="imageUrl" class="image" />
+            <img :src="imageUrl" class="image" />
         </div>
-      </router-link>
+    </router-link>
     <div class="info-container">
         <span class="info-label">Nombre: {{ carer.name }}</span><br>
-        <span class="info-label">Apellidos: {{ carer.city }}</span><br>
-        <span class="info-label">Dirección: {{ carer.address }}</span><br>
-        <span class="info-label">Email: {{ carer.email }}</span><br>
+        <span class="info-label">Ciudad de residencia: {{ carer.city }}</span><br>
         <span class="info-label">Formación: {{ carer.formation }}</span>
-        <span class="info-label">Años de experiencia: {{ carer.year }}</span>
-        <span class="info-label">Tus ayudas son: {{ carer.help_type }}</span>
         <span class="info-label">Disponibilidad: {{ carer.work_day }}</span>
         <div>
-            <!-- Paso el id del cuidador por parámetro  -->
             <router-link :to="{ name: 'profile-carer', params: { id: carer.id } }">
                 <el-button class="btn btn-purple">Ver Perfil</el-button>
             </router-link>

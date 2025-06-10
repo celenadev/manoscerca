@@ -33,7 +33,7 @@
       <el-form-item label="Contraseña" prop="password">
         <el-input v-model="ruleForm.password" type="password"></el-input>
       </el-form-item>
-      <el-form-item label="Repita contraseña" prop="repeatPassword">
+      <el-form-item v-if="ruleForm.password" label="Repita la contraseña" prop="repeatPassword">
         <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
       <!-- INICIO SELECT MÚLTIPLE -->
@@ -143,10 +143,9 @@ export default {
       showRemoveMessage: false,
       file: null,
       imageUrl: "",
-      defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
+      defaultImage: `${process.env.VUE_APP_BACK_URL}/uploads/default-profile.jpg`,
       originalImage: "",
       originalPassword: "",
-
       ruleForm: {
         name: "",
         city: "",
@@ -210,31 +209,36 @@ export default {
         ],
         password: [
           {
-            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
-            message: "Por favor ingresa tu contraseña",
-            trigger: "blur",
-          },
-          {
             min: 6,
-            message: "La contraseña debe tener al menos 6 caracteres",
             trigger: "blur",
             validator: (rule, value, callback) => {
-              if (value && value.length < 6) {
-                callback(
-                  new Error("La contraseña debe tener al menos 6 caracteres")
-                );
-              } else if (value || !this.isEditMode) {
-                // Solo valida la longitud si tiene valor o no es edición
-                callback();
-              } else {
-                callback();
-              }
+                if (!value && this.isEditMode) {
+                  callback();
+                } else if (value.length < 6) {
+                  callback(
+                    new Error("La contraseña debe tener al menos 6 caracteres.")
+                  );
+                } else if (!/[A-Z]/.test(value)) {
+                  callback(
+                    new Error(
+                      "La contraseña debe incluir al menos una letra mayúscula."
+                    )
+                  );
+                } else if (!/[!@#$%ñ&*(),.?":{}|<>]/.test(value)) {
+                  callback(
+                    new Error(
+                      "La contraseña debe incluir al menos un carácter especial."
+                    )
+                  );
+                } else {
+                  callback();
+                }
             },
           },
         ],
         oldPassword: [
           {
-            required: this.isEditMode, // Solo requerido en modo edición si se quiere cambiar la contraseña
+            required: this.isEditMode,
             message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
@@ -242,14 +246,13 @@ export default {
         ],
         repeatPassword: [
           {
-            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
+            required: () => !this.isEditMode && !!this.ruleForm.password,
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
           {
             validator: (rule, value, callback) => {
               if (this.ruleForm.password || !this.isEditMode) {
-                // Solo valida si 'password' tiene valor o no es edición
                 if (value !== this.ruleForm.password) {
                   callback(new Error("Las contraseñas no coinciden"));
                 } else {
@@ -285,7 +288,6 @@ export default {
           },
         ],
         image: [
-          // Reglas para la imagen
           {
             required: false,
             message: "Por favor sube una imagen de perfil",
@@ -301,7 +303,8 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-dependent-modal", (params) => {
-        const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
+        debugger;
+        const isNewRegister = !params;
         this.load_services(isNewRegister);
         if (params) {
           this.editDependent(params);
@@ -367,11 +370,10 @@ export default {
             ) {
               dataToSend.image = this.defaultImage;
             }
-            // Excluir oldPassword del objeto a enviar si no se está editando
             if (this.isEditMode && !dataToSend.password) {
               delete dataToSend.oldPassword;
             } else if (!this.isEditMode) {
-              delete dataToSend.oldPassword; // No enviar oldPassword en la creación
+              delete dataToSend.oldPassword;
             }
             formData.append("data", JSON.stringify(dataToSend));
             let response;
@@ -383,14 +385,15 @@ export default {
               );
               notifySuccess("Perfil actualizado con éxito");
             } else {
+              debugger
               response = await DependentApi.addDependent(formData);
               notifySuccess("Perfil creado con éxito.Redirigiendo...");
               setTimeout(() => {
-                this.$router.push("/dependents-users").catch(() => {});
+                this.$router.push("/vista-login").catch(() => {});
               }, 1500);
             }
-            console.log("Respuesta de la API:", response.data); // Mostrar la respuesta (opcional)
-            this.$bus.$emit("edit-dependents"); // recarga los datos editados automaticamente
+            console.log("Respuesta de la API:", response.data);
+            this.$bus.$emit("edit-dependents");
             this.modalVisible = false;
           } catch (error) {
             notifyError("Hemos tenido un error. Inténtelo de nuevo");
@@ -445,11 +448,11 @@ export default {
       this.ruleForm.description = params.description || "";
       this.ruleForm.tasks =
         params.tasks.map((task) => Number(task.id_services)) || [];
-      this.originalPassword = params.password || ""; // Store the original password
-      this.ruleForm.oldPassword = ""; // Clear old password field
-      this.ruleForm.password = ""; // Clear new password field
-      this.ruleForm.repeatPassword = ""; // Clear repeat password field
-      this.ruleForm.image = params.image || this.defaultImage; // Usa la imagen del backend o la por defecto
+      this.originalPassword = params.password || "";
+      this.ruleForm.oldPassword = "";
+      this.ruleForm.password = "";
+      this.ruleForm.repeatPassword = "";
+      this.ruleForm.image = params.image || this.defaultImage;
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);
       } else {
@@ -459,10 +462,11 @@ export default {
     },
 
     createUrl(image) {
-      return `http://localhost:4000/uploads/${image}`;
+      return `${process.env.VUE_APP_BACK_URL}uploads/${image}`;
     },
 
     resetForm() {
+      debugger;
       this.isEditMode = false;
       this.ruleForm = {
         name: "",
@@ -475,27 +479,36 @@ export default {
         description: "",
         oldPassword: "",
         repeatPassword: "",
-        image: "",
+        image: ""
       };
+      this.handleRemove();
     },
     confirmRemove() {
       this.showRemoveMessage = true;
     },
-    // Función que se ejecuta para borrar un perfil de usuario.
     async removeProfile(id, user_id) {
       try {
         const response = await DependentApi.deleteById(id);
         const responseUser = await UserApi.deleteById(user_id);
         if (response.status === 200 && responseUser.status === 200) {
           notifySuccess(
-            "Su perfil como usuario familia ha sido eliminado con éxito"
+            "Su perfil como usuario familia ha sido eliminado con éxito."
           );
+          this.isLoggedIn = false;
           this.resetForm();
           this.modalVisible = false;
-          this.$router.push("/");
+          if (localStorage.getItem("type") !== 'superadmin')
+          {
+            localStorage.clear();
+            this.$bus.$emit("logout");
+            this.$router.push("/vista-login");
+          }
+          else {
+            this.$router.push("/dependents-users");
+          }
         }
       } catch (error) {
-        notifyError("Hubo un problema al eliminar el perfil familiar");
+        notifyError("Hubo un problema al eliminar el perfil familiar.");
       } finally {
         this.showRemoveMessage = false;
       }
@@ -504,23 +517,12 @@ export default {
       this.showRemoveMessage = false;
       notifyInfo("Ha dicho cancelar");
     },
-    // Carga la lista de los servicios o tareas en el m odal
-    // async load_services() {
-    //   try {
-    //     const response = await ServiceApi.getAll();
-    //     this.options = response.body;
-    //   } catch (error) {
-    //     console.error("Error al cargar la lista de servicios:", error);
-    //   }
-    // },
     async load_services(isNewRegister) {
       try {
         let response;
         if (isNewRegister) {
-          // Utilizar la API pública para nuevos registros
           response = await ServiceApi.getAllPublic();
         } else {
-          // Utilizar la API autenticada para usuarios con sesión
           response = await ServiceApi.getAll();
         }
         this.options = response.body;

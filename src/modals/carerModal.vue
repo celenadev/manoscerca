@@ -36,7 +36,7 @@
       <el-form-item label="Contraseña" prop="password">
         <el-input v-model="ruleForm.password" type="password"></el-input>
       </el-form-item>
-      <el-form-item label="Repita la contraseña" prop="repeatPassword">
+      <el-form-item v-if="ruleForm.password" label="Repita la contraseña" prop="repeatPassword">
         <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
       <el-form-item label="Experiencia" prop="year">
@@ -152,12 +152,12 @@ export default {
     return {
       modalVisible: false,
       isEditMode: false,
-      showRemoveMessage: false, // para eliminar el perfil
+      showRemoveMessage: false,
       file: null,
       imageUrl: "",
-      defaultImage: "http://localhost:4000/uploads/default-profile.jpg",
+      defaultImage: `${process.env.VUE_APP_BACK_URL}/uploads/default-profile.jpg`,
       originalImage: "",
-      originalPassword: "", // Nueva propiedad para almacenar la contraseña original
+      originalPassword: "",
       ruleForm: {
         name: "",
         formation: "",
@@ -174,7 +174,7 @@ export default {
         image: "",
       },
       uploadUrl: "",
-      options: [], // array que almacena  la lista de tareas
+      options: [],
       rules: {
         name: [
           {
@@ -230,31 +230,36 @@ export default {
         ],
         password: [
           {
-            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
-            message: "Por favor ingresa tu contraseña",
-            trigger: "blur",
-          },
-          {
             min: 6,
-            message: "La contraseña debe tener al menos 6 caracteres",
             trigger: "blur",
             validator: (rule, value, callback) => {
-              if (value && value.length < 6) {
-                callback(
-                  new Error("La contraseña debe tener al menos 6 caracteres")
-                );
-              } else if (value || !this.isEditMode) {
-                // Solo valida la longitud si tiene valor o no es edición
-                callback();
-              } else {
-                callback();
-              }
+                if (!value && this.isEditMode) {
+                  callback();
+                } else if (value.length < 6) {
+                  callback(
+                    new Error("La contraseña debe tener al menos 6 caracteres.")
+                  );
+                } else if (!/[A-Z]/.test(value)) {
+                  callback(
+                    new Error(
+                      "La contraseña debe incluir al menos una letra mayúscula."
+                    )
+                  );
+                } else if (!/[!@#$%ñ&*(),.?":{}|<>]/.test(value)) {
+                  callback(
+                    new Error(
+                      "La contraseña debe incluir al menos un carácter especial."
+                    )
+                  );
+                } else {
+                  callback();
+                }
             },
           },
         ],
         oldPassword: [
           {
-            required: this.isEditMode, // Solo requerido en modo edición si se quiere cambiar la contraseña
+            required: this.isEditMode,
             message: "Por favor ingresa la contraseña antigua",
             trigger: "blur",
           },
@@ -262,14 +267,13 @@ export default {
         ],
         repeatPassword: [
           {
-            required: () => !this.isEditMode && !!this.ruleForm.password, // Solo requerido si no es edición y tiene valor
+            required: () => !this.isEditMode && !!this.ruleForm.password,
             message: "Por favor repite tu contraseña",
             trigger: "blur",
           },
           {
             validator: (rule, value, callback) => {
               if (this.ruleForm.password || !this.isEditMode) {
-                // Solo valida si 'password' tiene valor o no es edición
                 if (value !== this.ruleForm.password) {
                   callback(new Error("Las contraseñas no coinciden"));
                 } else {
@@ -308,7 +312,6 @@ export default {
           { required: true, message: "Por favor preséntate", trigger: "blur" },
         ],
         image: [
-          // Reglas para la imagen
           {
             required: false,
             message: "Por favor sube una imagen de perfil",
@@ -324,7 +327,7 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-carer-modal", (params) => {
-        const isNewRegister = !params; // Si params es null o undefined, es un nuevo registro
+        const isNewRegister = !params;
         this.load_services(isNewRegister);
         if (params) {
           this.editCarer(params);
@@ -352,8 +355,6 @@ export default {
       this.rules.repeatPassword[0].required = value;
       this.rules.password[0].required = value;
     },
-
-    // validación para contraseña
     async validateOldPassword(rule, value, callback) {
       if (value) {
         if (!this.isEditMode) {
@@ -380,7 +381,7 @@ export default {
         if (valid) {
           try {
             let formData = new FormData();
-            let dataToSend = { ...this.ruleForm }; // Crear una copia del ruleForm
+            let dataToSend = { ...this.ruleForm };
 
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
@@ -391,11 +392,10 @@ export default {
             ) {
               dataToSend.image = this.defaultImage;
             }
-            // Excluir oldPassword del objeto a enviar si no se está editando
             if (this.isEditMode && !dataToSend.password) {
               delete dataToSend.oldPassword;
             } else if (!this.isEditMode) {
-              delete dataToSend.oldPassword; // No enviar oldPassword en la creación
+              delete dataToSend.oldPassword;
             }
             formData.append("data", JSON.stringify(dataToSend));
             let response;
@@ -404,9 +404,9 @@ export default {
               notifySuccess("Perfil actualizado con éxito");
             } else {
               response = await CarerApi.addCarer(formData);
-              notifySuccess("Perfil creado con éxito");
+              notifySuccess("Perfil creado con éxito. Redirigiendo...");
               setTimeout(() => {
-                this.$router.push("/carers-users").catch(() => {});
+                this.$router.push("/vista-login").catch(() => {});
               }, 1500);
             }
             console.log("Respuesta de la API:", response.data);
@@ -448,7 +448,7 @@ export default {
       this.file = null;
       this.imageUrl = "";
       this.rotation = 0;
-      this.ruleForm.image = this.originalImage; // Restaura la imagen original
+      this.ruleForm.image = this.originalImage;
     },
     editCarer(params) {
       this.isEditMode = true;
@@ -477,7 +477,7 @@ export default {
       this.originalImage = this.ruleForm.image;
     },
     createUrl(image) {
-      return `http://localhost:4000/uploads/${image}`;
+      return `${process.env.VUE_APP_BACK_URL}uploads/${image}`;
     },
     resetForm() {
       this.isEditMode = false;
@@ -494,8 +494,9 @@ export default {
         tasks: [],
         work_day: "",
         presentation: "",
-        image: "",
+        image: ""
       };
+      this.handleRemove();
     },
     confirmRemove() {
       this.showRemoveMessage = true;
@@ -506,14 +507,23 @@ export default {
         const responseUser = await UserApi.deleteById(user_id);
         if (response.status === 200 && responseUser.status === 200) {
           notifySuccess(
-            "Su perfil como usuario cuidador ha sido eliminado con éxito"
+            "Su perfil como usuario cuidador ha sido eliminado con éxito."
           );
+          this.isLoggedIn = false;
           this.resetForm();
           this.modalVisible = false;
-          this.$router.push("/");
+          if (localStorage.getItem("type") !== 'superadmin')
+          {
+            localStorage.clear();
+            this.$bus.$emit("logout");
+            this.$router.push("/vista-login");
+          }
+          else {
+            this.$router.push("/carers-users");
+          }
         }
       } catch (error) {
-        notifyError("Hubo un problema al eliminar su perfil");
+        notifyError("Hubo un problema al eliminar su perfil como cuidador");
       } finally {
         this.showRemoveMessage = false;
       }
@@ -522,15 +532,12 @@ export default {
       this.showRemoveMessage = false;
       notifyInfo("Ha dicho cancelar");
     },
-    // Carga la lista de los servicios o tareas en el modal
     async load_services(isNewRegister) {
       try {
         let response;
         if (isNewRegister) {
-          // Utilizar la API pública para nuevos registros
           response = await ServiceApi.getAllPublic();
         } else {
-          // Utilizar la API autenticada para usuarios con sesión
           response = await ServiceApi.getAll();
         }
         this.options = response.body;

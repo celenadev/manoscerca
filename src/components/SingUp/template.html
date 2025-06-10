@@ -2,12 +2,21 @@
     <form class="form-signin1" v-on:submit.prevent="sentMessage">
         <h2 class="title-h2">Envíame un Mensaje</h2>
         <div class="form-floating">
-            <input v-model="senderEmail" id="email" type="email" class="form-control" placeholder="name@example.com"
+            <input disabled v-model="senderEmail" id="email" type="email" class="form-control" placeholder="name@example.com"
                 name="email" />
             <label for="email">Tu Email</label>
             <div v-if="sent && !$v.senderEmail.required" class="mensajeError">Debe escribir un email</div>
-            <div v-if="sent && !$v.senderEmail.email" class="mensajeError">Formato de email incorrecto, "ejemplo@gmail.com"
+            <div v-if="sent && !$v.senderEmail.email" class="mensajeError">Formato de email incorrecto,
+                "ejemplo@gmail.com"
             </div>
+        </div>
+        <div class="form-floating">
+            <input disabled v-model="recipientName" id="name" type="name" class="form-control" placeholder="Nombre y apellidos"
+                name="name" />
+            <label for="name">Nombre y Apellidos</label>
+            <div v-if="sent && !$v.recipientName.required" class="mensajeError">Debe escribir un nombre</div>
+            <div v-if="sent && !$v.recipientName.name" class="mensajeError">Debe escribir un nombre</div>
+        </div>
         </div>
         <div class="form-floating">
             <textarea v-model="message" id="message" class="form-control" placeholder="Escribe tu mensaje aquí"

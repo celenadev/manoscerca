@@ -20,8 +20,6 @@
         </el-carousel>
         <p v-else> Aún no hay comentarios</p>
     </div>
-    <!-- <div v-if="!isOwnProfile  " class="new">
-        <p @click="showForm = true">Añade tu comentario</p> -->
     <div v-if="canAddComment" class="new">
         <p @click="showForm = true">Añade tu comentario</p>
         <div v-if="showForm" class="form">

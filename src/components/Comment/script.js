@@ -25,8 +25,12 @@ export default {
         };
     },
     computed: {
+        /**
+         *  Oculta el boton de add nuevo comentario si el login es de un superadmin
+         * @returns Respuesta
+         */
         canAddComment() {
-            return localStorage.getItem("type") !== this.type;
+            return localStorage.getItem("type") !== "superadmin" && localStorage.getItem("type") !== this.type;
         }
     },
 
@@ -107,6 +111,8 @@ export default {
             try {
                 await commentApi.deleteComment(comment.id_comment);
                 notifyInfo("Comentario eliminado correctamente");
+                // Filtrar el comentario eliminado y actualizar la lista de comentarios
+                this.comments = this.comments.filter(c => c.id_comment !== comment.id_comment);
             } catch (error) {
                 console.error("Error al eliminar el comentario:", error);
                 notifyInfo("Hubo un problema al eliminar el comentario");

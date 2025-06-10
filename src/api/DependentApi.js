@@ -1,10 +1,12 @@
 import request from "axios";
+import tokenExpired from "./token"
+
 const getToken = () => {
   const token = localStorage.getItem('token') || undefined;
   request.defaults.headers.common['Authorization'] = token;// token para todas  las funciones
 }
 
-const url = "http://localhost:4000/api/dependents";
+const url = process.env.VUE_APP_BACK_URL+"api/dependents";
 class DependentApi {
 
   /**
@@ -14,6 +16,7 @@ class DependentApi {
  */
   async addDependent(newDependent) {
     try {
+      debugger
       return await request.post(`${url}/add`, newDependent, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -31,16 +34,20 @@ class DependentApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async editDependent(id, dependentData) {
-    getToken();
     try {
+      getToken();
       return await request.put(`${url}/edit/${id}`, dependentData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
     } catch (error) {
-      console.error("Error en API de familias (edit):", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error en API de familias (edit):", error);
+        throw error;
+      }
     }
   }
   /**
@@ -48,13 +55,17 @@ class DependentApi {
  * @returns Toda la información de los perfiles de dependientes
  */
   async getAll() {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getAll`);
       return response.data;
     } catch (error) {
-      console.error("Error al listar los perfiles de familias", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al listar los perfiles de familias", error);
+        throw error;
+      }
     }
   }
 
@@ -66,8 +77,8 @@ class DependentApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getPaginated(page = 1, limit = this.pageSize, filters = {}) {
-    getToken();
     try {
+      getToken();
       const dataToSend = {
         page: page,
         limit: limit,
@@ -76,8 +87,12 @@ class DependentApi {
       const response = await request.post(`${url}/getPaginated`, dataToSend)
       return response.data;
     } catch (error) {
-      console.error("Error al listar los perfiles de familiares", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al listar los perfiles de familiares", error);
+        throw error;
+      }
     }
   }
 
@@ -87,13 +102,17 @@ class DependentApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
   */
   async getById(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getById/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error", error);
+        throw error;
+      }
     }
   }
 
@@ -103,13 +122,17 @@ class DependentApi {
  * @returns Una promesa que resuelve los datos de la respuesta de la API.
  */
   async getByIdProfile(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.get(`${url}/getByIdProfile/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error", error);
+        throw error;
+      }
     }
   }
 
@@ -119,13 +142,17 @@ class DependentApi {
   * @returns  Una promesa que resuelve los datos de la respuesta de la API.
   */
   async deleteById(id) {
-    getToken();
     try {
+      getToken();
       const response = await request.delete(`${url}/deleteById/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error al eliminar el perfil de Familia desde API:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al eliminar el perfil de Familia desde API:", error);
+        throw error;
+      }
     }
   }
 
@@ -135,16 +162,22 @@ class DependentApi {
   * @param {*} message  El contenido del mensaje que se quiere enviar
   * @returns  Respuesta
   */
-  async sentMessage(recipientId, senderEmail, message) {
+  async sentMessage(recipientId, senderEmail, message, name) {
     try {
+    getToken();
       return await request.post(`${url}/sentMessage`, {
         recipientId,
         senderEmail,
+        name,
         message
       });
     } catch (error) {
-      console.error("Error al enviar el mensaje de contacto:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error al enviar el mensaje de contacto:", error);
+        throw error;
+      }
     }
   }
 }

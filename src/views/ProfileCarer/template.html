@@ -34,11 +34,11 @@
                 <p>{{ carer.presentation }}</p>
             </div>
             <div class="buttons-cards">
-                <RouterLink :to="{ name: 'contact-form', params: { id: carer.id } }">
-                    <el-button type="primary" class="btn-purple">Contactar</el-button>
+                <RouterLink v-if="showContactButton" :to="{ name: 'contact-form', params: { id: carer.id } }">
+                    <el-button  type="primary" class="btn-purple">Contactar</el-button>
                 </RouterLink>
                 <RouterLink to="/">
-                    <el-button v-if="showLogoutButton" type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
+                    <el-button v-if="showLogoutButton && showEditButton"  type="primary" class="btn-second" @click="logout">Cerrar Sesión</el-button>
                 </RouterLink>
                 <!-- Botón para abrir el modal en modo de edición -->
                 <el-button v-if="showEditButton" type="primary" class="btn-purple" @click="openEditModal">Editar

@@ -14,42 +14,36 @@ export default {
         tasks: [],
       },
       currentDate: new Date(),
-      comments: [], //almacena los comentarios
+      comments: [],
       dependentUserId: null,
       authenticatedUserId: null,
       UserName: localStorage.getItem("name") || "Usuario Anónimo",
+      type: localStorage.getItem("type")
     };
   },
   mounted() {
     this.loadDependent();
-    this.loadComments(); // Línea para cargar los comentarios
-    this.$bus.$on("edit-dependents", () => this.loadDependent()); //  edit-dependent creado ahora para ser usado una vez se editan los datos , recarga automaticamente
+    this.loadComments();
+    this.$bus.$on("edit-dependents", () => this.loadDependent());
     this.authenticatedUserId = localStorage.getItem("userId");
   },
   computed: {
     imageUrl() {
-      return `http://localhost:4000/uploads/${this.dependent.image}`;
+      return `${process.env.VUE_APP_BACK_URL}uploads/${this.dependent.image}`;
     },
-    // showEditButton() {
-    //   return this.authenticatedUserId && this.dependentUserId && this.authenticatedUserId === this.dependentUserId.toString(); // Usa dependentUserId
-    // },
     showEditButton() {
-      const authenticatedUserType = localStorage.getItem("type");
-      const authenticatedUserIdFromLS = localStorage.getItem("userId");
-      // Condición 1: Si el usuario autenticado es un superadmin
-      const isSuperadmin = authenticatedUserType === "superadmin";
-      // Condición 2: Si el usuario autenticado es el mismo dependent que el perfil que se está viendo
-      // Usamos el ID directamente del localStorage para la comparación
+      const isSuperadmin = this.type === "superadmin";
       const isDependentOwner =
-        authenticatedUserIdFromLS &&
+        this.authenticatedUserId &&
         this.dependentUserId &&
-        authenticatedUserIdFromLS === this.dependentUserId.toString();
-      // El botón se mostrará si es un superadmin O si es el dependent propietario del perfil
+        this.authenticatedUserId === this.dependentUserId.toString();
       return isSuperadmin || isDependentOwner;
     },
     showLogoutButton() {
-      const authenticatedUserType = localStorage.getItem("type");
-      return authenticatedUserType === "dependent";
+      return this.type === "dependent";
+    },
+    showContactButton() {
+      return this.type !== "dependent";
     },
     isOwnProfile() {
       return (
@@ -70,7 +64,7 @@ export default {
 
         if (data && data.length > 0) {
           // Verifica si hay datos
-          const dependentData = data[0]; // Toma el primer elemento (ya que GROUP BY debería devolver solo uno)
+          const dependentData = data[0];
 
           this.dependent = {
             ...dependentData,

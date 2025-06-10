@@ -2,15 +2,14 @@
     position: fixed;
     top: 20px;
     left: 20px;
-    background-color: rgba(240, 240, 240, 0.8);
-    border: 1px solid #ccc;
+    background-color: var(--accessibility-bg);
+    border: 1px solid var(--accessibility-border);
     padding: 10px;
     z-index: 1000;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: fixed;
 }
 
 .barra-accesibilidad-flotante button {
@@ -19,8 +18,8 @@
     padding: 8px;
     margin-bottom: 5px;
     cursor: pointer;
-  font-size: var(--font-sizeXXL);
-    color: #333;
+    font-size: var(--font-sizeXXL);
+    color: var(--accessibility-button-text);
     display: flex;
     align-items: center;
 }
@@ -30,14 +29,14 @@
 }
 
 .barra-accesibilidad-flotante button.activo {
-    color: #007bff;
+    color: var(--accessibility-active-color);
 }
 
 .opciones-accesibilidad {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--contrast-border);
     padding-top: 10px;
 }
 
@@ -55,9 +54,9 @@
 .daltonism-options button {
     padding: 5px;
     margin-right: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--daltonism-border);
     border-radius: 3px;
- font-size: var(--font-sizeL);
+    font-size: var(--font-sizeL);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,17 +74,13 @@
     background-color: #008080;
 }
 
-/* Ejemplo de color afectado */
 .deuteranopia {
-    background-color: #008080;
+    background-color:#a9a9a9;
 }
 
-/* Ejemplo de color afectado */
 .tritanopia {
-    background-color: #a9a9a9;
+    background-color: var(--tritanopia-color);
 }
-
-/* Ejemplo de color afectado */
 
 .sr-only {
     position: absolute;
@@ -97,22 +92,4 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-}
-
-body.modo-noche {
-    background-color: #333;
-    color: #f0f0f0;
-
-    a {
-        color: #add8e6;
-    }
-}
-
-body.modo-oscuro {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-
-    a {
-        color: #9cdcfe;
-    }
 }

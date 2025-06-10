@@ -6,11 +6,10 @@
 }
 
 .el-carousel__item:nth-child(2n) {
-    background-color: #bbc2ca;
+    background-color: var(--mc-gray)
 }
-
 .el-carousel__item:nth-child(2n+1) {
-    background-color: #fcf680;
+    background-color: var(--mc-form-registration);
 }
 
 .container {
@@ -20,7 +19,7 @@
 
 .comment-date {
     font-size: var(--font-sizeXXS);
-    color: #686869;
+    color:var(--mc-btnSecond);
     font-weight: bold;
     font-style: italic;
 }
@@ -29,20 +28,20 @@
     font-size: var(--font-sizeXXS);
     font-style: italic;
     font-weight: bold;
-    color: #078a9b;
+    color:var(--mc-dark-green) ;
     margin-top: 0.3em;
 }
 
 // Fin fila carrousel de  comentarios
 .new p {
     cursor: pointer;
-    color: #801563;
+    color:var(--mc-byzantine);
     font-weight: bold;
     margin: 0;
 }
 
 .new p:hover {
-    color: #b9439b;
+    color: var(--mc-form-purple);
 }
 
 .form {
@@ -60,7 +59,7 @@
 }
 
 .no-comments-message {
-    color: #535354;
+    color: var(--mc-colorcontenCard);
     text-align: center;
     padding: 20px;
     font-size: var(--font-sizeM);
@@ -73,5 +72,5 @@
 }
 
 .delete-comment-button:hover {
-    background-color: #0f7401;
+    background-color: var(--mc-green );
 }

@@ -13,7 +13,7 @@
 }
 
 .bg-purple-dark {
-  background: white;
+  background: var(--mc-whitecolor);
 }
 
 .bg-purple {
@@ -26,7 +26,7 @@
 
 .row-bg {
   padding: 10px 0;
-  background-color: #f9fafc;
+  background-color: var(--mc-whitecolor);
 }
 
 .el-carousel__item img {
@@ -36,11 +36,11 @@
 }
 
 .el-carousel__item:nth-child(2n) {
-  background-color: white;
+  background-color: var(--mc-whitecolor);
 }
 
 .el-carousel__item:nth-child(2n+1) {
-  background-color: white;
+  background-color: var(--mc-whitecolor)e;
 }
 
 // Inicio que necesitas?
@@ -54,6 +54,7 @@
   border-radius: 10px;
   margin: 10px;
 }
+
 .image {
   width: 100%;
   max-width: 500px;
@@ -61,27 +62,31 @@
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 .title {
   color: #080808;
   font-size: var(--font-sizeL);
   text-align: center;
 }
+
 .text {
   color: #080808;
   font-size: var(--font-sizeM);
   text-align: center;
 }
+
 // Fin
 //inicio - libera tiempo
 .img-movil {
-    max-width: 90%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border-radius: 10px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
 }
+
 .informatica {
-  background-color:#f9f9f9;
+  background-color: var(--mc-whitecolor);
   color: #464545;
   margin: 20px auto;
   padding: 20px;
@@ -101,7 +106,7 @@
   position: relative;
   padding-left: 25px;
   margin-bottom: 10px;
-  display:block;
+  display: block;
   text-align: left;
   margin-bottom: 10px;
 }
@@ -117,6 +122,7 @@
 .informatica h3 {
   text-align: left;
 }
+
 .informatica p {
   margin-bottom: 10px;
   color: #34495e;
@@ -131,6 +137,7 @@
   margin: 10px;
 
 }
+
 .service-image {
   max-width: 50%;
   height: auto;
@@ -154,17 +161,20 @@
   font-weight: bold;
   max-width: 100%;
 }
+
 // Fin
 @keyframes slidein {
   from {
     margin-left: 100%;
     width: 300%;
   }
+
   to {
     margin-left: 0%;
     width: 100%;
   }
 }
+
 @media (max-width: 799px) {
   .el-row {
     display: block !important;

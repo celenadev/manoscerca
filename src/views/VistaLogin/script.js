@@ -73,4 +73,7 @@ export default {
       this.login();
     },
   },
+  mounted() {
+    this.$bus.$emit('close-modal');
+  }
 };

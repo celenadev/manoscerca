@@ -7,7 +7,7 @@ export default {
     data() {
         return {
             senderEmail: localStorage.getItem("email") || "",
-            message: `He revisado tu perfil en ManosCerca.es y me ha parecido muy interesante. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarte mutuamente. Gracias y espero tu respuesta.`,
+            message: `He revisado tu perfil en manosCerca y me ha parecido muy interesante. Me gustaría ponerme en contacto contigo para discutir más detalles y ver cómo podemos ayudarte mutuamente. Gracias y espero tu respuesta.`,
             sent: false,
             recipientName: localStorage.getItem("name") || "",
             recipientId: this.$route.params.id || null,
@@ -28,7 +28,8 @@ export default {
                 const response = await DependentApi.sentMessage(
                     this.recipientId,
                     this.senderEmail,
-                    this.message
+                    this.message,
+                    this.recipientName
                 );
                 console.log("Mensaje enviado:", response.data);
                 notifySuccess(
@@ -36,6 +37,7 @@ export default {
                 );
                 this.senderEmail = "";
                 this.message = "";
+                this.recipientName = "";
                 this.sent = false;
                 this.$v.$reset();
             } catch (error) {

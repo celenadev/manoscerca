@@ -17,7 +17,7 @@ export default {
             currentPage: 1,
             totalPages: 1,
             totalRecords: 0,
-            pageSize: 3, // Define el tamaño de página aquí
+            pageSize: 3,
         };
     },
     created() {

@@ -8,7 +8,7 @@ export default {
     },
     computed: {
         imageUrl() {
-            return `http://localhost:4000/uploads/${this.carer.image}`;
+            return `${process.env.VUE_APP_BACK_URL}uploads/${this.carer.image}`;
         }
     }
 }

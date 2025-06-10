@@ -1,6 +1,7 @@
 import request from "axios";
+import tokenExpired from "./token"
 
-const url = "http://localhost:4000/api/users";
+const url = process.env.VUE_APP_BACK_URL+"api/users";
 
 class UserApi {
   /**
@@ -10,7 +11,7 @@ class UserApi {
    * @returns  Una promesa que resuelve la respuesta de la API.
    */
   async verifyPassword(user_id, oldPassword) {
-    const token = localStorage.getItem('token'); // Obtén el token
+    const token = localStorage.getItem('token');
     if (!token) {
       console.error('Token no encontrado. El usuario no está autenticado.');
       throw new Error('Token no encontrado');
@@ -23,13 +24,17 @@ class UserApi {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token al encabezado
+            Authorization: `Bearer ${token}`,
           },
         }
       );
     } catch (error) {
-      console.error("Error desde api al verificar la contraseña", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        console.error("Error desde api al verificar la contraseña", error);
+        throw error;
+      }
     }
   }
   /**
@@ -50,7 +55,6 @@ class UserApi {
       console.error("Error en UserApi:", error);
 
       if (error.response) {
-        // El servidor respondió con un error
         console.error(
           "Error del servidor:",
           error.response.status,
@@ -83,17 +87,25 @@ class UserApi {
    * @returns Una promesa que resuelve los datos de la respuesta de la API.
    */
   async deleteById(id) {
-    const token = localStorage.getItem('token'); // Obtén el token
+    const token = localStorage.getItem('token');
     if (!token) {
       console.error('Token no encontrado. El usuario no está autenticado.');
-      throw new Error('Token no encontrado'); // Lanza un error si no hay token
+      throw new Error('Token no encontrado');
     }
+    request.defaults.headers.common['Authorization'] = token;
     try {
       const response = await request.delete(`${url}/deleteById/${id}`);
+      request.defaults.headers.common['Authorization'] = undefined;
       return response.data;
     } catch (error) {
-      console.error("Error al eliminar el usuario desde API:", error);
-      throw error;
+      if (error.response && error.response.status === 401) {
+        tokenExpired();
+      } else {
+        request.defaults.headers.common['Authorization'] = undefined;
+        console.error("Error al eliminar el usuario desde API:", error);
+        throw error;
+      }
+
     }
   }
 }

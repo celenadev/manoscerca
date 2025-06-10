@@ -11,14 +11,13 @@ export default {
         return {
             isMobile: false,
             isLoggedIn: false,
-            isSuperadmin: false, // NEW: Add this data property
+            isSuperadmin: false,
         }
     },
     mounted() {
         this.checkScreenSize();
         this.isLoggedIn = !!localStorage.getItem('token');
         this.isSuperadmin = localStorage.getItem('type') === 'superadmin';
-
         window.addEventListener('resize', this.checkScreenSize);
         this.$bus.$on('login', () => {
             this.isLoggedIn = true;
@@ -42,9 +41,7 @@ export default {
             const id = localStorage.getItem('id');
             const type = localStorage.getItem('type');
             const idAdmin = localStorage.getItem('userId');
-
             let targetPath;
-
             if (type === 'superadmin') {
                 targetPath = `/profile-admin/${idAdmin}`;
             } else {
@@ -56,9 +53,15 @@ export default {
                 window.location.reload();
             }
         },
+        /**
+        * Este método realiza el cierre de sesión del usuario en la aplicación.
+        * Limpia los datos almacenados en `localStorage`.
+        * Emite un evento global para actualizar otros componentes que dependan del estado de autenticación.
+        * Redirige al usuario a la vista de inicio de sesión (`/vista-login`).
+        * Muestra un mensaje de éxito notificando que la sesión se ha cerrado correctamente.
+         */
         logout() {
             localStorage.clear();
-            this.$router.push('/vista-login'); // Changed to '/vista-login' as per your original template for login
             this.$bus.$emit("logout");
             this.$router.push("/vista-login");
             this.$message({
