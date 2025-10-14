@@ -29,7 +29,11 @@ export default {
   },
   computed: {
     imageUrl() {
-      return `${process.env.VUE_APP_BACK_URL}uploads/${this.carer.image}`;
+      let image = 'default-profile.jpg';
+      if(this.carer.image) {
+        image = this.carer.image;
+      }
+      return `${process.env.VUE_APP_BACK_URL}uploads/${image}`;
     },
     isOwnProfile() {
       return (

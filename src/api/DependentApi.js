@@ -16,7 +16,6 @@ class DependentApi {
  */
   async addDependent(newDependent) {
     try {
-      debugger
       return await request.post(`${url}/add`, newDependent, {
         headers: {
           'Content-Type': 'multipart/form-data'

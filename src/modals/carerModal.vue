@@ -155,7 +155,6 @@ export default {
       showRemoveMessage: false,
       file: null,
       imageUrl: "",
-      defaultImage: `${process.env.VUE_APP_BACK_URL}/uploads/default-profile.jpg`,
       originalImage: "",
       originalPassword: "",
       ruleForm: {
@@ -386,11 +385,6 @@ export default {
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
               dataToSend.image = this.file.name;
-            } else if (
-              !dataToSend.image ||
-              dataToSend.image === this.defaultImage
-            ) {
-              dataToSend.image = this.defaultImage;
             }
             if (this.isEditMode && !dataToSend.password) {
               delete dataToSend.oldPassword;
@@ -448,7 +442,7 @@ export default {
       this.file = null;
       this.imageUrl = "";
       this.rotation = 0;
-      this.ruleForm.image = this.originalImage;
+      this.ruleForm.image = '';
     },
     editCarer(params) {
       this.isEditMode = true;
@@ -468,11 +462,9 @@ export default {
       this.ruleForm.oldPassword = "";
       this.ruleForm.password = "";
       this.ruleForm.repeatPassword = "";
-      this.ruleForm.image = params.image || this.defaultImage;
+      this.ruleForm.image = params.image;
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);
-      } else {
-        this.imageUrl = this.defaultImage;
       }
       this.originalImage = this.ruleForm.image;
     },

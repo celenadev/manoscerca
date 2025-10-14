@@ -33,7 +33,11 @@
       <el-form-item label="Contraseña" prop="password">
         <el-input v-model="ruleForm.password" type="password"></el-input>
       </el-form-item>
-      <el-form-item v-if="ruleForm.password" label="Repita la contraseña" prop="repeatPassword">
+      <el-form-item
+        v-if="ruleForm.password"
+        label="Repita la contraseña"
+        prop="repeatPassword"
+      >
         <el-input v-model="ruleForm.repeatPassword" type="password"></el-input>
       </el-form-item>
       <!-- INICIO SELECT MÚLTIPLE -->
@@ -143,7 +147,6 @@ export default {
       showRemoveMessage: false,
       file: null,
       imageUrl: "",
-      defaultImage: `${process.env.VUE_APP_BACK_URL}/uploads/default-profile.jpg`,
       originalImage: "",
       originalPassword: "",
       ruleForm: {
@@ -303,7 +306,6 @@ export default {
   methods: {
     initializeView() {
       this.$bus.$on("open-dependent-modal", (params) => {
-        debugger;
         const isNewRegister = !params;
         this.load_services(isNewRegister);
         if (params) {
@@ -364,11 +366,6 @@ export default {
             if (this.file && this.file.raw) {
               formData.append("image", this.file.raw);
               this.ruleForm.image = this.file.name;
-            } else if (
-              !dataToSend.image ||
-              dataToSend.image === this.defaultImage
-            ) {
-              dataToSend.image = this.defaultImage;
             }
             if (this.isEditMode && !dataToSend.password) {
               delete dataToSend.oldPassword;
@@ -385,7 +382,6 @@ export default {
               );
               notifySuccess("Perfil actualizado con éxito");
             } else {
-              debugger
               response = await DependentApi.addDependent(formData);
               notifySuccess("Perfil creado con éxito.Redirigiendo...");
               setTimeout(() => {
@@ -432,7 +428,7 @@ export default {
       this.file = null;
       this.imageUrl = "";
       this.rotation = 0;
-      this.ruleForm.image = this.originalImage;
+      this.ruleForm.image = '';
     },
 
     editDependent(params) {
@@ -452,11 +448,9 @@ export default {
       this.ruleForm.oldPassword = "";
       this.ruleForm.password = "";
       this.ruleForm.repeatPassword = "";
-      this.ruleForm.image = params.image || this.defaultImage;
+      this.ruleForm.image = params.image;
       if (params.image) {
         this.imageUrl = this.createUrl(params.image);
-      } else {
-        this.imageUrl = this.defaultImage;
       }
       this.originalImage = this.ruleForm.image;
     },
@@ -466,7 +460,6 @@ export default {
     },
 
     resetForm() {
-      debugger;
       this.isEditMode = false;
       this.ruleForm = {
         name: "",
@@ -479,7 +472,7 @@ export default {
         description: "",
         oldPassword: "",
         repeatPassword: "",
-        image: ""
+        image: "",
       };
       this.handleRemove();
     },
@@ -497,13 +490,11 @@ export default {
           this.isLoggedIn = false;
           this.resetForm();
           this.modalVisible = false;
-          if (localStorage.getItem("type") !== 'superadmin')
-          {
+          if (localStorage.getItem("type") !== "superadmin") {
             localStorage.clear();
             this.$bus.$emit("logout");
             this.$router.push("/vista-login");
-          }
-          else {
+          } else {
             this.$router.push("/dependents-users");
           }
         }

@@ -14,7 +14,7 @@
    .card-image {
       position: relative;
       height: 490px;
-      background-image: url('../../../public/imagenes/abuelos.jpg');
+      background-image: url("../../../public/imagenes/abuelos.jpg");
       background-size: cover;
       background-position: center;
    }
@@ -56,14 +56,13 @@
    .datos-empresa h2 {
       font-size: var(--font-sizeM);
       color: var(--mc-fandango);
-      font-family: 'Arial', sans-serif;
+      font-family: "Arial", sans-serif;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-bottom: 20px;
       border-bottom: 2px solid var(--mc-byzantine);
       padding-bottom: 10px;
-
    }
 
    .datos-empresa p {
@@ -96,5 +95,27 @@
    .row-bg {
       padding: 10px 0;
       background-color: var(--mc-whitecolor);
+   }
+}
+
+@media (max-width: 600px) {
+   .el-row {
+      flex-direction: column !important;
+   }
+
+   .el-col {
+      width: 100% !important;
+      max-width: 100% !important;
+   }
+
+   .iframe iframe {
+      width: 100% !important;
+      height: auto;
+   }
+
+   .grid-content,
+   .datos-empresa {
+      padding: 1rem;
+      text-align: center;
    }
 }
