@@ -6,8 +6,6 @@ import VueRouter from 'vue-router'
 import router from './router'
 import vuelidate from 'vuelidate'
 
-// Comentario de prueba
-
 
 // Importa la librería principal de Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
